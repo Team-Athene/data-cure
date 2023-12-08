@@ -4,6 +4,7 @@ import { AwsService } from 'app/shared/aws.service'
 import { LightHouseService } from 'app/shared/lighthouse'
 import { createWriteStream, existsSync, mkdirSync } from 'fs'
 import { join, dirname } from 'path'
+import { LIGHTHOUSE } from 'app/shared/environment'
 
 @Injectable()
 export class FileMigrationService {
@@ -13,8 +14,11 @@ export class FileMigrationService {
       secretAccessKey: s3Cred.key,
       region: s3Cred.region,
     })
-    const LIGHTHOUSE_KEY = '960e7849.ae4587d3c95a4b26960b464253e2fd91'
-    const lighthouse = new LightHouseService(LIGHTHOUSE_KEY)
+    console.log(
+      '🚀 ~ file: file-migration.service.ts:18 ~ FileMigrationService ~ migrateS3 ~ LIGHTHOUSE.API_KEY:',
+      LIGHTHOUSE.API_KEY,
+    )
+    const lighthouse = new LightHouseService(LIGHTHOUSE.API_KEY)
     // List items from a bucket
     const pageBasedData = await s3.listItems(s3Cred.bucket)
 

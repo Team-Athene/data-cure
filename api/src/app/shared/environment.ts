@@ -1,5 +1,5 @@
-import * as dotenv from 'dotenv';
-dotenv.config();
+import * as dotenv from 'dotenv'
+dotenv.config()
 
 import { z } from 'zod'
 
@@ -14,4 +14,12 @@ export const APP = z
     NODE_ENV: process.env.NODE_ENV,
     CORES_ENABLED:
       process.env.CORES_ENABLED?.toLowerCase() === 'true' ? true : false,
+  })
+
+export const LIGHTHOUSE = z
+  .object({
+    API_KEY: z.string(),
+  })
+  .parse({
+    API_KEY: process.env.LIGHTHOUSE_API_KEY,
   })
