@@ -1,6 +1,5 @@
-<script setup>
-import { useAccount, useConnect, useDisconnect } from 'use-wagmi'
-import { InjectedConnector } from 'use-wagmi/connectors/injected'
+<script setup lang="ts">
+import { useAccount } from 'use-wagmi'
 import logo from '~/../src/assets/logo/Landing_logo.svg'
 
 defineOptions({
@@ -10,7 +9,7 @@ const { address, isConnected } = useAccount()
 
 onMounted(() => {
   console.log('mounted')
-  if (isConnected.value && address.value.length) {
+  if (isConnected.value && address.value && address.value.length) {
     console.log('🚀 ~ file: index.vue:14 ~ onMounted ~ address.value:', address.value)
     console.log('connected')
   }
