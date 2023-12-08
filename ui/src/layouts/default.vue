@@ -14,6 +14,5 @@ onMounted(() => {
 <style scoped>
 .div-class {
   background: white;
-  @apply h-100vh;
 }
 </style>

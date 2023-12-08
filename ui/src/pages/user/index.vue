@@ -33,7 +33,7 @@ const frameworks = [
 
 <style scoped>
 .main-register-div {
-  @apply h-100vh items-center m-auto;
+  @apply items-center m-auto;
 }
 </style>
 

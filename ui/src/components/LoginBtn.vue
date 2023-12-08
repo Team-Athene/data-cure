@@ -16,14 +16,6 @@ const { connect } = useConnect({
   connector: new InjectedConnector(),
 })
 
-async function connectWallet() {
-  await connect()
-}
-
-async function disconnectWallet() {
-  await disconnect()
-}
-
 watch(address, async () => {
   if (address.value) {
     // FIXME: Get the user data from the blockchain and then do the route
@@ -56,22 +48,21 @@ watch(address, async () => {
 
 <template>
   <div v-if="type === 'header'">
-    <ABtn v-if="isConnected" color="primary" @click="disconnectWallet">
+    <ABtn v-if="isConnected" color="primary" @click="disconnect()">
       Logout
     </ABtn>
     <ABtn
       v-else
-
-      rounded-full px-6 font-bold
+      class="rounded-full px-6 font-bold"
       color="primary"
-      @click="connectWallet"
+      @click="connect()"
     >
       Login
       <ALoadingIcon icon="i-bx-log-in" />
     </ABtn>
   </div>
   <div v-if="type === 'register'">
-    <ABtn v-if="isConnected" color="primary" @click="connectWallet">
+    <ABtn v-if="isConnected" color="primary" @click="connect()">
       Connect Wallet
     </ABtn>
   </div>
