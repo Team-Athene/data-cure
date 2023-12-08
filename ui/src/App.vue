@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAnu } from 'anu-vue';
+import { useAnu } from 'anu-vue'
 
 // https://github.com/vueuse/head
 // you can use this to manipulate the document head in any components,
@@ -18,14 +18,14 @@ useHead({
     },
     {
       name: 'theme-color',
-      content: () => isDark.value ? '#00aba9' : '#ffffff',
+      content: () => (isDark.value ? '#00aba9' : '#ffffff'),
     },
   ],
   link: [
     {
       rel: 'icon',
       type: 'image/svg+xml',
-      href: () => preferredDark.value ? '/favicon-dark.svg' : '/favicon.svg',
+      href: () => (preferredDark.value ? '/favicon-dark.svg' : '/favicon.svg'),
     },
   ],
 })

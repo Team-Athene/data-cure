@@ -28,7 +28,7 @@ const router = useRouter()
 </template>
 
 <style scoped>
-.main-div{
-    @apply  flex justify-between items-center text-primary font-tsukimi px-6 py-3;
+.main-div {
+  @apply flex justify-between items-center text-primary font-tsukimi px-6 py-3;
 }
 </style>

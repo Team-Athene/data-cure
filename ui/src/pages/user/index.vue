@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 const selected = ref()
 const frameworks = [
   { text: 'VueJS', value: 'vue' },
@@ -30,12 +32,12 @@ const frameworks = [
 </template>
 
 <style scoped>
-.main-register-div{
-    @apply h-100vh items-center m-auto
+.main-register-div {
+  @apply h-100vh items-center m-auto;
 }
 </style>
 
 <route lang="yaml">
-  meta:
-    layout: home
-      </route>
+meta:
+  layout: dashboard
+</route>
