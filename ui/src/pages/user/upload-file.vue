@@ -8,32 +8,44 @@ import {
   LIST_OPTIONS,
 } from '../../utils/constants'
 
-
 //Convert date to ddmmyyyy format
 const formatDate = (date) => {
-    const d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = '' + d.getFullYear()
-    return [day, month, year].join('-')
+  const d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = '' + d.getFullYear()
+  return [day, month, year].join('-')
 }
 const fileData = reactive({
-    aadharNumber: '',
-    age: '',
-    gender: '',
-    bloodGroup: '',
-    ethnicity: '',
-    reportType: '',
-    medicalCondition: '',
-    listForSale: true,
-    dataCollectionDate: formatDate(new Date()),
+  aadharNumber: '',
+  age: '',
+  gender: '',
+  bloodGroup: '',
+  ethnicity: '',
+  reportType: '',
+  medicalCondition: '',
+  listForSale: true,
+  dataCollectionDate: formatDate(new Date()),
 })
 const isMigrated = ref('file')
 const templistForSale = ref('true')
 const updateListForSale = (value) => {
   fileData.listForSale = value === 'true' ? true : false
 }
-
+const {
+  isSupported,
+  data,
+  file,
+  fileName,
+  fileMIME,
+  fileSize,
+  fileLastModified,
+  create,
+  open,
+  save,
+  saveAs,
+  updateData,
+} = useFileSystemAccess()
 const filesList = ref<any[]>([null])
 const fileUpload = (event) => {
   console.log(event)
@@ -42,6 +54,18 @@ const addFile = () => {
   filesList.value.push(null)
   console.log(
     '🚀 ~ file: upload-file.vue:32 ~ addFile ~ filesList.value:',
+    filesList.value,
+  )
+}
+
+const removeFile = (index) => {
+  if (index === 0) return
+  filesList.value.splice(index, 1)
+}
+function submit() {
+  console.log('🚀 ~ file: upload-file.vue:36 ~ submit ~ fileData', fileData)
+  console.log(
+    '🚀 ~ file: upload-file.vue:36 ~ submit ~ filesList',
     filesList.value,
   )
 }
@@ -121,7 +145,7 @@ const addFile = () => {
             color="danger"
             class="w-12 h-12"
             icon="i-bx-x"
-            @click="addFile"
+            @click="removeFile(id)"
           />
         </div>
       </div>
@@ -158,7 +182,7 @@ const addFile = () => {
         <ALoadingIcon icon="i-bx-x" />
       </ABtn>
 
-      <ABtn class="rounded-full px-6 font-bold" color="primary">
+      <ABtn class="rounded-full px-6 font-bold" color="primary" @click="submit">
         Submit
         <ALoadingIcon icon="i-bx-chevron-right" />
       </ABtn>
