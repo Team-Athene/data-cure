@@ -27,7 +27,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div m-auto h-80vh flex flex-col items-center justify-center>
+  <div m-auto h-100vh flex flex-col items-center justify-center>
     <img
       h-40
       w-40
