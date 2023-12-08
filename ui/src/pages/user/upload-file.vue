@@ -36,7 +36,7 @@ const addFile = () => {
 
 <template>
     <div class="max-w-200 main-register-div">
-        <div class="grid grid-cols-2 text-left space-x-2 m-auto">
+        <div class="grid grid-cols-2 text-left gap-x-4 m-auto">
             <AInput class="my-2" label="Aadhar Number" v-model="fileData.aadharNumber" placeholder="Aadhar Number" />
             <ASelect class="my-2" label="Age" placeholder="Select Age" v-model="fileData.age" :options="AGE_OPTIONS" />
             <ASelect class="my-2" label="Gender" placeholder="Select Gender" v-model="fileData.gender"
@@ -45,7 +45,7 @@ const addFile = () => {
                 :options="BLOOD_GROUP_OPTIONS" />
             <ASelect class="my-2" label="Ethnicity" placeholder="Select Ethnicity" v-model="fileData.ethnicity"
                 :options="ETHNICITY_OPTIONS" />
-            <ASelect class="my-2" label="Ethnicity" placeholder="Select Report Type" v-model="fileData.ethnicity"
+            <ASelect class="my-2" label="Report Type" placeholder="Select Report Type" v-model="fileData.ethnicity"
                 :options="REPORT_TYPE_OPTIONS" />
             <AInput class="my-2" label="Medical Condition (as per report)" v-model="fileData.medicalCondition"
                 placeholder="Medical Condition" />
@@ -95,23 +95,16 @@ const addFile = () => {
         </div>
         <div class="flex justify-end items-center space-x-4">
 
-            <ABtn
-      class="rounded-full px-6"
-      variant="outline"
-      color="primary"
-    >
-    Cancel
-      <ALoadingIcon icon="i-bx-x" />
-    </ABtn>
-            
+            <ABtn class="rounded-full px-6" variant="outline" color="primary">
+                Cancel
+                <ALoadingIcon icon="i-bx-x" />
+            </ABtn>
 
-    <ABtn
-      class="rounded-full px-6 font-bold"
-      color="primary"
-    >
-    Submit
-      <ALoadingIcon icon="i-bx-chevron-right" />
-    </ABtn>
+
+            <ABtn class="rounded-full px-6 font-bold" color="primary">
+                Submit
+                <ALoadingIcon icon="i-bx-chevron-right" />
+            </ABtn>
         </div>
     </div>
 </template>
