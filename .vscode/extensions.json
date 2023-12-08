@@ -21,6 +21,7 @@
     "ms-vscode-remote.remote-wsl",
     "beardedbear.beardedtheme",
     "beardedbear.beardedicons",
-    "eamodio.gitlens"
+    "eamodio.gitlens",
+    "nuxtr.nuxtr-vscode"
   ]
 }
