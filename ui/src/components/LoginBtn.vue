@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import { useAccount, useConnect, useDisconnect } from 'use-wagmi'
-import { InjectedConnector } from 'use-wagmi/connectors/injected'
+
+import {
+  SafeAuthPack,
+  SafeAuthInitOptions,
+} from '@safe-global/auth-kit'
+
 
 interface ILoginProps {
   type: 'header' | 'register'
@@ -8,34 +12,66 @@ interface ILoginProps {
 
 defineProps<ILoginProps>()
 
-const { address, isConnected } = useAccount()
-const { connect } = useConnect({
-  connector: new InjectedConnector(),
+const safeAuthInitOptions: SafeAuthInitOptions = {
+  enableLogging: true,
+  showWidgetButton: true,
+  chainConfig: {
+    chainId: '0x13881',
+    rpcTarget: `https://rpc-mumbai.matic.today`,
+    blockExplorerUrl: `https://mumbai.polygonscan.com`,
+    ticker: `MATIC`,
+    displayName: `Polygon Mumbai`,
+    isTestnet: true
+
+
+  },
+}
+const safeAuthPack = shallowRef<SafeAuthPack>(new SafeAuthPack());
+const isAuthenticated = ref(false);
+
+onMounted(async () => {
+  //const safeAuthPackInit = new SafeAuthPack();
+  await safeAuthPack.value.init(safeAuthInitOptions);
+  triggerRef(safeAuthPack)
+ // safeAuthPack.value = safeAuthPackInit;
+
 })
-const { disconnect } = useDisconnect()
-// const { isWakuConnected, sendVerificationMessage } = useWakuVerification()
+
 
 async function connectWallet() {
-  await connect()
-  console.log('connected')
+
+  const { eoa, safes } = await safeAuthPack.value!.signIn();
+  triggerRef(safeAuthPack)
+  console.log("🚀 ~ file: LoginBtn.vue:36 ~ connectWallet ~ eoa:", eoa)
+  console.log("🚀 ~ file: LoginBtn.vue:36 ~ connectWallet ~ safes:", safes)
+
 }
 async function disconnectWallet() {
-  await disconnect()
+  await safeAuthPack.value!.signOut()
+  triggerRef(safeAuthPack)
   console.log('disconnected')
 }
-watch(address, async () => {
-  if (address.value?.toLowerCase() === '0x8ed44a4a001660F4Fc4510bd580880e0fca7Ef00'.toLowerCase()) {
-    console.log('🚀 ~ file: LoginBtn.vue:40 ~ watch ~ address.value', address.value)
-    // console.log('🚀 ~ file: LoginBtn.vue:31 ~ watch ~ isWakuConnected.value:', isWakuConnected.value)
-    // sendMessage(address.value, 'Hello from the other side')
-    const res = await sendVerificationMessage(address.value, 'Hello from the other side')
-    console.log('🚀 ~ file: LoginBtn.vue:32 ~ watch ~ res:', res)
-  }
-  if (address.value?.toLowerCase() === '0xD7F49ED088573a8463699A9d7E60B6576411562e'.toLowerCase()) {
-    console.log('🚀 ~ file: LoginBtn.vue:40 ~ watch ~ address.value', address.value)
-    await receiveVerificationMessages()
+watch(safeAuthPack, async () => {
+ 
+  if (safeAuthPack.value!.isAuthenticated) {
+    isAuthenticated.value = true;
+  }else{
+    isAuthenticated.value = false;
   }
 })
+// watch(address, async () => {
+//   if (address.value?.toLowerCase() === '0x8ed44a4a001660F4Fc4510bd580880e0fca7Ef00'.toLowerCase()) {
+//     console.log('🚀 ~ file: LoginBtn.vue:40 ~ watch ~ address.value', address.value)
+//     // console.log('🚀 ~ file: LoginBtn.vue:31 ~ watch ~ isWakuConnected.value:', isWakuConnected.value)
+//     // sendMessage(address.value, 'Hello from the other side')
+//     const res = await sendVerificationMessage(address.value, 'Hello from the other side')
+//     console.log('🚀 ~ file: LoginBtn.vue:32 ~ watch ~ res:', res)
+//   }
+//   if (address.value?.toLowerCase() === '0xD7F49ED088573a8463699A9d7E60B6576411562e'.toLowerCase()) {
+//     console.log('🚀 ~ file: LoginBtn.vue:40 ~ watch ~ address.value', address.value)
+//     await receiveVerificationMessages()
+//   }
+// })
 </script>
 
 <template>
@@ -49,7 +85,7 @@ watch(address, async () => {
     Connect Wallet
   </ABtn> -->
   <div v-if="type === 'header'">
-    <ABtn v-if="isConnected" color="primary" @click="disconnectWallet">
+    <ABtn v-if="isAuthenticated" color="primary" @click="disconnectWallet">
       Logout
     </ABtn>
     <ABtn v-else color="primary" @click="connectWallet">
@@ -57,9 +93,9 @@ watch(address, async () => {
     </ABtn>
   </div>
   <div v-if="type === 'register'">
-    <ABtn v-if="isConnected" color="primary" @click="connectWallet">
+    <!-- <ABtn v-if="isConnected" color="primary" @click="connectWallet">
       Connect Wallet
-    </ABtn>
+    </ABtn> -->
   </div>
 </template>
 <!-- We have two business models here:
