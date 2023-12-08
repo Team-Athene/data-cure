@@ -65,16 +65,6 @@ const addFile = () => {
             <AInput class="my-2" label="Data Collection Date" type="date" v-model="fileData.dataCollectionDate"
                 placeholder="Data Collection Date" />
 
-            <div class="my-2">
-                <span mb-2>List for sale?</span>
-                <div class="flex gap-x-3 mt-4">
-                    <ARadio @update:modelValue="updateListForSale" v-model="templistForSale" name="listForSale" value="true"
-                        :label="LIST_OPTIONS[0]" />
-                    <ARadio @update:modelValue="updateListForSale" v-model="templistForSale" name="listForSale"
-                        value="false" :label="LIST_OPTIONS[1]" />
-                </div>
-            </div>
-
       <div class="my-2">
         <span mb-2>List for sale?</span>
         <div class="flex gap-x-3 mt-4">
@@ -93,56 +83,14 @@ const addFile = () => {
             :label="LIST_OPTIONS[1]"
           />
         </div>
+    </div>
 
-        <!-- Multiple File Upload -->
-        <div class="my-2 flex flex-col text-left w-full space-x-2">
-            <div my-3 flex justify-between items-center>
-                <span my-2>Attach Files</span>
-                <!-- <ASwitch v-model="isMigrated" /> -->
-                <div class="flex gap-x-3 mt-4">
-                    <ARadio @update:modelValue="updateListForSale" v-model="isMigrated" name="isMigrated" value="file"
-                        label="Upload File" />
-                    <ARadio @update:modelValue="updateListForSale" v-model="isMigrated" name="isMigrated" value="s3"
-                        label="Migrate from S3" />
-                </div>
-
-            </div>
-            <div v-if="isMigrated === 'file'">
-                <div v-for="(file, id) of filesList" class="flex mb-2 justify-start w-fit items-end gap-x-3">
-                    <AInput @update:modelValue="fileUpload" v-model="filesList[id]" type="file"
-                        :label="`Document ${id + 1}`" />
-                    <ABtn icon-only class="w-12 h-12" icon="i-bx-plus" @click="addFile" />
-                    <ABtn icon-only color="danger" class="w-12 h-12" icon="i-bx-x" @click="addFile" />
-                </div>
-            </div>
-            <div v-else>
-                <AInput class="my-2" label="S3 Bucket Name" v-model="fileData.aadharNumber" placeholder="S3 Bucket Name" />
-                <AInput class="my-2" label="Region" v-model="fileData.aadharNumber" placeholder="Region" />
-                <AInput class="my-2" label="Access Key" v-model="fileData.aadharNumber" placeholder="Access Key" />
-                <AInput class="my-2" label="Secret Key" v-model="fileData.aadharNumber" placeholder="Secret Key" />
-
-            </div>
-        </div>
-        <div class="flex justify-end items-center space-x-4">
-
-            <ABtn class="rounded-full px-6" variant="outline" color="primary">
-                Cancel
-                <ALoadingIcon icon="i-bx-x" />
-            </ABtn>
-
-
-            <ABtn class="rounded-full px-6 font-bold" color="primary">
-                Submit
-                <ALoadingIcon icon="i-bx-chevron-right" />
-            </ABtn>
-        </div>
     </div>
 
     <!-- Multiple File Upload -->
     <div class="my-2 flex flex-col text-left w-full space-x-2">
       <div my-3 flex justify-between items-center>
         <span my-2>Attach Files</span>
-        <!-- <ASwitch v-model="isMigrated" /> -->
         <div class="flex gap-x-3 mt-4">
           <ARadio
             @update:modelValue="updateListForSale"
@@ -160,17 +108,13 @@ const addFile = () => {
           />
         </div>
       </div>
+
       <div v-if="isMigrated === 'file'">
         <div
           v-for="(file, id) of filesList"
-          class="flex mb-2 justify-start w-fit items-end gap-x-3"
+          class="flex mb-2 justify-start w-[62%] items-end gap-x-3"
         >
-          <AInput
-            @update:modelValue="fileUpload"
-            v-model="filesList[id]"
-            type="file"
-            :label="`Document ${id + 1}`"
-          />
+          <FileInput  @update:modelValue="fileUpload" v-model="filesList[0]" dataType="Blob" />
           <ABtn icon-only class="w-12 h-12" icon="i-bx-plus" @click="addFile" />
           <ABtn
             icon-only

@@ -15,6 +15,7 @@ declare module 'vue' {
     ASwitch: typeof import('anu-vue')['ASwitch']
     Button: typeof import('./components/Button.vue')['default']
     FileForm: typeof import('./components/FileForm.vue')['default']
+    FileInput: typeof import('./components/FileInput.vue')['default']
     Header: typeof import('./components/Header.vue')['default']
     LoginBtn: typeof import('./components/LoginBtn.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
