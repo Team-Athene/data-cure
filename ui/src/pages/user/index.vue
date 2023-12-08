@@ -12,12 +12,10 @@ const frameworks = [
 <template>
   <div class="main-register-div">
     <div class="max-w-400">
-      <div>
         <AInput
           type="email"
           placeholder="Enter your email"
         />
-      </div>
       <div>
         <div>
           <ASelect
