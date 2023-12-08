@@ -52,10 +52,10 @@ export class WakuVerification {
       return []
 
     const decoder = createDecoder(ContentTopic)
-    
+
     // Create the store query
-    const storeQuery = this.waku.store.queryGenerator([decoder]);
-    console.log("🚀 ~ file: useWakuVerification.ts:57 ~ WakuVerification ~ retrieveMessages ~ storeQuery:", storeQuery)
+    const storeQuery = this.waku.store.queryGenerator([decoder])
+    console.log('🚀 ~ file: useWakuVerification.ts:57 ~ WakuVerification ~ retrieveMessages ~ storeQuery:', storeQuery)
 
     const callback = (wakuMessage: any) => {
       if (!wakuMessage.payload)

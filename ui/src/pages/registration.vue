@@ -13,10 +13,7 @@ const frameworks = [
   <div class="main-register-div">
     <div class="max-w-400">
       <div>
-        <AInput
-          type="email"
-          placeholder="Enter your email"
-        />
+        <AInput type="email" placeholder="Enter your email" />
       </div>
       <div>
         <div>
@@ -32,7 +29,7 @@ const frameworks = [
 </template>
 
 <style scoped>
-.main-register-div{
-    @apply h-100vh items-center m-auto
+.main-register-div {
+  @apply h-100vh items-center m-auto;
 }
 </style>
