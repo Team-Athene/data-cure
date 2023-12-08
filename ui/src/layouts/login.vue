@@ -10,7 +10,7 @@
 
 <style scoped>
 .div-class{
-  background: white;
+  background: white !important;
   @apply h-100vh;
   }
 </style>

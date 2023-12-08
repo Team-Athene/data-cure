@@ -24,7 +24,6 @@ const router = useRouter()
       </div>
     </div>
     <LoginBtn v-if="!hideBtn" type="header" @click="router.push('/registration')" />
-    <!-- <Button v-if="!hideBtn" id="login-btn" bg-color="PRIMARY" name="login-btn" label="Login" icon="" @click="router.push('/registration')" /> -->
   </div>
 </template>
 
@@ -32,7 +31,4 @@ const router = useRouter()
 .main-div{
     @apply  flex justify-between items-center text-primary font-tsukimi px-6 py-3;
 }
-/* .btn-class{
-    @apply bg-primary rounded-lg ;
-} */
 </style>

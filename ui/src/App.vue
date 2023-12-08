@@ -1,13 +1,20 @@
 <script setup lang="ts">
+import { useAnu } from 'anu-vue';
+
 // https://github.com/vueuse/head
 // you can use this to manipulate the document head in any components,
 // they will be rendered correctly in the html results with vite-ssg
+
+const { themes } = useAnu()
+
+themes.value.light.colors.primary = '180, 100%, 35%'
+
 useHead({
-  title: 'Vitesse',
+  title: 'DataCure Protocol',
   meta: [
     {
       name: 'description',
-      content: 'Opinionated Vite Starter Template',
+      content: 'Blockchain Based Health Data Management Protocol',
     },
     {
       name: 'theme-color',
