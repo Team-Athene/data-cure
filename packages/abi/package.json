@@ -1,0 +1,8 @@
+{
+  "name": "@datacure/abi",
+  "type": "module",
+  "packageManager": "pnpm@8.11.0",
+  "devDependencies": {
+    "@wagmi/cli": "^1.5.2"
+  }
+}

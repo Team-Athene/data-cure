@@ -1,0 +1,38 @@
+<script setup lang="ts">
+import logo from '~/../src/assets/logo/Logo.svg'
+
+interface IHeaderProps {
+  bgColor?: 'PRIMARY' | 'SECONDARY'
+  hideBtn?: boolean
+  label?: string
+  width?: string
+  icon?: string
+}
+defineProps<IHeaderProps>()
+
+const router = useRouter()
+</script>
+
+<template>
+  <div class="main-div" :class="[bgColor === 'PRIMARY' ? 'bg-header_bg_primary' : 'bg-header_bg_secondary']">
+    <div flex justify-start space-x-3>
+      <div>
+        <img h-9 w-9 :src="logo" alt="logo">
+      </div>
+      <div text-2xl font-bold font-tsukimi>
+        DataCure
+      </div>
+    </div>
+    <LoginBtn v-if="!hideBtn" type="header" @click="router.push('/registration')" />
+    <!-- <Button v-if="!hideBtn" id="login-btn" bg-color="PRIMARY" name="login-btn" label="Login" icon="" @click="router.push('/registration')" /> -->
+  </div>
+</template>
+
+<style scoped>
+.main-div{
+    @apply  flex justify-between items-center text-primary font-tsukimi px-6 py-3;
+}
+/* .btn-class{
+    @apply bg-primary rounded-lg ;
+} */
+</style>
