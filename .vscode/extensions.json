@@ -1,0 +1,27 @@
+{
+  "recommendations": [
+    "antfu.iconify",
+    "antfu.unocss",
+    "csstools.postcss",
+    "vue.volar",
+    "abhijoybasak.nestjs-files",
+    "genieai.chatgpt-vscode",
+    "streetsidesoftware.code-spell-checker",
+    "dbaeumer.vscode-eslint",
+    "github.copilot",
+    "github.copilot-chat",
+    "antfu.goto-alias",
+    "znck.grammarly",
+    "nrwl.angular-console",
+    "esbenp.prettier-vscode",
+    "yoavbls.pretty-ts-errors",
+    "chakrounanas.turbo-console-log",
+    "antfu.where-am-i",
+    "yrm.type-challenges",
+    "ms-vscode-remote.remote-wsl",
+    "beardedbear.beardedtheme",
+    "beardedbear.beardedicons",
+    "eamodio.gitlens",
+    "nuxtr.nuxtr-vscode"
+  ]
+}
