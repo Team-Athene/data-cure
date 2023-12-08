@@ -36,8 +36,3 @@ const frameworks = [
     @apply h-100vh items-center m-auto
 }
 </style>
-
-<route lang="yaml">
-    meta:
-      layout: login
-        </route>

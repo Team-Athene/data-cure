@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useAccount, useConnect, useDisconnect } from 'use-wagmi'
 import { InjectedConnector } from 'use-wagmi/connectors/injected'
-import { routerKey } from 'vue-router';
 
 interface ILoginProps {
   type: 'header' | 'register'
@@ -31,6 +30,10 @@ watch(address, async () => {
   if(address.value) {
     // FIXME: Get the user data from the blockchain and then do the route
     router.push('/user')
+  }
+  console.log("🚀 ~ file: LoginBtn.vue:35 ~ watch ~ address.value?.length:", address.value?.length)
+  if (!address.value?.length) {
+    router.push('/')
   }
 
   if (address.value?.toLowerCase() === '0x8ed44a4a001660F4Fc4510bd580880e0fca7Ef00'.toLowerCase()) {

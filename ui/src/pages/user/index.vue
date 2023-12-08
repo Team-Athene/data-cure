@@ -39,5 +39,5 @@ const frameworks = [
 
 <route lang="yaml">
   meta:
-    layout: login
+    layout: home
       </route>
