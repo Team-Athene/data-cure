@@ -86,6 +86,7 @@
     "jsonc",
     "yaml"
   ],
+  "unocss.root": "ui",
   "workbench.iconTheme": "bearded-icons",
   "peacock.color": "#00B2B3"
 }
