@@ -6,17 +6,7 @@ import {
     GENDER_OPTIONS,
     REPORT_TYPE_OPTIONS,
     LIST_OPTIONS,
-} from '../../utils/constants'
-
-
-//Convert date to ddmmyyyy format
-const formatDate = (date) => {
-    const d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = '' + d.getFullYear()
-    return [day, month, year].join('-')
-}
+} from '~/utils/constants'
 const fileData = reactive({
     aadharNumber: '',
     age: '',
@@ -26,7 +16,7 @@ const fileData = reactive({
     reportType: '',
     medicalCondition: '',
     listForSale: true,
-    dataCollectionDate: formatDate(new Date()),
+    dataCollectionDate: new Date(),
 })
 const isMigrated = ref('file')
 const templistForSale = ref('true')
@@ -45,6 +35,7 @@ const addFile = () => {
 </script>
 
 <template>
+    {{ fileData }}
     <div class="max-w-200 main-register-div">
         <div class="grid grid-cols-2 text-left gap-x-4 m-auto">
             <AInput class="my-2" label="Aadhar Number" v-model="fileData.aadharNumber" placeholder="Aadhar Number" />
@@ -59,7 +50,7 @@ const addFile = () => {
                 :options="REPORT_TYPE_OPTIONS" />
             <AInput class="my-2" label="Medical Condition (as per report)" v-model="fileData.medicalCondition"
                 placeholder="Medical Condition" />
-            <AInput class="my-2" label="Data Collection Date" type="date" v-model="fileData.dataCollectionDate"
+            <AInput class="my-2" label="Data Collection Date" type="date" :value="fileData.dataCollectionDate"
                 placeholder="Data Collection Date" />
 
             <div class="my-2">
@@ -88,7 +79,7 @@ const addFile = () => {
 
             </div>
             <div v-if="isMigrated === 'file'">
-                <div v-for="(file, id) of filesList" class="flex mb-2 justify-start w-fit items-end gap-x-3">
+                <div v-for="(_, id) of filesList" class="flex mb-2 justify-start w-fit items-end gap-x-3">
                     <AInput @update:modelValue="fileUpload" v-model="filesList[id]" type="file"
                         :label="`Document ${id + 1}`" />
                     <ABtn icon-only class="w-12 h-12" icon="i-bx-plus" @click="addFile" />
