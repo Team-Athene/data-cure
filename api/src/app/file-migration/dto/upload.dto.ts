@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsString, IsNotEmpty, IsNumber } from 'class-validator'
+import { IsString, IsNotEmpty, IsNumber, IsBoolean } from 'class-validator'
 
 // bucket: 'string',
 // key: 'string',
@@ -36,6 +36,11 @@ export class UserDto {
   @IsString()
   @IsNotEmpty()
   ethnicity: string
+
+  @ApiProperty({ example: 'true' })
+  @IsBoolean()
+  @IsNotEmpty()
+  sale: boolean
 }
 
 export class UploadDto {

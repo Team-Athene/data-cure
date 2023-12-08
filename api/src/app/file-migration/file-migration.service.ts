@@ -4,9 +4,13 @@ import { AwsService } from 'app/shared/aws.service'
 import { LightHouseService } from 'app/shared/lighthouse'
 import { createWriteStream, existsSync, mkdirSync } from 'fs'
 import { join, dirname } from 'path'
+import { UploadDto } from './dto/upload.dto'
 
 @Injectable()
 export class FileMigrationService {
+  async uploadUser(user: UploadDto) {
+    throw new Error('Method not implemented.')
+  }
   async migrateS3(s3Cred: S3Dto) {
     const s3 = new AwsService({
       accessKeyId: s3Cred.accessKeyId,
