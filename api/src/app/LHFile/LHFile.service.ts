@@ -115,14 +115,14 @@ export class LHFileService {
 
         data.pipe(writableStream)
 
-        const files = readAllFilesFromDirectory(s3Hash)
-        console.log("🚀 ~ file: LHFile.service.ts:119 ~ LHFileService ~ migrateS3 ~ files:", files)
-        // convert ReadableStream to Blob
-        const result = await lighthouse.upload(files)
-        console.log(
-          '🚀 ~ file: LHFile.service.ts:110 ~ LHFileService ~ migrateS3 ~ result:',
-          result,
-        )
+        // const files = readAllFilesFromDirectory(s3Hash)
+        // console.log("🚀 ~ file: LHFile.service.ts:119 ~ LHFileService ~ migrateS3 ~ files:", files)
+        // // convert ReadableStream to Blob
+        // const result = await lighthouse.upload(files)
+        // console.log(
+        //   '🚀 ~ file: LHFile.service.ts:110 ~ LHFileService ~ migrateS3 ~ result:',
+        //   result,
+        // )
         // console.log(
         //   '🚀 ~ file: file-migration.service.ts:33 ~ FileMigrationService ~ migrateS3 ~ result:',
         //   result,
