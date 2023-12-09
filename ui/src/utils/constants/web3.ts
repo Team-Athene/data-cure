@@ -1,3 +1,7 @@
+import { defineChain } from 'viem'
+
+import { polygonMumbai, goerli, Chain } from 'viem/chains';
+
 type Network =  {
     chainId:string;
     rpcTarget: string;
@@ -24,4 +28,21 @@ export const NETWORKS: Record<string, Network> ={
         displayName: `Goerli`,
         isTestnet: true
     }
-} as const
+}
+
+export const Chains: Record<string, Chain> = {
+    '0x13881': polygonMumbai,
+    '0x5': goerli
+}
+
+export const ContractAddresses: Record<'DataCure' | 'Verifier', Record<string, string>> = {
+    DataCure:{
+        '0x13881': '0x4e214e831c7bb5f4fd3167eed12f62f8c527c55a',
+        '0x5': ''
+    },
+    Verifier: {
+        '0x13881': '0x4e214e831c7bb5f4fd3167eed12f62f8c527c55a',
+        '0x5': ''
+    }
+    
+}
