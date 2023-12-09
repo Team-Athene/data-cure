@@ -40,8 +40,16 @@ import type {
 declare module 'vue-router/auto/routes' {
   export interface RouteNamedMap {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
+    '/health-organization/': RouteRecordInfo<'/health-organization/', '/health-organization', Record<never, never>, Record<never, never>>,
+    '/health-organization/access-requests': RouteRecordInfo<'/health-organization/access-requests', '/health-organization/access-requests', Record<never, never>, Record<never, never>>,
+    '/health-organization/data-hub': RouteRecordInfo<'/health-organization/data-hub', '/health-organization/data-hub', Record<never, never>, Record<never, never>>,
+    '/health-organization/manage-doctors': RouteRecordInfo<'/health-organization/manage-doctors', '/health-organization/manage-doctors', Record<never, never>, Record<never, never>>,
+    '/health-organization/my-file': RouteRecordInfo<'/health-organization/my-file', '/health-organization/my-file', Record<never, never>, Record<never, never>>,
+    '/health-organization/upload-file': RouteRecordInfo<'/health-organization/upload-file', '/health-organization/upload-file', Record<never, never>, Record<never, never>>,
     '/registration': RouteRecordInfo<'/registration', '/registration', Record<never, never>, Record<never, never>>,
     '/user/': RouteRecordInfo<'/user/', '/user', Record<never, never>, Record<never, never>>,
+    '/user/access-requests': RouteRecordInfo<'/user/access-requests', '/user/access-requests', Record<never, never>, Record<never, never>>,
+    '/user/data-hub': RouteRecordInfo<'/user/data-hub', '/user/data-hub', Record<never, never>, Record<never, never>>,
     '/user/my-file': RouteRecordInfo<'/user/my-file', '/user/my-file', Record<never, never>, Record<never, never>>,
     '/user/upload-file': RouteRecordInfo<'/user/upload-file', '/user/upload-file', Record<never, never>, Record<never, never>>,
   }

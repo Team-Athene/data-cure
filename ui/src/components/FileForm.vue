@@ -10,7 +10,7 @@ import {
 import { HealthData, FileData } from '~/utils/interfaces'
 
 const fileData = reactive<HealthData>({
-  aadharNumber: '',
+  email: '',
   age: '',
   gender: '',
   bloodGroup: '',
@@ -65,7 +65,7 @@ function submit() {
 <template>
     <div class="max-w-200 main-register-div">
         <div class="grid grid-cols-2 text-left gap-x-4 m-0">
-            <AInput class="my-2" label="Aadhar Number" v-model="fileData.aadharNumber" placeholder="Aadhar Number" />
+            <AInput class="my-2" label="Email Id" v-model="fileData.email" placeholder="Email Id" />
             <ASelect class="my-2" label="Age" placeholder="Select Age" v-model="fileData.age" :options="AGE_OPTIONS" />
             <ASelect class="my-2" label="Gender" placeholder="Select Gender" v-model="fileData.gender"
                 :options="GENDER_OPTIONS" />
@@ -144,25 +144,25 @@ function submit() {
         <AInput
           class="my-2"
           label="S3 Bucket Name"
-          v-model="fileData.aadharNumber"
+          v-model="fileData.email"
           placeholder="S3 Bucket Name"
         />
         <AInput
           class="my-2"
           label="Region"
-          v-model="fileData.aadharNumber"
+          v-model="fileData.email"
           placeholder="Region"
         />
         <AInput
           class="my-2"
           label="Access Key"
-          v-model="fileData.aadharNumber"
+          v-model="fileData.email"
           placeholder="Access Key"
         />
         <AInput
           class="my-2"
           label="Secret Key"
-          v-model="fileData.aadharNumber"
+          v-model="fileData.email"
           placeholder="Secret Key"
         />
       </div>
