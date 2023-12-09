@@ -10,7 +10,7 @@ const submitFile = async (value: {data: HealthData, files: FileData[]}) => {
   // const {ipnsName,ipnsId} = (await generateKey(apiKey)).data
 
   const output = await uploadEncrypted(
-        value.files[0].file,
+        value.files[0],
         apiKey,
         address,
         signature,
