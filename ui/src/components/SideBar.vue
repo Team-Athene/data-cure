@@ -11,7 +11,7 @@ const currentTab = computed(() => {
       return USER_TABS
     case 'health-organization':
       return HOSPITAL_TABS
-    case 'researcher':
+    case 'research-organization':
       return RESEARCHER_TABS
     default:
       return USER_TABS
@@ -19,7 +19,8 @@ const currentTab = computed(() => {
 })
 
 const selectedTab = computed(() => {
-  return currentTab.value.find((tab) => tab.link === route.path)
+  const currentRoute = route.path.replace(/\/$/, '')
+  return currentTab.value.find((tab) => tab.link === currentRoute)
 })
 </script>
 
