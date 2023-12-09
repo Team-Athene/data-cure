@@ -14,6 +14,7 @@ import VueRouter from 'unplugin-vue-router/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
 import TurboConsole from 'unplugin-turbo-console/vite'
 import { AnuComponentResolver } from 'anu-vue'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 export default defineConfig({
   resolve: {
@@ -110,6 +111,7 @@ export default defineConfig({
 
     // https://github.com/webfansplz/vite-plugin-vue-devtools
     VueDevTools(),
+    nodePolyfills()
   ],
 
   // https://github.com/vitest-dev/vitest
