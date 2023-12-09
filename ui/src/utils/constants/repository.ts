@@ -80,6 +80,22 @@ export  const myFilesRows = [
     cid: '0x1234567890',
   },
 ]
+
+export const doctorsRows = [{
+  userAddress: '0x1234567890123456789012345678901234567890',
+  department: 'Radiology',
+},{
+  userAddress: '0x1234567890123456789012345678901234567890',
+  department: 'Oncology',
+},{
+  userAddress: '0x1234567890123456789012345678901234567890',
+  department: 'Cardiology',
+},{
+  userAddress: '0x1234567890123456789012345678901234567890',
+  department: 'Ophthalmology',
+},
+]
+
 export const requestsRows = [{
   requestId: '0x1234567890',
   requestedUser: '0x1234567890123456789012345678901234567890',
