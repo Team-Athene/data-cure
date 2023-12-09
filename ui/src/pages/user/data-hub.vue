@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { dataHubFilesRows, dataHubFilesCols } from '~/utils/constants';
+import { dataHubFilesRows, DATAHUB_FILES_COLS } from '~/utils/constants';
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import { dataHubFilesRows, dataHubFilesCols } from '~/utils/constants';
     </div>
     <ADataTable
     :rows="dataHubFilesRows"
-    :cols="dataHubFilesCols"
+    :cols="DATAHUB_FILES_COLS"
     search
   >
     <!-- Header: Name -->

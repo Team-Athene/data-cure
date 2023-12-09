@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { requestsRows, requestsCols } from '~/utils/constants';
+import { requestsRows, REQUESTS_COLS, permissionRows, PERMISSIONS_COLS, REQUEST_TABS } from '~/utils/constants';
 const filteredRows = computed(() => {
   return requestsRows.map((row) => {
     return {
@@ -16,9 +16,17 @@ const filteredRows = computed(() => {
     <div class="font-semibold text-xl mb-10">
       My Files
     </div>
+    <ATabs
+      key="default"
+      class="a-tabs-bordered"
+      :tabs="REQUEST_TABS"
+    >
+
+    <template #received>
+      <div mt-8>
     <ADataTable
     :rows="filteredRows"
-    :cols="requestsCols"
+    :cols="REQUESTS_COLS"
     search
   >
     <!-- Header: Name -->
@@ -59,7 +67,40 @@ const filteredRows = computed(() => {
     </ABtn>
     </template>
 </ADataTable>
-
+</div>
+    </template>
+    <template #sent>
+      
+      <div mt-8>
+    <ADataTable
+    :rows="permissionRows"
+    :cols="PERMISSIONS_COLS"
+    search
+  >
+    <template #col-requestedUser="{ row }">
+      <ABtn variant="outline" icon="i-bx-copy">
+      <span font-bold>
+        {{ row.requestedUser?.slice(0, 6) }}...{{ row.requestedUser?.slice(-4) }}
+      </span>
+    </ABtn>
+    </template>
+    <template #col-status="{ row }">
+    <AChip
+      :color="row.status==='Approved' ? 'success' : row.status==='Rejected' ? 'danger' : 'warning'"
+      :icon="row.status==='Approved' ? 'i-bx-check' : row.status==='Rejected' ? 'i-bx-x' : 'i-bx-loader-alt'"
+    >
+      <span>{{row.status}}</span>
+    </AChip>
+    </template>
+    <template #col-actions="{ row }">
+      <ABtn variant="light" class="rounded-full" color="secondary" icon="i-bx-error">
+        Revoke Request
+    </ABtn>
+    </template>
+</ADataTable>
+  </div>
+    </template>
+</ATabs>
    </div>
 </template>
 

@@ -1,4 +1,4 @@
-export const fileTabs = [
+export const FILE_TABS = [
     { title: 'File Details', 
       value: 'file-details',
       icon: 'i-bx-list-ul' 
@@ -9,28 +9,34 @@ export const fileTabs = [
   ]
 
   
-export const myFilesCols = [
+export const MY_FILES_COLS = [
     { name: 'fileName' },
     { name: 'reportType' },
     { name: 'focusArea' },
     { name: 'consultedOn' },
     { name: 'accessCount' },
   ]
+  export const ACCESSED_FILES_COLS = [
+      { name: 'fileName' },
+      { name: 'reportType' },
+      { name: 'focusArea' },
+      { name: 'accessedOn' },
+    ]
   
-  export const dataHubFilesCols = [
+  export const DATAHUB_FILES_COLS = [
       { name: 'fileName' },
       { name: 'reportType' },
       { name: 'focusArea' },
       { name: 'actions' },
     ]
   
-    export const doctorsCols = [
+    export const DOCTORS_COLS = [
       { name: 'userAddress' },
       { name: 'department' },
       { name: 'actions' },
     ]
 
-    export const requestsCols = [
+    export const REQUESTS_COLS = [
       { name: 'fileName' },
       { name: 'requestedUser' },
       { name: 'reportType' },
@@ -38,13 +44,32 @@ export const myFilesCols = [
       { name: 'actions' },
     ]
 
-  export const permissionsCols = [
+  export const PERMISSIONS_COLS = [
   { name: 'requestedUser' },
   { name: 'accessTill' },
   { name: 'status' },
   { name: 'actions' },
 ]
 
+export const REQUEST_TABS = [
+  { title: 'Requests Received', 
+    value: 'received',
+    icon: 'i-bx-list-ul' 
+  },
+  { title: 'Sent Requests',
+    value: 'sent', 
+    icon: 'i-bx-lock' },
+]
+
+export const FILES_TABS = [
+  { title: 'Uploaded Files',
+    value: 'uploaded',
+    icon: 'i-bx-upload' 
+  },
+  { title: 'Accessed Files',
+    value: 'accessed', 
+    icon: 'i-bx-bxs-book-reader' },
+]
 
 export const USER_TABS = [
   { title: 'File Management', icon: 'i-bx-folder-open', link: '/user' },

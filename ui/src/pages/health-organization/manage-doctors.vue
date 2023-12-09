@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { doctorsRows, doctorsCols } from '~/utils/constants';
+import { doctorsRows, DOCTORS_COLS } from '~/utils/constants';
 const isEditDoctor = ref<boolean[]>([]);
 
 const filteredRows = computed(() => {
@@ -28,7 +27,7 @@ const submitDoctor = (id: number) => {
     </div>
     <ADataTable
     :rows="filteredRows"
-    :cols="doctorsCols"
+    :cols="DOCTORS_COLS"
     search
   >
     <template #col-userAddress="{ row }">

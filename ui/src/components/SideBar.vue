@@ -19,7 +19,8 @@ const currentTab = computed(() => {
 })
 
 const selectedTab = computed(() => {
-  return currentTab.value.find((tab) => tab.link === route.path)
+  const currentRoute = route.path.replace(/\/$/, '')
+  return currentTab.value.find((tab) => tab.link === currentRoute)
 })
 </script>
 
