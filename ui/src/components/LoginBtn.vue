@@ -81,6 +81,16 @@ watch(safeAuthPack, async () => {
   )
 })
 
+watch(selectedNetwork, async () => {
+  const safeAuthInitOptionsNew: SafeAuthInitOptions = {
+    enableLogging: true,
+    showWidgetButton: true,
+    chainConfig: NETWORKS[selectedNetwork.value],
+  }
+   await safeAuthPack.value.init(safeAuthInitOptionsNew);
+  triggerRef(safeAuthPack)
+})
+
 // async function onFileChanged($event: Event) {
 //   const target = $event.target as HTMLInputElement;
 //   if (target && target.files) {
