@@ -13,7 +13,7 @@ const submitFile = (value: { data: HealthData, files: FileData[] }) => {
 </script>
 
 <template>
-  <div pb-30>
+  <div>
     <div class="font-semibold text-xl mb-10">
       Accessed File Details
     </div>

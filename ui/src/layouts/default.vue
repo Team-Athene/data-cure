@@ -12,7 +12,7 @@ onMounted(() => {
   <main text="left" class="div-class">
       <Header bg-color="PRIMARY" />
       <SideBar v-if="!isDoctorPanel"/>
-    <div class="overflow-y-scroll px-20 pt-16" :class="[isDoctorPanel ? 'w-full' : 'w-80%']">
+    <div class="overflow-y-scroll px-20 pt-28 pb-30" :class="[isDoctorPanel ? 'w-full' : 'w-80%']">
       <RouterView />
     </div>
   </main>
