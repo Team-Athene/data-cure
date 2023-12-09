@@ -18,13 +18,15 @@ export interface IPNSDto {
 
 export type LhFileControllerGenerateIpnsData = any
 
-export type LhFileControllerMigrateS3Data = any
+export type LhFileControllerMigrateS3Data = ReadStream[]
 
 export type LhFileControllerPublishIpnsRecordData = object
 
 export type LhFileControllerRetriveJwtData = any
 
 export type LhFileControllerUploadUserData = any
+
+export type ReadStream = object
 
 export interface S3Dto {
   /** @example "AKIAZB27L43CC3JJNZX2" */

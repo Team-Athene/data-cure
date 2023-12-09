@@ -29,12 +29,12 @@ export class LhFile<
    *
    * @tags LHFile
    * @name LhFileControllerMigrateS3
-   * @request POST:/lh-file/s3
+   * @request POST:/lh-file/migrate-s3
    * @response `201` `LhFileControllerMigrateS3Data`
    */
   lhFileControllerMigrateS3 = (data: S3Dto, params: RequestParams = {}) =>
     this.request<LhFileControllerMigrateS3Data, any>({
-      path: `/lh-file/s3`,
+      path: `/lh-file/migrate-s3`,
       method: 'POST',
       body: data,
       type: ContentType.Json,
