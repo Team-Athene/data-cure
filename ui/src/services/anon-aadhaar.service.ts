@@ -10,7 +10,12 @@ import {
 } from 'anon-aadhaar-pcd';
 import { ArgumentTypeName, SerializedPCD } from '@pcd/pcd-types';
 
-const appId = BigInt(1234555).toString();
+export const appId = BigInt(1234555).toString();
+
+export async function fetchKey(keyURL: string): Promise<any> {
+    const { data } = await useFetch(keyURL).arrayBuffer()
+    return data.value!;
+}
 
 const proveAndSerialize = async (
     pcdArgs: AnonAadhaarPCDArgs,
@@ -79,7 +84,6 @@ const getSubstringIndex = (str: Buffer, substring: string, n: number) => {
 }
 
 export const provePDF = async (pdfData: Buffer, password: string) => {
-    try {
         if (appId === null) throw new Error('Missing application Id!')
 
         const witness = await extractWitness(pdfData, password)
@@ -140,14 +144,4 @@ export const provePDF = async (pdfData: Buffer, password: string) => {
         console.log(pcd);
         console.log(serialized);
 
-
-
-        // console.log(`logged In`);
-
-
-        //startReq({ type: 'login', args })
-    } catch (error) {
-        console.log(error)
-        if (error instanceof Error) console.log(error.message)
-    }
 }
