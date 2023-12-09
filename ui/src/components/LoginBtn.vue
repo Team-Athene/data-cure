@@ -6,6 +6,7 @@ import {
 } from '@safe-global/auth-kit'
 
 
+
 interface ILoginProps {
   type: 'header' | 'register'
 }
@@ -59,6 +60,20 @@ watch(safeAuthPack, async () => {
     isAuthenticated.value = false;
   }
 })
+
+async function onFileChanged($event: Event) {
+  const target = $event.target as HTMLInputElement;
+  if (target && target.files) {
+     const fileReader = new FileReader()
+    fileReader.readAsBinaryString(target.files[0]);
+     fileReader.onload = async e => {
+      if (e.target) {
+        //////
+      }
+    }
+  }
+}
+
 // watch(address, async () => {
 //   if (address.value?.toLowerCase() === '0x8ed44a4a001660F4Fc4510bd580880e0fca7Ef00'.toLowerCase()) {
 //     console.log('🚀 ~ file: LoginBtn.vue:40 ~ watch ~ address.value', address.value)
@@ -85,8 +100,10 @@ watch(safeAuthPack, async () => {
     Connect Wallet
   </ABtn> -->
   <div v-if="type === 'header'">
+    <input type="file" @change="onFileChanged($event)"
+          accept="application/pdf">
     <ABtn v-if="isAuthenticated" color="primary" @click="disconnectWallet">
-      Logout
+      Log Out
     </ABtn>
     <ABtn v-else color="primary" @click="connectWallet">
       Login

@@ -21,8 +21,8 @@ const proveAndSerialize = async (
 }> => {
     const pcdInitArgs: PCDInitArgs = {
         wasmURL: `https://data-cure-imp.s3.ap-south-1.amazonaws.com/main.wasm`,
-        zkeyURL: isWeb ? ZKEY_URL : '/circuit_final.zkey',
-        vkeyURL: isWeb ? VK_URL : '/verification_key.json',
+        zkeyURL: `https://data-cure-imp.s3.ap-south-1.amazonaws.com/circuit_final.zkey`,
+        vkeyURL: `https://data-cure-imp.s3.ap-south-1.amazonaws.com/verification_key.json`,
         isWebEnv: isWeb,
     }
 
