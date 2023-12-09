@@ -1,5 +1,7 @@
 import { PushAPI, CONSTANTS } from "@pushprotocol/restapi";
-
-const initPushChat = async () => {
-    const userAlice = await PushAPI.initialize(signer, { env: CONSTANTS.ENV.STAGING });
+import { storeToRefs } from "pinia";
+const {walletClient} = storeToRefs(useWeb3Store());
+export const initPushChat = async () => {
+    const userAlice = await PushAPI.initialize(walletClient.value as any, { env: CONSTANTS.ENV.DEV });
+    console.log("🚀 ~ file: pushchat.ts:6 ~ initPushChat ~ userAlice:", userAlice)
 }

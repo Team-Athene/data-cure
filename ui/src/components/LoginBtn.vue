@@ -31,7 +31,7 @@ const isAuthenticated = ref(false);
 onMounted(async () => {
   //const safeAuthPackInit = new SafeAuthPack();
   const safeAuthInitOptions: SafeAuthInitOptions = {
-    enableLogging: true,
+    enableLogging: false,
     showWidgetButton: true,
     chainConfig: {
       chainId: '0x13881',
@@ -95,6 +95,7 @@ watch(safeAuthPack, async () => {
     let { email } = await safeAuthPack.value!.getUserInfo();
     userInfo.value.email = email;
     walletClient.value = createWalletClient({
+      account: userInfo.value.walletAddress as any,
       chain: Chains[userInfo.value.network],
       transport: custom(safeAuthPack.value.getProvider() as any)
     })
@@ -108,9 +109,9 @@ watch(safeAuthPack, async () => {
     }
     let hashem = hashEmail(userInfo.value.email);
     let result = await contracts.value?.DataCure.read.userToken([hashem])
-    if(result == 0 ){
-      router.push('/registration')
-    }
+    // if(result == 0 ){
+    //   router.push('/registration')
+    // }
 
   } else {
     userReset();
