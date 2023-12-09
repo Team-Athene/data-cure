@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { dataHubFilesRows, dataHubFilesCols } from '~/utils/constants';
+import { dataHubFilesRows, DATAHUB_FILES_COLS } from '~/utils/constants';
 </script>
 
 <template>
    <div>
     <div class="font-semibold text-xl mb-10">
-      My Files
+      DataCure Hub
     </div>
     <ADataTable
     :rows="dataHubFilesRows"
-    :cols="dataHubFilesCols"
+    :cols="DATAHUB_FILES_COLS"
     search
   >
     <!-- Header: Name -->

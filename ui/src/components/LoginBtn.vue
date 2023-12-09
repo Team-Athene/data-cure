@@ -167,6 +167,7 @@ watch(selectedNetwork, async () => {
       <AMenu trigger="hover">
         <AList v-model="selectedNetwork" class="[--a-list-gap:0.25rem]" :items="netWorks" />
       </AMenu>
+      <div truncate max-w-20>
 
       {{ selectedNetwork == 'none' ? 'Wrong NetWork' : NETWORKS[selectedNetwork].displayName }}
       <ALoadingIcon icon="i-bx-bxs-component" />

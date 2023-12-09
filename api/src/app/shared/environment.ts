@@ -23,3 +23,14 @@ export const LIGHTHOUSE = z
   .parse({
     API_KEY: process.env.LIGHTHOUSE_API_KEY,
   })
+
+
+  export const WALLET = z
+  .object({
+    PRIVATE_KEY: z.string(),
+    PUBLIC_KEY: z.string(),
+  })
+  .parse({
+    PRIVATE_KEY: process.env.WALLET_PRIVATE_KEY,
+    PUBLIC_KEY: process.env.WALLET_PUBLIC_KEY,
+  })

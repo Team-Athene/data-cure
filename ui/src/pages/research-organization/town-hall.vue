@@ -1,15 +1,23 @@
 <script setup lang="ts">
-import { dataHubFilesRows, DATAHUB_FILES_COLS } from '~/utils/constants';
+import { townHallRows, TOWN_HALL_COLS } from '~/utils/constants';
+
+const filteredRows = townHallRows.map((row) => {
+  return {
+    ...row,
+    actions: true,
+  };
+});
+
 </script>
 
 <template>
    <div>
     <div class="font-semibold text-xl mb-10">
-      DataCure Hub
+      Researcher's Town Hall
     </div>
     <ADataTable
-    :rows="dataHubFilesRows"
-    :cols="DATAHUB_FILES_COLS"
+    :rows="filteredRows"
+    :cols="TOWN_HALL_COLS"
     search
   >
     <!-- Header: Name -->
@@ -28,7 +36,7 @@ import { dataHubFilesRows, DATAHUB_FILES_COLS } from '~/utils/constants';
     </template>
     <template #col-actions="{ row }">
       <ABtn variant="light" class="rounded-full" color="primary" icon="i-bx-send">
-        Request Access
+        Join Room
     </ABtn>
     </template>
 </ADataTable>

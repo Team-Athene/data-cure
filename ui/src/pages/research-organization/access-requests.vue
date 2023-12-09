@@ -14,18 +14,8 @@ const filteredRows = computed(() => {
 <template>
    <div>
     <div class="font-semibold text-xl mb-10">
-      Access Management
+      Access Requests
     </div>
-
-
-    <ATabs
-      key="default"
-      class="a-tabs-bordered"
-      :tabs="REQUEST_TABS"
-    >
-
-    <template #received>
-      <div mt-8>
     <ADataTable
     :rows="filteredRows"
     :cols="REQUESTS_COLS"
@@ -69,42 +59,6 @@ const filteredRows = computed(() => {
     </ABtn>
     </template>
 </ADataTable>
-   </div>
-
-    </template>
-    <template #sent>
-      
-      <div mt-8>
-    <ADataTable
-    :rows="permissionRows"
-    :cols="PERMISSIONS_COLS"
-    search
-  >
-    <template #col-requestedUser="{ row }">
-      <ABtn variant="outline" icon="i-bx-copy">
-      <span font-bold>
-        {{ row.requestedUser?.slice(0, 6) }}...{{ row.requestedUser?.slice(-4) }}
-      </span>
-    </ABtn>
-    </template>
-    <template #col-status="{ row }">
-    <AChip
-      :color="row.status==='Approved' ? 'success' : row.status==='Rejected' ? 'danger' : 'warning'"
-      :icon="row.status==='Approved' ? 'i-bx-check' : row.status==='Rejected' ? 'i-bx-x' : 'i-bx-loader-alt'"
-    >
-      <span>{{row.status}}</span>
-    </AChip>
-    </template>
-    <template #col-actions="{ row }">
-      <ABtn variant="light" class="rounded-full" color="secondary" icon="i-bx-error">
-        Revoke Request
-    </ABtn>
-    </template>
-</ADataTable>
-  </div>
-    </template>
-  </ATabs>
-
 
 
    </div>

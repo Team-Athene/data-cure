@@ -1,14 +1,18 @@
 <script setup lang="ts">
+const route = useRoute()
+const isDoctorPanel = ref(false) 
 onMounted(() => {
-  console.log('default mounted')
+  if (route.path.includes('doctor-panel')) {
+    isDoctorPanel.value = true
+  }
 })
 </script>
 
 <template>
   <main text="left" class="div-class">
       <Header bg-color="PRIMARY" />
-      <SideBar/>
-    <div class="w-80% overflow-y-scroll px-20 pt-28">
+      <SideBar v-if="!isDoctorPanel"/>
+    <div class="overflow-y-scroll px-20 pt-28 pb-30" :class="[isDoctorPanel ? 'w-full' : 'w-80%']">
       <RouterView />
     </div>
   </main>

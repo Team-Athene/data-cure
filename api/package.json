@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.468.0",
+    "@lighthouse-web3/kavach": "^0.1.4",
     "@lighthouse-web3/sdk": "^0.3.0",
     "@nest-toolbox/http-logger-middleware": "^1.5.1",
     "@nestjs/common": "^10.0.0",

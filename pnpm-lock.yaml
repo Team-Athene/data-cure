@@ -13,6 +13,9 @@ importers:
       '@aws-sdk/client-s3':
         specifier: ^3.468.0
         version: 3.468.0
+      '@lighthouse-web3/kavach':
+        specifier: ^0.1.4
+        version: 0.1.4
       '@lighthouse-web3/sdk':
         specifier: ^0.3.0
         version: 0.3.0
