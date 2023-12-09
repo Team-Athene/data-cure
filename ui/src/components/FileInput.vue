@@ -51,12 +51,9 @@ function triggerFileInput() {
 function onFileInputChange(event: any) {
     if (event.target.files && event.target.files.length > 0) {
         const file = event.target.files[0]
-        console.log("🚀 ~ file: FileInput.vue:54 ~ onFileInputChange ~ file:", file)
-
         // Create a URL for the selected file and assign it to imageUrl
         imageUrl.value = URL.createObjectURL(file)
         fileName.value = file.name
-        console.log("🚀 ~ file: FileInput.vue:60 ~ onFileInputChange ~ file:", file)
         emit('update:modelValue', file)
     }
 }

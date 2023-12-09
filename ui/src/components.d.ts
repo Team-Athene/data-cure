@@ -14,6 +14,7 @@ declare module 'vue' {
     AList: typeof import('anu-vue')['AList']
     ALoadingIcon: typeof import('anu-vue')['ALoadingIcon']
     AMenu: typeof import('anu-vue')['AMenu']
+    ARadio: typeof import('anu-vue')['ARadio']
     ASelect: typeof import('anu-vue')['ASelect']
     Button: typeof import('./components/Button.vue')['default']
     FileForm: typeof import('./components/FileForm.vue')['default']

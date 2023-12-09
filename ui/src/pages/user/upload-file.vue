@@ -1,38 +1,35 @@
 <script setup lang="ts">
 import { HealthData, FileData } from '~/utils/interfaces'
+import { retriveJWT } from '~/services/fetch'
 
 import {
   generateKey,
   uploadEncrypted,
-  textUploadEncrypted,
+  uploadText,
   publishRecord,
 } from '@lighthouse-web3/sdk'
 
 const submitFile = async (value: { data: HealthData; files: FileData[] }) => {
   try {
-    console.log(
-      '🚀 ~ file: upload-file.vue:8 ~ submitFile ~ value.files.length:',
-      !value.files[0].fileName,
-    )
     if (value.files[0]?.file === null) {
       console.error('No file selected.')
       return
     }
     const apiKey = import.meta.env.VITE_LIGHTHOUSE_API_KEY
-    const { address, signature } = (await useSignMessage()) as {
-      signature: string
-      address: string
-    }
+    const publicKey = import.meta.env.VITE_LIGHTHOUSE_PUBLIC_KEY
+
+    const jwt = await retriveJWT()
     const fileOutput = await uploadEncrypted(
       value.files,
       apiKey,
-      address,
-      signature,
+      publicKey,
+      jwt,
       (data) => {
         console.log('🚀 ~ file: upload-file.vue:32 ~ submitFile ~ data', data)
       },
     )
     console.log('Encrypted File Status:', fileOutput.data[0])
+
     const user = JSON.stringify(
       {
         user: value.data,
@@ -43,15 +40,9 @@ const submitFile = async (value: { data: HealthData; files: FileData[] }) => {
     )
     console.log("🚀 ~ file: upload-file.vue:44 ~ submitFile ~ user:", user)
 
-    const { signature:userSig } = (await useSignMessage()) as {
-      signature: string
-      address: string
-    }
-    const userOutput = await textUploadEncrypted(
+    const userOutput = await uploadText(
       user,
       apiKey,
-      address,
-      userSig,
       'user'
     )
     console.log(

@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { APP } from 'app/shared/environment'
 
 async function boostrap() {
-  const logger = new Logger('Novis Api')
+  const logger = new Logger('Data Cure Api')
 
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
@@ -14,7 +14,7 @@ async function boostrap() {
   app.useGlobalPipes(new ValidationPipe({ transform: true }))
 
   const config = new DocumentBuilder()
-    .setTitle('Novis api')
+    .setTitle('Data Cure api')
     .setDescription('main api')
     .setVersion('1.0')
     .build()
@@ -34,5 +34,4 @@ async function boostrap() {
   logger.log(`Swagger Stats at http://localhost:${APP.PORT}/stats`)
   logger.verbose('Api is listening...version 1.0.0')
 }
-
 boostrap()
