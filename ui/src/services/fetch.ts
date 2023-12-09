@@ -12,11 +12,21 @@ export const retriveJWT = async () => {
   return jwt
 }
 
-
 export const generateIPNS = async () => {
   const { ipnsName } = await api.lhFileControllerGenerateIpns({
     baseUrl,
     format,
   })
   return ipnsName
+}
+
+export const publishIPNSRecord = async (ipnsName: string, userCid: string) => {
+  const res = await api.lhFileControllerPublishIpnsRecord(
+    { ipnsName, userCid },
+    {
+      baseUrl,
+      format,
+    },
+  )
+  return res
 }

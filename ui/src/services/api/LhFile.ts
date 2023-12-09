@@ -10,8 +10,10 @@
  */
 
 import {
+  IPNSDto,
   LhFileControllerGenerateIpnsData,
   LhFileControllerMigrateS3Data,
+  LhFileControllerPublishIpnsRecordData,
   LhFileControllerRetriveJwtData,
   LhFileControllerUploadUserData,
   S3Dto,
@@ -72,13 +74,32 @@ export class LhFile<
    * No description
    *
    * @tags LHFile
+   * @name LhFileControllerPublishIpnsRecord
+   * @request POST:/lh-file/publish-ipns
+   * @response `201` `LhFileControllerPublishIpnsRecordData`
+   */
+  lhFileControllerPublishIpnsRecord = (
+    data: IPNSDto,
+    params: RequestParams = {},
+  ) =>
+    this.request<LhFileControllerPublishIpnsRecordData, any>({
+      path: `/lh-file/publish-ipns`,
+      method: 'POST',
+      body: data,
+      type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags LHFile
    * @name LhFileControllerGenerateIpns
-   * @request GET:/lh-file/ipns
+   * @request GET:/lh-file/generate-ipns
    * @response `200` `LhFileControllerGenerateIpnsData`
    */
   lhFileControllerGenerateIpns = (params: RequestParams = {}) =>
     this.request<LhFileControllerGenerateIpnsData, any>({
-      path: `/lh-file/ipns`,
+      path: `/lh-file/generate-ipns`,
       method: 'GET',
       ...params,
     })

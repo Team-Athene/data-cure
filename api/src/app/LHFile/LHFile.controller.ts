@@ -24,8 +24,13 @@ export class LHFileController {
     return await this.LHFileService.retriveJWT()
   }
 
-  @Post('ipns')
-  async generateIPNSRecord(@Body() ipnsData: IPNSDto) {
-    return await this.LHFileService.generateIPNS(ipnsData.userCid)
+  @Post('publish-ipns')
+  async publishIPNSRecord(@Body() ipnsData: IPNSDto) {
+    return await this.LHFileService.publishIPNSRecord(ipnsData)
+  }
+
+  @Get('generate-ipns')
+  async generateIPNS() {
+    return await this.LHFileService.generateIPNS()
   }
 }

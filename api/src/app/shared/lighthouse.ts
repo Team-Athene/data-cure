@@ -2,6 +2,7 @@ import { generateKey,publishRecord } from '@lighthouse-web3/sdk'
 import { getAuthMessage, getJWT } from '@lighthouse-web3/kavach'
 import { privateKeyToAccount } from 'viem/accounts'
 import { LIGHTHOUSE, WALLET } from './environment'
+import { IPNSDto } from 'app/LHFile/dto/upload.dto'
 
 export class LightHouseService {
   key: string
@@ -33,8 +34,6 @@ export const generateIPNS = async () => {
 }
 
 
-export const publishIPNSRecord = async (userCid: string) => {
-  const { ipnsName } = await generateIPNS()
-  await publishRecord( userCid,ipnsName,LIGHTHOUSE.API_KEY)
-  return { ipnsName }
+export const publishIPNSRecord = async (ipnsData:IPNSDto) => {
+  return await publishRecord( ipnsData.userCid,ipnsData.ipnsName,LIGHTHOUSE.API_KEY)
 }

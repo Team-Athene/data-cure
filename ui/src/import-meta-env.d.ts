@@ -4,6 +4,7 @@ interface ImportMetaEnv {
   readonly VITE_LIGHTHOUSE_API_KEY: string;
   readonly VITE_INFURA_API_KEY: string;
   readonly VITE_API_URL: string;
+  readonly VITE_LIGHTHOUSE_PUBLIC_KEY: string;
 }
 
 interface ImportMeta {

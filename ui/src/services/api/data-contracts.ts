@@ -9,9 +9,18 @@
  * ---------------------------------------------------------------
  */
 
+export interface IPNSDto {
+  /** @example "1234abcd" */
+  ipnsName: string
+  /** @example "QmYm1QZ1Dq6D2Kj7Z4BQ9wvJZgZ8J3YQW5Y4U1S1L2D2Kj7Z4BQ9wvJZgZ8J3YQW5Y4U1S1L" */
+  userCid: string
+}
+
 export type LhFileControllerGenerateIpnsData = any
 
 export type LhFileControllerMigrateS3Data = any
+
+export type LhFileControllerPublishIpnsRecordData = object
 
 export type LhFileControllerRetriveJwtData = any
 

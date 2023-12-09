@@ -58,4 +58,9 @@ export class IPNSDto {
   @IsString()
   @IsNotEmpty()
   userCid: string
+
+  @ApiProperty({ example: '1234abcd' })
+  @IsString()
+  @IsNotEmpty()
+  ipnsName: string
 }

@@ -63,7 +63,38 @@
         ]
       }
     },
-    "/lh-file/ipns": {
+    "/lh-file/publish-ipns": {
+      "post": {
+        "operationId": "LHFileController_publishIPNSRecord",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IPNSDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "LHFile"
+        ]
+      }
+    },
+    "/lh-file/generate-ipns": {
       "get": {
         "operationId": "LHFileController_generateIPNS",
         "parameters": [],
@@ -170,6 +201,23 @@
         "required": [
           "s3",
           "user"
+        ]
+      },
+      "IPNSDto": {
+        "type": "object",
+        "properties": {
+          "userCid": {
+            "type": "string",
+            "example": "QmYm1QZ1Dq6D2Kj7Z4BQ9wvJZgZ8J3YQW5Y4U1S1L2D2Kj7Z4BQ9wvJZgZ8J3YQW5Y4U1S1L"
+          },
+          "ipnsName": {
+            "type": "string",
+            "example": "1234abcd"
+          }
+        },
+        "required": [
+          "userCid",
+          "ipnsName"
         ]
       }
     }

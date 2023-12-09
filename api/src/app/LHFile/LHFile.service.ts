@@ -4,17 +4,19 @@ import { AwsService } from 'app/shared/aws.service'
 import { LightHouseService,generateIPNS,publishIPNSRecord,retriveJWT} from 'app/shared/lighthouse'
 import { createWriteStream, existsSync, mkdirSync } from 'fs'
 import { join, dirname } from 'path'
-import { UploadDto } from './dto/upload.dto'
+import { IPNSDto, UploadDto } from './dto/upload.dto'
 import { LIGHTHOUSE } from 'app/shared/environment'
 
 @Injectable()
 export class LHFileService {
-  async generateIPNS(userCid:string) {
-    const {ipnsName} = await publishIPNSRecord(userCid)
-    return {ipnsName}
+  async publishIPNSRecord(ipnsData:IPNSDto) {
+    return await publishIPNSRecord(ipnsData)
   }
   retriveJWT() {
     return retriveJWT()
+  }
+  generateIPNS() {
+    return generateIPNS()
   }
   async uploadUser(Udata: UploadDto) {
     const s3 = new AwsService({
