@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { S3Dto } from './dto/s3.dto'
 import { AwsService } from 'app/shared/aws.service'
+import { unlinkSync } from 'fs';
 import {
   LightHouseService,
   generateIPNS,
   publishIPNSRecord,
   retriveJWT,
+uploadEncryptedFile,
 } from 'app/shared/lighthouse'
 import { createWriteStream, existsSync, mkdirSync } from 'fs'
 import { join, dirname } from 'path'
@@ -113,21 +115,29 @@ export class LHFileService {
           throw error
         })
 
-        data.pipe(writableStream)
 
-        // const files = readAllFilesFromDirectory(s3Hash)
-        // console.log("🚀 ~ file: LHFile.service.ts:119 ~ LHFileService ~ migrateS3 ~ files:", files)
-        // // convert ReadableStream to Blob
-        // const result = await lighthouse.upload(files)
-        // console.log(
-        //   '🚀 ~ file: LHFile.service.ts:110 ~ LHFileService ~ migrateS3 ~ result:',
-        //   result,
-        // )
-        // console.log(
-        //   '🚀 ~ file: file-migration.service.ts:33 ~ FileMigrationService ~ migrateS3 ~ result:',
-        //   result,
-        // )
-        // await s3.deleteItem(s3Cred.bucket, item.Key)
+        // Wait for the file to be completely written
+        await new Promise((resolve, reject) => {
+          writableStream.on('finish', resolve);
+          writableStream.on('error', reject);
+          data.pipe(writableStream);
+        });
+
+        try {
+          // const result = await lighthouse.upload(localFilePath);
+          const result = await uploadEncryptedFile(localFilePath);
+          console.log('Upload to Lighthouse result:', result);
+      
+          // Optionally delete the local file if no longer needed
+          unlinkSync(localFilePath);
+      
+          // Delete the file from S3 if required
+          // await s3.deleteItem(s3Cred.bucket, item.Key);
+      
+        } catch (error) {
+          console.error('Error uploading to Lighthouse:', error);
+        }
+      
       }
       // const data = s3.downloadFileAsStream(s3Cred.bucket, item.)
       // const readable = Readable.from(data.Body as any)

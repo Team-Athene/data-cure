@@ -11,19 +11,17 @@ export class LightHouseService {
   }
 
   // List items from a bucket
-  async upload(file: any[]) {
-    console.log("🚀 ~ file: lighthouse.ts:17 ~ LightHouseService ~ upload ~ file[0]:", file[0])
-    const sourcePath = URL.createObjectURL(file[0]);
-    console.log("🚀 ~ file: lighthouse.ts:18 ~ LightHouseService ~ upload ~ sourcePath:", sourcePath)
+  async upload(sourcePath: string) {
     return await upload(sourcePath, this.key)
   }
-
-  // async
 }
 
-export const uploadEncryptedFile = async (file: any) => {}
-
-
+export const uploadEncryptedFile = async (sourcePath: string) => {
+  const signedMessage = (await retriveJWT()).jwt as string
+  const response = await uploadEncrypted(sourcePath, LIGHTHOUSE.API_KEY, WALLET.PUBLIC_KEY, signedMessage)
+  console.log(response)
+  return response
+}
 
 export const retriveJWT = async () => {
   const account = privateKeyToAccount(WALLET.PRIVATE_KEY as any)
