@@ -8,11 +8,13 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     ABtn: typeof import('anu-vue')['ABtn']
+    ADataTable: typeof import('anu-vue')['ADataTable']
     AInput: typeof import('anu-vue')['AInput']
     ALoadingIcon: typeof import('anu-vue')['ALoadingIcon']
     ARadio: typeof import('anu-vue')['ARadio']
     ASelect: typeof import('anu-vue')['ASelect']
     ASwitch: typeof import('anu-vue')['ASwitch']
+    ATabs: typeof import('anu-vue')['ATabs']
     Button: typeof import('./components/Button.vue')['default']
     FileForm: typeof import('./components/FileForm.vue')['default']
     FileInput: typeof import('./components/FileInput.vue')['default']
@@ -20,5 +22,6 @@ declare module 'vue' {
     LoginBtn: typeof import('./components/LoginBtn.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SideBar: typeof import('./components/SideBar.vue')['default']
   }
 }

@@ -3,7 +3,7 @@ import { FileData } from '~/utils/interfaces';
 
 
 interface IFileInputProps {
-    modelValue?: string
+    value?: FileData
     dataType?: 'Text' | 'ArrayBuffer' | 'Blob'
     disabled?: boolean
 }

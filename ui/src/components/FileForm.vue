@@ -64,7 +64,7 @@ function submit() {
 
 <template>
     <div class="max-w-200 main-register-div">
-        <div class="grid grid-cols-2 text-left gap-x-4 m-auto">
+        <div class="grid grid-cols-2 text-left gap-x-4 m-0">
             <AInput class="my-2" label="Aadhar Number" v-model="fileData.aadharNumber" placeholder="Aadhar Number" />
             <ASelect class="my-2" label="Age" placeholder="Select Age" v-model="fileData.age" :options="AGE_OPTIONS" />
             <ASelect class="my-2" label="Gender" placeholder="Select Gender" v-model="fileData.gender"
@@ -129,7 +129,7 @@ function submit() {
           v-for="(_, id) of filesList"
           class="flex mb-2 justify-start w-[62%] items-end gap-x-3"
         >
-          <FileInput  @update:modelValue="fileUpload($event, id)" v-model="filesList[id]" dataType="Blob" />
+          <FileInput  @update:modelValue="fileUpload($event, id)" :value="filesList[id]" dataType="Blob" />
           <ABtn icon-only class="w-12 h-12" icon="i-bx-plus" @click="addFile" />
           <ABtn
             icon-only
@@ -167,7 +167,7 @@ function submit() {
         />
       </div>
     </div>
-    <div class="flex justify-end items-center space-x-4">
+    <div class="flex justify-end items-center space-x-4 mt-12">
       <ABtn class="rounded-full px-6" variant="outline" color="primary">
         Cancel
         <ALoadingIcon icon="i-bx-x" />
@@ -183,7 +183,7 @@ function submit() {
 
 <style scoped>
 .main-register-div {
-  @apply items-center m-auto py-20;
+  @apply items-center !m-0;
 }
 </style>
 
