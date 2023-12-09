@@ -1,15 +1,23 @@
 import { Injectable } from '@nestjs/common'
 import { S3Dto } from './dto/s3.dto'
 import { AwsService } from 'app/shared/aws.service'
-import { LightHouseService } from 'app/shared/lighthouse'
+import { LightHouseService,generateIPNS,publishIPNSRecord,retriveJWT} from 'app/shared/lighthouse'
 import { createWriteStream, existsSync, mkdirSync } from 'fs'
 import { join, dirname } from 'path'
-import { UploadDto } from './dto/upload.dto'
+import { IPNSDto, UploadDto } from './dto/upload.dto'
 import { LIGHTHOUSE } from 'app/shared/environment'
-import { date } from 'zod'
 
 @Injectable()
-export class FileMigrationService {
+export class LHFileService {
+  async publishIPNSRecord(ipnsData:IPNSDto) {
+    return await publishIPNSRecord(ipnsData)
+  }
+  retriveJWT() {
+    return retriveJWT()
+  }
+  generateIPNS() {
+    return generateIPNS()
+  }
   async uploadUser(Udata: UploadDto) {
     const s3 = new AwsService({
       accessKeyId: Udata.s3.accessKeyId,

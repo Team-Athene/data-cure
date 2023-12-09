@@ -51,3 +51,16 @@ export class UploadDto {
   @ApiProperty({ type: UserDto })
   user!: UserDto
 }
+
+
+export class IPNSDto {
+  @ApiProperty({ example: 'QmYm1QZ1Dq6D2Kj7Z4BQ9wvJZgZ8J3YQW5Y4U1S1L2D2Kj7Z4BQ9wvJZgZ8J3YQW5Y4U1S1L' })
+  @IsString()
+  @IsNotEmpty()
+  userCid: string
+
+  @ApiProperty({ example: '1234abcd' })
+  @IsString()
+  @IsNotEmpty()
+  ipnsName: string
+}

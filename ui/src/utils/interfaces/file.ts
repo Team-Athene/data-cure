@@ -12,6 +12,6 @@ export type HealthData = {
 
 export type FileData = {
     fileName: string,
-    file: any,
-    fileData: any
+    file: File  ,
+    fileData: string | ArrayBuffer | Blob 
 }

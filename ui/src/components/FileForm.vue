@@ -44,28 +44,20 @@ const filesList = ref<FileData[]>([{
   fileData: null,
 }])
 const fileUpload = (file: FileData, index: number) => {
-  console.log(file)
+  filesList.value[index] = file
 }
-const addFile = () => {
-  filesList.value.push({
-    file: null,
-    fileName: '',
-    fileData: null,
-  })
-}
-
-// const retrieveMetaDataFromIPFS = async (file: FileData) => {
-//   const url = 'https://ipfs.io/ipfs/bafybeifhiiruosagjq666uz6u3oj7y7xlb7umhrvdxbhhphw55sqo5v5du/blob'
-//   const response = await fetch(url)
-//   console.log("🚀 ~ file: FileForm.vue:58 ~ retrieveMetaDataFromIPFS ~ response:", response)
-//   console.log("🚀 ~ file: FileForm.vue:60 ~ retrieveMetaDataFromIPFS ~ response.json():", response.json())
-//   return response.json()
+// const addFile = () => {
+//   filesList.value.push({
+//     file: null,
+//     fileName: '',
+//     fileData: null,
+// })
 // }
 
-const removeFile = (index: number) => {
-  if (index === 0) return
-  filesList.value.splice(index, 1)
-}
+// const removeFile = (index: number) => {
+//   if (index === 0) return
+//   filesList.value.splice(index, 1)
+// }
 function submit() {
   emit('submit', { data: fileData, files: filesList.value })
 }
@@ -119,27 +111,20 @@ const openFile = () => {
         </div>
       </div>
 
-      <div v-if="type === 'read-only'">
-        <div v-if="filesList.length === 0">
-          <span>No Files Attached</span>
-        </div>
-        <div v-else>
-          <div v-for="(_, id) of filesList" class="flex mb-2 justify-start w-[62%] items-end gap-x-3">
-            <span>{{ filesList[id].fileName }}</span>
-          </div>
-          <div class="flex mb-2 justify-start w-[62%] items-end gap-x-3">
-            <AInput disabled class="my-2" label="File 1" v-model="ipfsUrl" placeholder="File 1" />
-            <ABtn
-              icon-only
-              class="w-12 h-12 my-2" icon="i-bx-windows" @click="openFile" />
-          </div>
-        </div>
-      </div>
-      <div v-else-if="isMigrated === 'file'">
-        <div v-for="(_, id) of filesList" class="flex mb-2 justify-start w-[62%] items-end gap-x-3">
-          <FileInput @update:modelValue="fileUpload($event, id)" :value="filesList[id]" dataType="ArrayBuffer" />
-          <ABtn icon-only class="w-12 h-12" icon="i-bx-plus" @click="addFile" />
-          <ABtn icon-only color="danger" class="w-12 h-12" icon="i-bx-x" @click="removeFile(id)" />
+      <div v-if="isMigrated === 'file'">
+        <div
+          v-for="(_, id) of filesList"
+          class="flex mb-2 justify-start w-[100%] items-end gap-x-3"
+        >
+          <FileInput  @update:modelValue="fileUpload($event, id)" :value="filesList[id]" dataType="Blob" />
+          <!-- <ABtn icon-only class="w-12 h-12" icon="i-bx-plus" @click="addFile" />
+          <ABtn
+            icon-only
+            color="danger"
+            class="w-12 h-12"
+            icon="i-bx-x"
+            @click="removeFile(id)"
+          /> -->
         </div>
       </div>
       <div v-else>

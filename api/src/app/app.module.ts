@@ -1,10 +1,10 @@
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common'
 import { HttpLoggerMiddleware } from '@nest-toolbox/http-logger-middleware'
-import { FileMigrationModule } from './file-migration/file-migration.module'
 import { APP } from './shared/environment'
+import { LHFileModule } from './LHFile/LHFile.module'
 
 @Module({
-  imports: [FileMigrationModule],
+  imports: [LHFileModule],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer): void {

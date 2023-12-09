@@ -24,7 +24,7 @@ const netWorks = Object.keys(NETWORKS).map((a)=>{
 })
 
 const safeAuthInitOptions: SafeAuthInitOptions = {
-  enableLogging: true,
+  enableLogging: false,
   showWidgetButton: true,
   chainConfig: {
     chainId: '0x13881',

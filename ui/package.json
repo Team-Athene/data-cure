@@ -11,7 +11,8 @@
     "preview-https": "serve dist",
     "up": "taze major -I",
     "gen:env": "npx import-meta-env-typescript -x .env.example -o ./src ",
-    "postinstall": "pnpm gen:env",
+    "swagger": "node scripts/fetchAndWrite.cjs && pnpm dlx swagger-typescript-api -p ./swagger.json -o ./src/services/api --responses --union-enums --route-types  --extract-request-params --extract-request-body --extract-response-body   --unwrap-response-data --sort-types --modular  --extract-enums",
+    "postinstall": "pnpm gen:env && pnpm run swagger",
     "sizecheck": "npx vite-bundle-visualizer"
   },
   "dependencies": {
