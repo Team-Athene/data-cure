@@ -8,6 +8,7 @@ import {
 } from '@safe-global/auth-kit'
 import { storeToRefs } from 'pinia';
 import { createWalletClient, custom, getContract } from "viem";
+import { uploadData } from '~/services/web3.service';
 interface ILoginProps {
   type: 'header' | 'register'
 }
@@ -105,11 +106,16 @@ watch(safeAuthPack, async () => {
         publicClient: walletClient.value,
         abi: ContractABIs.DataCure,
       }),
+      DataCureAccess: getContract({
+        address: ContractAddresses.DataCureAccess[userInfo.value.network] as any,
+        publicClient: walletClient.value,
+        abi: ContractABIs.DataCureAccess,
+      }),
     }
     let hashem = hashEmail(userInfo.value.email);
     let result = await contracts.value?.DataCure.read.userToken([hashem])
     if(result == 0 ){
-      router.push('/registration')
+      // router.push('/registration')
     }
 
   } else {
