@@ -122,12 +122,14 @@ watch(selectedNetwork, async () => {
 <template>
   <div v-if="type === 'header'">
 
-    <ABtn color="info" class="rounded-full px-6 font-bold mr-4 w-36">
+    <ABtn color="info" class="rounded-full px-6 font-bold mr-4 truncate w-36">
       <AMenu trigger="hover">
         <AList v-model="selectedNetwork"  class="[--a-list-gap:0.25rem]" :items="netWorks" />
       </AMenu>
+      <div truncate max-w-20>
 
-      {{ NETWORKS[selectedNetwork].displayName }}
+        {{ NETWORKS[selectedNetwork].displayName }}
+      </div>
       <ALoadingIcon icon="i-bx-bxs-component" />
     </ABtn>
     <ABtn v-if="isAuthenticated" class="rounded-full px-6 font-bold" color="primary" @click="disconnectWallet()">
