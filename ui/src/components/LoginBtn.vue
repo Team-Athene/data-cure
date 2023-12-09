@@ -6,14 +6,14 @@ SafeAuthInitOptions,
 SafeAuthPack,
 } from '@safe-global/auth-kit';
 import { storeToRefs } from 'pinia';
-import { createWalletClient, custom, getContract } from "viem";
-import { hashEmail } from "~/services/email-hash.service";
+import { createPublicClient, createWalletClient, custom, getContract, http } from "viem";
+import { hashEmail } from '~/services/email-hash.service';
 interface ILoginProps {
   type: 'header' | 'register'
 }
 defineProps<ILoginProps>()
 
-const { userInfo, walletClient, contracts } = storeToRefs(useWeb3Store())
+const { userInfo, walletClient, contracts, publicClient } = storeToRefs(useWeb3Store())
 const { $reset: userReset } = useWeb3Store();
 
 const router = useRouter();
@@ -97,26 +97,28 @@ watch(safeAuthPack, async () => {
     walletClient.value = createWalletClient({
       account: userInfo.value.walletAddress as any,
       chain: Chains[userInfo.value.network],
+      account: userInfo.value.walletAddress as any,
       transport: custom(safeAuthPack.value.getProvider() as any)
     })
-
+    publicClient.value = createPublicClient({
+      chain:  Chains[userInfo.value.network],
+      transport: http()
+    })
     contracts.value = {
       DataCure: getContract({
         address: ContractAddresses.DataCure[userInfo.value.network] as any,
-        publicClient: walletClient.value,
+        publicClient: publicClient.value,
+        walletClient: walletClient.value,
         abi: ContractABIs.DataCure,
-      }),
-      DataCureAccess: getContract({
-        address: ContractAddresses.DataCureAccess[userInfo.value.network] as any,
-        publicClient: walletClient.value,
-        abi: ContractABIs.DataCureAccess,
-      }),
+      }) as any,
     }
     let hashem = hashEmail(userInfo.value.email);
     let result = await contracts.value?.DataCure.read.userToken([hashem])
-    // if(result == 0 ){
-    //   router.push('/registration')
-    // }
+    if(result == 0 ){
+      router.push('/registration')
+    }else{
+      userInfo.value.SbtId = result;
+    }
 
   } else {
     userReset();
@@ -136,18 +138,7 @@ watch(selectedNetwork, async () => {
   }
 })
 
-// async function onFileChanged($event: Event) {
-//   const target = $event.target as HTMLInputElement;
-//   if (target && target.files) {
-//      const fileReader = new FileReader()
-//     fileReader.readAsBinaryString(target.files[0]);
-//      fileReader.onload = async e => {
-//       if (e.target) {
-//         //////
-//       }
-//     }
-//   }
-// }
+
 
 // watch(address, async () => {
 //   if (address.value?.toLowerCase() === '0x8ed44a4a001660F4Fc4510bd580880e0fca7Ef00'.toLowerCase()) {
