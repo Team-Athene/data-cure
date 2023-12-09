@@ -1,0 +1,177 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/lh-file/s3": {
+      "post": {
+        "operationId": "LHFileController_migrateS3",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/S3Dto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "LHFile"
+        ]
+      }
+    },
+    "/lh-file/upload-user": {
+      "post": {
+        "operationId": "LHFileController_uploadUser",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "LHFile"
+        ]
+      }
+    },
+    "/lh-file/jwt": {
+      "get": {
+        "operationId": "LHFileController_retriveJWT",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "LHFile"
+        ]
+      }
+    },
+    "/lh-file/ipns": {
+      "get": {
+        "operationId": "LHFileController_generateIPNS",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "LHFile"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Data Cure api",
+    "description": "main api",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "S3Dto": {
+        "type": "object",
+        "properties": {
+          "bucket": {
+            "type": "string",
+            "example": "datacure-dapp"
+          },
+          "key": {
+            "type": "string",
+            "example": "8Qyo70ZCgaoOozu4Zgnit79NUiEaZsYj8iC7GNS9"
+          },
+          "region": {
+            "type": "string",
+            "example": "ap-south-1"
+          },
+          "accessKeyId": {
+            "type": "string",
+            "example": "AKIAZB27L43CC3JJNZX2"
+          }
+        },
+        "required": [
+          "bucket",
+          "key",
+          "region",
+          "accessKeyId"
+        ]
+      },
+      "UserDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Dennis Sam"
+          },
+          "aadhar": {
+            "type": "number",
+            "example": "123443218765"
+          },
+          "age": {
+            "type": "string",
+            "example": "31-45"
+          },
+          "gender": {
+            "type": "string",
+            "example": "Male"
+          },
+          "bloodGroup": {
+            "type": "string",
+            "example": "B+"
+          },
+          "ethnicity": {
+            "type": "string",
+            "example": "Caucasian"
+          },
+          "sale": {
+            "type": "boolean",
+            "example": "true"
+          }
+        },
+        "required": [
+          "name",
+          "aadhar",
+          "age",
+          "gender",
+          "bloodGroup",
+          "ethnicity",
+          "sale"
+        ]
+      },
+      "UploadDto": {
+        "type": "object",
+        "properties": {
+          "s3": {
+            "$ref": "#/components/schemas/S3Dto"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserDto"
+          }
+        },
+        "required": [
+          "s3",
+          "user"
+        ]
+      }
+    }
+  }
+}
