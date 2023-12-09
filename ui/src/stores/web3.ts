@@ -1,6 +1,5 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { WalletClient, GetContractReturnType } from 'viem';
-import type { Abi,PublicClient,WalletClient as TWalletClient,Address } from 'viem';
+import { WalletClient } from 'viem';
 // import { ContractAddresses } from '~/utils/constants';
 
 type UserInfo =  {
@@ -21,6 +20,7 @@ type Contract = {
 
 type Contracts = {
     DataCure: Contract;
+    DataCureAccess: Contract;
 }
 export const useWeb3Store = defineStore('web3', () => {
 

@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AAlert: typeof import('anu-vue')['AAlert']
     ABtn: typeof import('anu-vue')['ABtn']
+    ACard: typeof import('anu-vue')['ACard']
     ADataTable: typeof import('anu-vue')['ADataTable']
     ADialog: typeof import('anu-vue')['ADialog']
     AInput: typeof import('anu-vue')['AInput']
