@@ -1,6 +1,11 @@
 <script setup lang="ts">
-import { townHallRows, TOWN_HALL_COLS } from '~/utils/constants'
-import { initPushChat } from '../../composables/pushchat'
+import { PushAPI } from "@pushprotocol/restapi";
+import { TOWN_HALL_COLS, townHallRows } from '~/utils/constants';
+
+import { storeToRefs } from "pinia";
+const {walletClient} = storeToRefs(useWeb3Store());
+
+const push = ref<PushAPI | null>(null);
 
 const filteredRows = townHallRows.map((row) => {
   return {
@@ -9,7 +14,7 @@ const filteredRows = townHallRows.map((row) => {
   }
 })
 onMounted(async() => {
- await initPushChat()
+  push.value = await usePush()
 })
 
 </script>
@@ -24,19 +29,10 @@ onMounted(async() => {
       </template>
       <!-- Column: Name -->
       <template #col-fileName="{ row }">
-        <a
-          :href="`/user/my-file?cid=${row.cid}`"
-          class="text-primary hover:underline"
-          >{{ row.fileName }}</a
-        >
-      </template>
-      <template #col-actions="{ row }">
-        <ABtn
-          variant="light"
-          class="rounded-full"
-          color="primary"
-          icon="i-bx-send"
-        >
+                <a :href="`/user/my-file?cid=${row.cid}`" class="text-primary hover:underline">{{ row.fileName }}</a>
+            </template>
+            <template #col-actions="{ row }">
+                <ABtn variant="light" class="rounded-full" color="primary" icon="i-bx-send">
           Join Room
         </ABtn>
       </template>
