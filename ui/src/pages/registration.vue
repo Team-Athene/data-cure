@@ -50,6 +50,19 @@ const fileData = reactive({
           Register Profile
           <ALoadingIcon icon="i-bx-log-in" />
         </ABtn>
+
+    <AAlert
+      color="success"
+      variant="outline"
+    >
+      Fruitcake I love liquorice apple pie croissant.
+    </AAlert>
+    <AAlert
+      color="warning"
+      variant="outline"
+    >
+      Fruitcake I love liquorice apple pie croissant.
+    </AAlert>
       </div>
     </div>
   </div>
