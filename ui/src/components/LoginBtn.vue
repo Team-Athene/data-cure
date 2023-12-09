@@ -16,7 +16,7 @@ defineProps<ILoginProps>()
 const selectedNetwork = ref(NETWORKS[0])
 
 const safeAuthInitOptions: SafeAuthInitOptions = {
-  enableLogging: true,
+  enableLogging: false,
   showWidgetButton: true,
   chainConfig: {
     chainId: '0x13881',

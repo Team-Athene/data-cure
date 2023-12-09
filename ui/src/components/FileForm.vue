@@ -43,7 +43,7 @@ const filesList = ref<FileData[]>([{
     fileData: null,
 }])
 const fileUpload = (file: FileData, index: number) => {
-  console.log(file)
+  filesList.value[index] = file
 }
 const addFile = () => {
   filesList.value.push({
@@ -129,7 +129,7 @@ function submit() {
           v-for="(_, id) of filesList"
           class="flex mb-2 justify-start w-[62%] items-end gap-x-3"
         >
-          <FileInput  @update:modelValue="fileUpload($event, id)" :value="filesList[id]" dataType="ArrayBuffer" />
+          <FileInput  @update:modelValue="fileUpload($event, id)" :value="filesList[id]" dataType="Blob" />
           <ABtn icon-only class="w-12 h-12" icon="i-bx-plus" @click="addFile" />
           <ABtn
             icon-only

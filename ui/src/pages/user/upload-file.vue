@@ -1,8 +1,23 @@
 <script setup lang="ts">
 import { HealthData, FileData } from '~/utils/interfaces';
 
-const submitFile = (value: {data: HealthData, files: FileData[]}) => {
+import {generateKey,uploadEncrypted} from '@lighthouse-web3/sdk';
+
+const submitFile = async (value: {data: HealthData, files: FileData[]}) => {
   console.log("🚀 ~ file: upload-file.vue:32 ~ submitFile ~ value", value)
+  const  { address,signature} = (await useSignMessage()) as { signature: string; address: string;}
+  const apiKey = import.meta.env.VITE_LIGHTHOUSE_API_KEY
+  // const {ipnsName,ipnsId} = (await generateKey(apiKey)).data
+
+  const output = await uploadEncrypted(
+        value.files[0].file,
+        apiKey,
+        address,
+        signature,
+        (data)=>{console.log("🚀 ~ file: upload-file.vue:32 ~ submitFile ~ data", data)},
+      )
+      console.log("Encrypted File Status:", output)
+  
 }
 </script>
 
