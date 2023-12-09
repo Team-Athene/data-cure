@@ -28,6 +28,6 @@ defineProps<IHeaderProps>()
 
 <style scoped>
 .main-div {
-  @apply fixed w-full flex justify-between items-center text-primary font-tsukimi px-6 py-3;
+  @apply fixed z-10 w-full flex justify-between items-center text-primary px-6 py-3;
 }
 </style>

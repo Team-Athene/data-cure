@@ -2,19 +2,15 @@ import { formatEther, parseEther } from "viem";
 import hre from "hardhat";
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = BigInt(currentTimestampInSeconds + 60);
 
-  const lockedAmount = parseEther("0.001");
-
-  const lock = await hre.viem.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
+  const verifier = await hre.viem.deployContract("Verifier");
+  const dataCure = await hre.viem.deployContract("DataCure", [verifier.address]);
+  console.log(
+    `Verifier deployed to ${verifier.address}`
+  );
 
   console.log(
-    `Lock with ${formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
+    `DataCure deployed to ${dataCure.address}`
   );
 }
 

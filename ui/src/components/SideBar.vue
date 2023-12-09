@@ -1,42 +1,25 @@
 <script setup lang="ts">
+import { USER_TABS, HOSPITAL_TABS, RESEARCHER_TABS } from '~/utils/constants';
+
 const route = useRoute()
 const router = useRouter()
-const userTabs = [
-  { title: 'File Management', icon: 'i-bx-folder-open', link: '/user' },
-  { title: 'File Upload', icon: 'i-bx-paperclip', link: '/user/upload-file' },
-  { title: 'Access Requests', icon: 'i-bx-user-check', link: '/user/access-requests' },
-  { title: 'Data Hub', icon: 'i-bx-search-alt', link: '/user/data-hub' },
-]
-const hospitalTabs = [
-  { title: 'File Management', icon: 'i-bx-folder-open', link: '/health-organization' },
-  { title: 'File Upload', icon: 'i-bx-paperclip', link: '/health-organization/upload-file' },
-  { title: 'Access Requests', icon: 'i-bx-user-check', link: '/health-organization/access-requests' },
-  { title: 'Manage Doctors', icon: 'i-bx-list-ul', link: '/health-organization/manage-doctors' },
-  { title: 'Data Hub', icon: 'i-bx-search-alt', link: '/health-organization/data-hub' },
-]
-const researcherTabs = [
-  { title: 'Accessed Files', icon: 'i-bx-folder-open', link: '/research-organization' },
-  { title: 'Requested Accesses', icon: 'i-bx-user-check', link: '/research-organization/access-requests' },
-  { title: 'Data Hub', icon: 'i-bx-search-alt', link: '/research-organization/data-hub' },
-  { title: 'Town Hall', icon: 'i-bx-building-house', link: '/research-organization/town-hall' },
-]
 
 const currentTab = computed(() => {
   const currentRoute = route.path.split('/')[1]
   switch (currentRoute) {
     case 'user':
-      return userTabs
+      return USER_TABS
     case 'health-organization':
-      return hospitalTabs
+      return HOSPITAL_TABS
     case 'researcher':
-      return researcherTabs
+      return RESEARCHER_TABS
     default:
-      return userTabs
+      return USER_TABS
   }
 })
 
 const selectedTab = computed(() => {
-  return userTabs.find((tab) => tab.link === route.path)
+  return currentTab.value.find((tab) => tab.link === route.path)
 })
 </script>
 

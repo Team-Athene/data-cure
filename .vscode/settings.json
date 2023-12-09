@@ -88,5 +88,6 @@
   ],
   "unocss.root": "ui",
   "workbench.iconTheme": "bearded-icons",
-  "peacock.color": "#00B2B3"
+  "peacock.color": "#00B2B3",
+  "solidity.compileUsingRemoteVersion": "v0.8.20+commit.a1b79de6"
 }
