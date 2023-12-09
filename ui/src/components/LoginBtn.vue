@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useAccount, useConnect, useDisconnect } from 'use-wagmi'
 import { InjectedConnector } from 'use-wagmi/connectors/injected'
+import { NETWORKS } from '~/utils/constants'
 
 interface ILoginProps {
   type: 'header' | 'register'
@@ -11,6 +12,8 @@ const props = defineProps<ILoginProps>()
 const { address, isConnected } = useAccount()
 const { disconnect } = useDisconnect()
 const router = useRouter()
+
+const selectedNetwork = ref(NETWORKS[0])
 
 const { connect } = useConnect({
   connector: new InjectedConnector(),
@@ -44,8 +47,25 @@ watch(address, async () => {
 
 <template>
   <div v-if="type === 'header'">
-    <ABtn v-if="isConnected" color="primary" @click="disconnect()">
+
+    <ABtn
+      color="info"
+      class="rounded-full px-6 font-bold mr-4 w-36">
+    <AMenu trigger="hover">
+      <AList 
+      v-model="selectedNetwork"
+        class="[--a-list-gap:0.25rem]"
+      :items="NETWORKS" />
+    </AMenu>
+
+    {{ selectedNetwork }}
+      <ALoadingIcon icon="i-bx-bxs-component" />
+  </ABtn>
+    <ABtn v-if="isConnected" 
+      class="rounded-full px-6 font-bold"
+    color="primary" @click="disconnect()">
       Logout
+      <ALoadingIcon icon="i-bx-log-out" />
     </ABtn>
     <ABtn
       v-else
