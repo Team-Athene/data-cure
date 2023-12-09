@@ -6,8 +6,12 @@ import {
     GENDER_OPTIONS,
 } from '~/utils/constants'
 import logo from '~/../src/assets/logo/Logo.svg'
+import { storeToRefs } from 'pinia';
 
 const aadharFile = ref(undefined)
+
+
+const { userInfo } = storeToRefs(useWeb3Store())
 
 const fileData = reactive({
     aadharPassword: '',
@@ -28,8 +32,9 @@ const fileData = reactive({
       <div text-lg font-bold my-4>
         Register Your Profile
       </div>
-
-      <LoginBtn :type="'register'"/>
+  <div text-lg font-bold my-4>
+        Wallet Address: <span font-medium>{{ userInfo.walletAddress }}</span>
+        </div>
       <div grid grid-cols-2 gap-x-4 text-left >
             <ASelect class="my-2" label="Age" placeholder="Select Age" v-model="fileData.age" :options="AGE_OPTIONS" />
             <ASelect class="my-2" label="Gender" placeholder="Select Gender" v-model="fileData.gender"
@@ -50,6 +55,19 @@ const fileData = reactive({
           Register Profile
           <ALoadingIcon icon="i-bx-log-in" />
         </ABtn>
+
+    <AAlert
+      color="success"
+      variant="outline"
+    >
+      Fruitcake I love liquorice apple pie croissant.
+    </AAlert>
+    <AAlert
+      color="warning"
+      variant="outline"
+    >
+      Fruitcake I love liquorice apple pie croissant.
+    </AAlert>
       </div>
     </div>
   </div>

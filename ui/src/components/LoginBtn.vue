@@ -1,49 +1,51 @@
 <script setup lang="ts">
-import { NETWORKS } from '~/utils/constants'
-
+import { NETWORKS, Chains, ContractAddresses, ContractABIs } from '~/utils/constants'
+//import {prepareWriteDataCure} from '@datacure/abi/src';
+import { hashEmail } from "~/services/email-hash.service";
 import {
   SafeAuthPack,
   SafeAuthInitOptions,
 } from '@safe-global/auth-kit'
 import { storeToRefs } from 'pinia';
-
-const { userInfo } = storeToRefs(useUserStore())
-const { $reset: userReset } = useUserStore();
-
+import { createWalletClient, custom, getContract } from "viem";
 interface ILoginProps {
   type: 'header' | 'register'
 }
-
 defineProps<ILoginProps>()
 
-const selectedNetwork = ref('0x13881')
+const { userInfo, walletClient, contracts } = storeToRefs(useWeb3Store())
+const { $reset: userReset } = useWeb3Store();
+
+const router = useRouter();
+
+const selectedNetwork = ref(userInfo.value.network)
 //console.log(Object.keys(NETWORKS));
 
-const netWorks = Object.keys(NETWORKS).map((a)=>{ 
+const netWorks = Object.keys(NETWORKS).map((a) => {
   return { text: NETWORKS[a].displayName, value: a };
 })
 
-const safeAuthInitOptions: SafeAuthInitOptions = {
-  enableLogging: false,
-  showWidgetButton: true,
-  chainConfig: {
-    chainId: '0x13881',
-    rpcTarget: `https://rpc-mumbai.matic.today`,
-    blockExplorerUrl: `https://mumbai.polygonscan.com`,
-    ticker: `MATIC`,
-    displayName: `Polygon Mumbai`,
-    isTestnet: true
-
-
-  },
-}
 const safeAuthPack = shallowRef<SafeAuthPack>(new SafeAuthPack());
 const isAuthenticated = ref(false);
 
 onMounted(async () => {
   //const safeAuthPackInit = new SafeAuthPack();
-  await safeAuthPack.value.init(safeAuthInitOptions);
-  triggerRef(safeAuthPack)
+  const safeAuthInitOptions: SafeAuthInitOptions = {
+    enableLogging: true,
+    showWidgetButton: true,
+    chainConfig: {
+      chainId: '0x13881',
+      rpcTarget: `https://rpc-mumbai.matic.today`,
+      blockExplorerUrl: `https://mumbai.polygonscan.com`,
+      ticker: `MATIC`,
+      displayName: `Polygon Mumbai`,
+      isTestnet: true
+
+
+    },
+  }
+  await initSafeAuthPack(safeAuthInitOptions);
+
   // safeAuthPack.value = safeAuthPackInit;
 })
 
@@ -62,33 +64,70 @@ async function disconnectWallet() {
   triggerRef(safeAuthPack)
   console.log('disconnected')
 }
+async function initSafeAuthPack(safeAuthInitOptions: SafeAuthInitOptions) {
+  await safeAuthPack.value.init(safeAuthInitOptions);
+  triggerRef(safeAuthPack);
+  safeAuthPack.value?.subscribe('chainChanged', (eventData) => {
+    console.log('safeAuthPack:chainChanged', eventData)
+    if (NETWORKS[eventData]) {
+      userInfo.value.network = eventData;
+      selectedNetwork.value = eventData;
+
+    } else {
+      userInfo.value.network = 'none';
+      selectedNetwork.value = 'none';
+    }
+  }
+
+  );
+  safeAuthPack.value?.subscribe('accountsChanged', (eventData) => {
+    triggerRef(safeAuthPack)
+  });
+
+
+}
 watch(safeAuthPack, async () => {
 
   if (safeAuthPack.value!.isAuthenticated) {
-    userInfo.value.walletAddress = await safeAuthPack.value!.getAddress();
-   // const web3Provider = safeAuthPack.value.getProvider();
-    isAuthenticated.value = true;
 
+    isAuthenticated.value = true;
+    userInfo.value.walletAddress = await safeAuthPack.value!.getAddress();
     let { email } = await safeAuthPack.value!.getUserInfo();
     userInfo.value.email = email;
+    walletClient.value = createWalletClient({
+      chain: Chains[userInfo.value.network],
+      transport: custom(safeAuthPack.value.getProvider() as any)
+    })
+
+    contracts.value = {
+      DataCure: getContract({
+        address: ContractAddresses.DataCure[userInfo.value.network] as any,
+        publicClient: walletClient.value,
+        abi: ContractABIs.DataCure,
+      }),
+    }
+    let hashem = hashEmail(userInfo.value.email);
+    let result = await contracts.value?.DataCure.read.userToken([hashem])
+    if(result == 0 ){
+      router.push('/registration')
+    }
 
   } else {
     userReset();
     isAuthenticated.value = false;
   }
-  safeAuthPack.value?.subscribe('chainChanged', (eventData) =>
-    console.log('safeAuthPack:chainChanged', eventData)
-  )
+
 })
 
 watch(selectedNetwork, async () => {
-  const safeAuthInitOptionsNew: SafeAuthInitOptions = {
-    enableLogging: true,
-    showWidgetButton: true,
-    chainConfig: NETWORKS[selectedNetwork.value],
+
+
+
+  if (walletClient.value && selectedNetwork.value != 'none' && userInfo.value.network != selectedNetwork.value) {
+    userInfo.value.network = selectedNetwork.value;
+    await walletClient.value.switchChain({ id: Chains[userInfo.value.network].id })
+    triggerRef(safeAuthPack)
   }
-   await safeAuthPack.value.init(safeAuthInitOptionsNew);
-  triggerRef(safeAuthPack)
 })
 
 // async function onFileChanged($event: Event) {
@@ -122,14 +161,12 @@ watch(selectedNetwork, async () => {
 <template>
   <div v-if="type === 'header'">
 
-    <ABtn color="info" class="rounded-full px-6 font-bold mr-4 truncate w-36">
+    <ABtn v-if="isAuthenticated" :color="selectedNetwork == 'none' ? 'danger' : 'info'"
+      class="rounded-full px-6 font-bold mr-4 w-36">
       <AMenu trigger="hover">
-        <AList v-model="selectedNetwork"  class="[--a-list-gap:0.25rem]" :items="netWorks" />
+        <AList v-model="selectedNetwork" class="[--a-list-gap:0.25rem]" :items="netWorks" />
       </AMenu>
-      <div truncate max-w-20>
-
-        {{ NETWORKS[selectedNetwork].displayName }}
-      </div>
+      {{ selectedNetwork == 'none' ? 'Wrong NetWork' : NETWORKS[selectedNetwork].displayName }}
       <ALoadingIcon icon="i-bx-bxs-component" />
     </ABtn>
     <ABtn v-if="isAuthenticated" class="rounded-full px-6 font-bold" color="primary" @click="disconnectWallet()">
