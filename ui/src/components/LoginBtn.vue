@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NETWORKS, Chains, ContractAddresses, ContractABIs } from '~/utils/constants'
 //import {prepareWriteDataCure} from '@datacure/abi/src';
-import { hashEmail  } from "~/services/email-hash.service";
+import { hashEmail } from "~/services/email-hash.service";
 import {
   SafeAuthPack,
   SafeAuthInitOptions,
@@ -16,7 +16,7 @@ defineProps<ILoginProps>()
 const { userInfo, walletClient, contracts } = storeToRefs(useWeb3Store())
 const { $reset: userReset } = useWeb3Store();
 
-
+const router = useRouter();
 
 const selectedNetwork = ref(userInfo.value.network)
 //console.log(Object.keys(NETWORKS));
@@ -70,9 +70,9 @@ async function initSafeAuthPack(safeAuthInitOptions: SafeAuthInitOptions) {
   safeAuthPack.value?.subscribe('chainChanged', (eventData) => {
     console.log('safeAuthPack:chainChanged', eventData)
     if (NETWORKS[eventData]) {
-       userInfo.value.network = eventData;
+      userInfo.value.network = eventData;
       selectedNetwork.value = eventData;
-     
+
     } else {
       userInfo.value.network = 'none';
       selectedNetwork.value = 'none';
@@ -81,7 +81,7 @@ async function initSafeAuthPack(safeAuthInitOptions: SafeAuthInitOptions) {
 
   );
   safeAuthPack.value?.subscribe('accountsChanged', (eventData) => {
-    //triggerRef(safeAuthPack)
+    triggerRef(safeAuthPack)
   });
 
 
@@ -89,7 +89,7 @@ async function initSafeAuthPack(safeAuthInitOptions: SafeAuthInitOptions) {
 watch(safeAuthPack, async () => {
 
   if (safeAuthPack.value!.isAuthenticated) {
-   
+
     isAuthenticated.value = true;
     userInfo.value.walletAddress = await safeAuthPack.value!.getAddress();
     let { email } = await safeAuthPack.value!.getUserInfo();
@@ -99,19 +99,18 @@ watch(safeAuthPack, async () => {
       transport: custom(safeAuthPack.value.getProvider() as any)
     })
 
-    contracts.value ={
-      DataCure:  getContract({
+    contracts.value = {
+      DataCure: getContract({
         address: ContractAddresses.DataCure[userInfo.value.network] as any,
         publicClient: walletClient.value,
         abi: ContractABIs.DataCure,
       }),
-    } 
+    }
     let hashem = hashEmail(userInfo.value.email);
-    console.log(hashem);
-  let result = await contracts.value?.DataCure.read.userToken(hashem)
-      console.log('result:', result);
-
-    //let a = prepareWriteDataCure({fun})
+    let result = await contracts.value?.DataCure.read.userToken([hashem])
+    if(result == 0 ){
+      router.push('/registration')
+    }
 
   } else {
     userReset();
@@ -121,10 +120,10 @@ watch(safeAuthPack, async () => {
 })
 
 watch(selectedNetwork, async () => {
-  
-  
-  
-  if(walletClient.value && selectedNetwork.value != 'none' && userInfo.value.network != selectedNetwork.value){
+
+
+
+  if (walletClient.value && selectedNetwork.value != 'none' && userInfo.value.network != selectedNetwork.value) {
     userInfo.value.network = selectedNetwork.value;
     await walletClient.value.switchChain({ id: Chains[userInfo.value.network].id })
     triggerRef(safeAuthPack)
@@ -167,8 +166,6 @@ watch(selectedNetwork, async () => {
       <AMenu trigger="hover">
         <AList v-model="selectedNetwork" class="[--a-list-gap:0.25rem]" :items="netWorks" />
       </AMenu>
-      <div truncate max-w-20>
-
       {{ selectedNetwork == 'none' ? 'Wrong NetWork' : NETWORKS[selectedNetwork].displayName }}
       <ALoadingIcon icon="i-bx-bxs-component" />
     </ABtn>
