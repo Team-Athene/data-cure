@@ -19,12 +19,13 @@ const fileData = useFileSystemAccess({
     types: [{
         description: 'text',
         accept: {
-            'text/plain': ['.txt', '.html'],
+            'text/plain': ['.txt'],
             'application/pdf': ['.pdf'],
         },
     }],
     excludeAcceptAllOption: true,
 })
+
 whenever(fileData.data, () => {
     const file: FileData = {
         file: fileData.file.value,

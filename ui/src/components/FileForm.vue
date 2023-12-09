@@ -129,7 +129,7 @@ function submit() {
           v-for="(_, id) of filesList"
           class="flex mb-2 justify-start w-[62%] items-end gap-x-3"
         >
-          <FileInput  @update:modelValue="fileUpload($event, id)" :value="filesList[id]" dataType="Blob" />
+          <FileInput  @update:modelValue="fileUpload($event, id)" :value="filesList[id]" dataType="ArrayBuffer" />
           <ABtn icon-only class="w-12 h-12" icon="i-bx-plus" @click="addFile" />
           <ABtn
             icon-only
