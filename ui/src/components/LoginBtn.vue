@@ -17,15 +17,10 @@ const { connect } = useConnect({
 })
 
 watch(address, async () => {
-  console.log("🚀 ~ file: LoginBtn.vue:21 ~ watch ~ props.type:", props.type)
   if (address.value && props.type === 'header') {
     // FIXME: Get the user data from the blockchain and then do the route
     router.push('/user')
   }
-  console.log(
-    '🚀 ~ file: LoginBtn.vue:35 ~ watch ~ address.value?.length:',
-    address.value?.length,
-  )
   if (!address.value?.length)
     router.push('/')
 
