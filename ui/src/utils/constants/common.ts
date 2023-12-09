@@ -25,6 +25,13 @@ export const myFilesCols = [
     ]
   
 
+    export const requestsCols = [
+      { name: 'fileName' },
+      { name: 'requestedUser' },
+      { name: 'reportType' },
+      { name: 'focusArea' },
+      { name: 'actions' },
+    ]
 
   export const permissionsCols = [
   { name: 'requestedUser' },

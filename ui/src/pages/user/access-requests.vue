@@ -1,5 +1,14 @@
 <script setup lang="ts">
-import { permissionRows, permissionsCols } from '~/utils/constants';
+import { requestsRows, requestsCols } from '~/utils/constants';
+const filteredRows = computed(() => {
+  return requestsRows.map((row) => {
+    return {
+      ...row.file,
+      requestedUser: row.requestedUser.toLowerCase(),
+      actions: true
+    }
+  });
+});
 </script>
 
 <template>
@@ -8,10 +17,24 @@ import { permissionRows, permissionsCols } from '~/utils/constants';
       My Files
     </div>
     <ADataTable
-    :rows="permissionRows"
-    :cols="permissionsCols"
+    :rows="filteredRows"
+    :cols="requestsCols"
     search
   >
+    <!-- Header: Name -->
+    <template #header-fileName="{ col }">
+      <i
+        v-once
+        class="i-bx-file me-1"
+      /> {{ col.name }}
+    </template>
+    <!-- Column: Name -->
+    <template #col-fileName="{ row }">
+      <a
+        :href="`/user/my-file?cid=${row.cid}`"
+        class="text-primary hover:underline"
+      >{{ row.fileName }}</a>
+    </template>
     <template #col-requestedUser="{ row }">
       <ABtn variant="outline" icon="i-bx-copy">
       <span font-bold>

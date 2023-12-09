@@ -80,6 +80,32 @@ export  const myFilesRows = [
     cid: '0x1234567890',
   },
 ]
+export const requestsRows = [{
+  requestId: '0x1234567890',
+  requestedUser: '0x1234567890123456789012345678901234567890',
+  file: {
+    fileName: 'File 1',
+    reportType: 'Report Type 1',
+    focusArea: 'Focus Area 1',
+    consultedOn: 'Consulted On 1',
+    accessCount: '1',
+    cid: '0x1234567890',
+  },
+},
+  {
+    requestId: '0x1234567890',
+    requestedUser: '0x1234567890123456789012345678901234567890',
+    file: {
+      fileName: 'File 1',
+      reportType: 'Report Type 1',
+      focusArea: 'Focus Area 1',
+      consultedOn: 'Consulted On 1',
+      accessCount: '1',
+      cid: '0x1234567890',
+    },
+  },
+  
+  ]
 
 export  const dataHubFilesRows = [
   {
