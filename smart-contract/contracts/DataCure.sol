@@ -12,7 +12,7 @@ contract DataCure is ERC721 {
 
      Verifier public verifier;
 
-     mapping(bytes32 => uint256) private userToken;
+     mapping(bytes32 => uint256) public userToken;
 
     constructor(Verifier _verifier) ERC721("DataCureToken", "DCT") {
         verifier = _verifier;
@@ -25,9 +25,9 @@ contract DataCure is ERC721 {
         bool verified = verifier.verifyProof(_pA,_pB,_pC,_pubSignals);
         require(verified, " Your Adhaar not verified");
         require(userToken[_emailHash] == 0, "Email already exisit");
+        _tokenIdCounter.increment();
         uint256 tokenId = _tokenIdCounter.current();
         userToken[_emailHash] = tokenId;
-        _tokenIdCounter.increment();
         _safeMint(_msgSender(), tokenId);
         
     }
