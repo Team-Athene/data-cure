@@ -11,7 +11,7 @@ const currentTab = computed(() => {
       return USER_TABS
     case 'health-organization':
       return HOSPITAL_TABS
-    case 'researcher':
+    case 'research-organization':
       return RESEARCHER_TABS
     default:
       return USER_TABS

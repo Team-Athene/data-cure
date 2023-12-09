@@ -5,7 +5,7 @@ import { dataHubFilesRows, DATAHUB_FILES_COLS } from '~/utils/constants';
 <template>
    <div>
     <div class="font-semibold text-xl mb-10">
-      My Files
+      DataCure Hub
     </div>
     <ADataTable
     :rows="dataHubFilesRows"

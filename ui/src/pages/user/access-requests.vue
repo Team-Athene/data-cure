@@ -14,7 +14,7 @@ const filteredRows = computed(() => {
 <template>
    <div>
     <div class="font-semibold text-xl mb-10">
-      My Files
+      Access Management
     </div>
     <ATabs
       key="default"

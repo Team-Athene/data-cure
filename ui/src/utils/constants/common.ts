@@ -22,6 +22,11 @@ export const MY_FILES_COLS = [
       { name: 'focusArea' },
       { name: 'accessedOn' },
     ]
+    export const TOWN_HALL_COLS = [
+        { name: 'roomName' },
+        { name: 'memberCount' },
+        { name: 'actions' },
+      ]
   
   export const DATAHUB_FILES_COLS = [
       { name: 'fileName' },

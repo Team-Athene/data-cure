@@ -17,7 +17,7 @@ const submitFile = (value: { data: HealthData, files: FileData[] }) => {
 <template>
   <div>
     <div class="font-semibold text-xl mb-10">
-      File Upload
+      File Details
     </div>
 
     <ATabs key="default" class="a-tabs-bordered" :tabs="FILE_TABS">

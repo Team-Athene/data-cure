@@ -163,6 +163,25 @@ export  const accessedFilesRows = [
   },
 ]
 
+export const townHallRows = [{
+  roomName: 'Radiology',
+  memberCount: '10',
+  roomId: '0x1234567890',
+},{
+  roomName: 'Oncology',
+  memberCount: '20',
+  roomId: '0x1234567890',
+},{
+  roomName: 'Cardiology',
+  memberCount: '15',
+  roomId: '0x1234567890',
+},{
+  roomName: 'Ophthalmology',
+  memberCount: '30',
+  roomId: '0x1234567890',
+},
+]
+
 export const doctorsRows = [{
   userAddress: '0x1234567890123456789012345678901234567890',
   department: 'Radiology',

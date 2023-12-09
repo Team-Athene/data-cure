@@ -23,7 +23,7 @@ const submitDoctor = (id: number) => {
 <template>
    <div>
     <div class="font-semibold text-xl mb-10">
-      My Files
+      Manage Doctors List
     </div>
     <ADataTable
     :rows="filteredRows"

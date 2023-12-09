@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { HealthData, FileData } from '~/utils/interfaces';
 
-import { FILE_TABS, PERMISSIONS_COLS, permissionRows } from '~/utils/constants';
-
 const route = useRoute()
 
 const cid = route.query?.cid
@@ -17,7 +15,7 @@ const submitFile = (value: { data: HealthData, files: FileData[] }) => {
 <template>
   <div pb-30>
     <div class="font-semibold text-xl mb-10">
-      File Upload
+      Accessed File Details
     </div>
           <FileForm type="read-only" @submit="submitFile" />
 
