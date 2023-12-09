@@ -27,7 +27,7 @@ contract DataCureAccess is IDataCureAccess, Context {
     /**
      * @dev Refer to {IDataCureAccess-uploadData}.
      */
-    function uploadData(uint256 _userToken, bytes32 _cid) public  {
+    function uploadData(uint256 _userToken, bytes32 _cid, bool _listForSale) public  {
         require (_dataCure.getUserTokenDetails(_userToken).userType == IDataCure.UserType.Individual 
         || _dataCure.getUserTokenDetails(_userToken).userType == IDataCure.UserType.Organization, 
         "Only a registered member has the access");
@@ -37,7 +37,8 @@ contract DataCureAccess is IDataCureAccess, Context {
         require(accessListByCid[_cid].ownerToken == 0, "Data is already uploaded");
         accessListByCid[_cid].ownerToken = _userToken;
         accessListByCid[_cid].users.push(_msgSender());
-        emit UploadData(_userToken, _cid);
+        accessListByCid[_cid].listForSale = _listForSale;
+        emit UploadData(_userToken, _cid, _listForSale);
     }
 
     /**

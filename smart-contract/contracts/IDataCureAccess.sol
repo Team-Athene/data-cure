@@ -17,13 +17,14 @@ interface IDataCureAccess {
     struct AccessDetails {
         uint256 ownerToken;
         address[] users;
+        bool listForSale;
     }
 
     // Event to update the DataCure contract address
     event UpdateDataCureAddress(address _dataCureAddr);
 
     // Event to upload the data
-    event UploadData(uint256 _userToken, bytes32 _cid);
+    event UploadData(uint256 _userToken, bytes32 _cid, bool _listForSale);
 
     // Event to grant access to the data
     event GrandAccess(uint256 _userToken, bytes32 _cid);
@@ -38,8 +39,9 @@ interface IDataCureAccess {
      * Function to upload the data
      * @param _userToken Token ID of the user
      * @param _cid Content ID of the data
+     * @param _listForSale Boolean to list the data for sale
      */
-    function uploadData(uint256 _userToken, bytes32 _cid) external;
+    function uploadData(uint256 _userToken, bytes32 _cid, bool _listForSale) external;
 
     /**
      * Function to grant access to the data
