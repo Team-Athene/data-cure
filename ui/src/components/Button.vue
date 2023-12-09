@@ -22,11 +22,10 @@ interface IButtonEmits {
 </template>
 
 <style scoped>
-.btn-class{
-    @apply bg-primary rounded-lg ;
+.btn-class {
+  @apply bg-primary rounded-lg;
 }
-.box-shadow{
+.box-shadow {
   box-shadow: 2px 2px 0px 0px rgba(0, 101, 112, 1);
-
 }
 </style>

@@ -61,7 +61,6 @@ export default defineConfig({
         'src/stores',
       ],
       vueTemplate: true,
-      packagePresets: [],
     }),
 
     // https://github.com/antfu/unplugin-vue-components

@@ -11,7 +11,7 @@
     "preview-https": "serve dist",
     "up": "taze major -I",
     "gen:env": "npx import-meta-env-typescript -x .env.example -o ./src ",
-    "postinstall": "npx simple-git-hooks && pnpm gen:env",
+    "postinstall": "pnpm gen:env",
     "sizecheck": "npx vite-bundle-visualizer"
   },
   "dependencies": {
@@ -75,11 +75,5 @@
     "vite-ssg-sitemap": "^0.6.1",
     "vitest": "^1.0.0",
     "vue-tsc": "^1.8.24"
-  },
-  "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged"
-  },
-  "lint-staged": {
-    "*": "eslint --fix"
   }
 }

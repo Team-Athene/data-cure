@@ -10,7 +10,6 @@ interface IHeaderProps {
 }
 defineProps<IHeaderProps>()
 
-const router = useRouter()
 </script>
 
 <template>
@@ -23,16 +22,12 @@ const router = useRouter()
         DataCure
       </div>
     </div>
-    <LoginBtn v-if="!hideBtn" type="header" @click="router.push('/registration')" />
-    <!-- <Button v-if="!hideBtn" id="login-btn" bg-color="PRIMARY" name="login-btn" label="Login" icon="" @click="router.push('/registration')" /> -->
+    <LoginBtn v-if="!hideBtn" type="header"/>
   </div>
 </template>
 
 <style scoped>
-.main-div{
-    @apply  flex justify-between items-center text-primary font-tsukimi px-6 py-3;
+.main-div {
+  @apply fixed w-full flex justify-between items-center text-primary font-tsukimi px-6 py-3;
 }
-/* .btn-class{
-    @apply bg-primary rounded-lg ;
-} */
 </style>

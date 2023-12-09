@@ -17,10 +17,6 @@
     "Wagmi",
     "waku"
   ],
-  "i18n-ally.sourceLanguage": "en",
-  "i18n-ally.keystyle": "nested",
-  "i18n-ally.localesPaths": "locales",
-  "i18n-ally.sortKeys": true,
   // Enable the ESlint flat config support
   "eslint.experimental.useFlatConfig": true,
   // Disable the default formatter
@@ -90,5 +86,7 @@
     "jsonc",
     "yaml"
   ],
+  "unocss.root": "ui",
+  "workbench.iconTheme": "bearded-icons",
   "peacock.color": "#00B2B3"
 }
