@@ -32,6 +32,9 @@ interface IDataCure is IERC721 {
     // Event to update the User Type of the user
     event PromoteUser(uint256 _tokenId, UserType _userType);
 
+    // Event to add the doctor
+    event AddDoctor(uint256 _orgTokenId, address _doctorWalletAddress);
+
     /**
      * Function to get the user token Id
      * @param _emailHash Hash of the email
@@ -45,6 +48,13 @@ interface IDataCure is IERC721 {
      * @return User details
      */
     function getUserTokenDetails(uint256 _tokenId) external view returns(UserDetails memory);
+
+    /**
+     * Function to verify if the user is a doctor
+     * @param _tokenId Token ID of the user
+     * @param _walletAddr Wallet address of the user
+     */
+    function isDoctor(uint256 _tokenId, address _walletAddr) external view returns(bool);
 
     /**
      * Function to mint the token
@@ -63,4 +73,11 @@ interface IDataCure is IERC721 {
      * @param _userType Type of the user
      */
     function promoteUser(uint256 _tokenId, uint8 _userType) external;
+
+    /**
+     * Function to add the doctor
+     * @param _orgTokenId Token ID of the organization
+     * @param _doctorWalletAddress Wallet address of the doctor
+     */
+    function addDoctor(uint256 _orgTokenId, address _doctorWalletAddress) external;
 }

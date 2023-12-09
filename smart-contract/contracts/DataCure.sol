@@ -17,6 +17,7 @@ contract DataCure is ERC721, IDataCure {
     // Mappings
     mapping(bytes32 => uint256) public userToken;
     mapping(uint256 => UserDetails) public userTokenDetails;
+    mapping(uint256 => address) public doctorsList; //orgTokenId => doctorWalletAddress
 
     // Constructor
     constructor(Verifier _verifier) ERC721("DataCureToken", "DCT") {
@@ -43,6 +44,10 @@ contract DataCure is ERC721, IDataCure {
         return userTokenDetails[_tokenId];
     }
 
+    function isDoctor(uint256 _tokenId, address _walletAddr) public view returns(bool) {
+        return doctorsList[_tokenId] == _walletAddr;
+    }
+
     /**
      * @dev Refer to {IDataCure-getUserToken}.
      */ 
@@ -67,6 +72,17 @@ contract DataCure is ERC721, IDataCure {
         require(_userType > 0 && _userType <= 4, "Invalid user type");
         userTokenDetails[_tokenId].userType = UserType(_userType);
         emit PromoteUser(_tokenId, UserType(_userType));
+    }
+
+    /**
+     * @dev Refer to {IDataCure-addDoctor}.
+     */
+    function addDoctor(uint256 _orgTokenId, address _doctorWalletAddress) public {
+        require(userTokenDetails[_orgTokenId].userType == UserType.Organization, "Only organization can add doctor");
+        require(_orgTokenId != 0, "Invalid token ID");
+        require(_doctorWalletAddress != address(0), "Invalid wallet address");
+        doctorsList[_orgTokenId] = _doctorWalletAddress;
+        emit AddDoctor(_orgTokenId, _doctorWalletAddress);
     }
 
     /**

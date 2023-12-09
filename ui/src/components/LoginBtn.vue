@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { NETWORKS, Chains, ContractAddresses, ContractABIs } from '~/utils/constants'
+import { Chains, ContractABIs, ContractAddresses, NETWORKS } from '~/utils/constants';
 //import {prepareWriteDataCure} from '@datacure/abi/src';
-import { hashEmail } from "~/services/email-hash.service";
 import {
-  SafeAuthPack,
-  SafeAuthInitOptions,
-} from '@safe-global/auth-kit'
+SafeAuthInitOptions,
+SafeAuthPack,
+} from '@safe-global/auth-kit';
 import { storeToRefs } from 'pinia';
 import { createWalletClient, custom, getContract } from "viem";
+import { hashEmail } from "~/services/email-hash.service";
 interface ILoginProps {
   type: 'header' | 'register'
 }
@@ -105,6 +105,11 @@ watch(safeAuthPack, async () => {
         address: ContractAddresses.DataCure[userInfo.value.network] as any,
         publicClient: walletClient.value,
         abi: ContractABIs.DataCure,
+      }),
+      DataCureAccess: getContract({
+        address: ContractAddresses.DataCureAccess[userInfo.value.network] as any,
+        publicClient: walletClient.value,
+        abi: ContractABIs.DataCureAccess,
       }),
     }
     let hashem = hashEmail(userInfo.value.email);

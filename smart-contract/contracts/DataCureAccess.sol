@@ -6,21 +6,28 @@ import { IDataCureAccess } from "./IDataCureAccess.sol";
 import { Context } from "@openzeppelin/contracts/utils/Context.sol";
 
 contract DataCureAccess is IDataCureAccess, Context {
-    // mapping(bytes32 => mapping(uint256 => bool)) public accessListByCid;
-    mapping(bytes32 => AccessDetails) public accessListByCid;
 
     IDataCure public _dataCure;
 
+    // Mapping from CID to AccessDetails
+    mapping(bytes32 => AccessDetails) public accessListByCid;
     constructor(IDataCure _dataCureAddr) {
         _dataCure = _dataCureAddr;
     }
 
+   
+    /**
+     * @dev Refer to {IDataCureAccess-updateDataCureFactory}.
+     */ 
     function updateDataCureFactory(address _dataCureAddr) public {
         _dataCure = IDataCure(_dataCureAddr);
         emit UpdateDataCureAddress(_dataCureAddr);
     }
 
-    function uploadData(uint256 _userToken, bytes32 _cid) public  {
+    /**
+     * @dev Refer to {IDataCureAccess-uploadData}.
+     */
+    function uploadData(uint256 _userToken, bytes32 _cid, bool _listForSale) public  {
         require (_dataCure.getUserTokenDetails(_userToken).userType == IDataCure.UserType.Individual 
         || _dataCure.getUserTokenDetails(_userToken).userType == IDataCure.UserType.Organization, 
         "Only a registered member has the access");
@@ -30,9 +37,13 @@ contract DataCureAccess is IDataCureAccess, Context {
         require(accessListByCid[_cid].ownerToken == 0, "Data is already uploaded");
         accessListByCid[_cid].ownerToken = _userToken;
         accessListByCid[_cid].users.push(_msgSender());
-        emit UploadData(_userToken, _cid);
+        accessListByCid[_cid].listForSale = _listForSale;
+        emit UploadData(_userToken, _cid, _listForSale);
     }
 
+    /**
+     * @dev Refer to {IDataCureAccess-grandAccess}.
+     */
     function grandAccess(uint256 _userToken, bytes32 _cid) public {
         require (_dataCure.getUserTokenDetails(_userToken).userType == IDataCure.UserType.Individual, 
         "Only a registered member has the access");
@@ -41,6 +52,9 @@ contract DataCureAccess is IDataCureAccess, Context {
         emit GrandAccess(_userToken, _cid);
     }
 
+    /**
+     * @dev Refer to {IDataCureAccess-verifyAccess}.
+     */
     function verifyAccess(uint256 _userToken, bytes32 _cid) public view returns(bool) {
         require (_dataCure.getUserTokenDetails(_userToken).tokenId != 0, "Only a registered member has the access");
         require(accessListByCid[_cid].ownerToken == _userToken, "Only the owner can verify access");
