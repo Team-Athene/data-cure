@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { NETWORKS, Chains, ContractAddresses } from '~/utils/constants'
+import { NETWORKS, Chains, ContractAddresses, ContractABIs } from '~/utils/constants'
 //import {prepareWriteDataCure} from '@datacure/abi/src';
-
+import { hashEmail  } from "~/services/email-hash.service";
 import {
   SafeAuthPack,
   SafeAuthInitOptions,
 } from '@safe-global/auth-kit'
 import { storeToRefs } from 'pinia';
-import { createWalletClient, custom } from "viem";
+import { createWalletClient, custom, getContract } from "viem";
 interface ILoginProps {
   type: 'header' | 'register'
 }
 defineProps<ILoginProps>()
 
-const { userInfo, walletClient, contractAddress } = storeToRefs(useWeb3Store())
+const { userInfo, walletClient, contracts } = storeToRefs(useWeb3Store())
 const { $reset: userReset } = useWeb3Store();
 
 
@@ -81,7 +81,7 @@ async function initSafeAuthPack(safeAuthInitOptions: SafeAuthInitOptions) {
 
   );
   safeAuthPack.value?.subscribe('accountsChanged', (eventData) => {
-    triggerRef(safeAuthPack)
+    //triggerRef(safeAuthPack)
   });
 
 
@@ -99,9 +99,17 @@ watch(safeAuthPack, async () => {
       transport: custom(safeAuthPack.value.getProvider() as any)
     })
 
-    contractAddress.value ={
-      DataCure: ContractAddresses.DataCure[userInfo.value.network],
+    contracts.value ={
+      DataCure:  getContract({
+        address: ContractAddresses.DataCure[userInfo.value.network] as any,
+        publicClient: walletClient.value,
+        abi: ContractABIs.DataCure,
+      }),
     } 
+    let hashem = hashEmail(userInfo.value.email);
+    console.log(hashem);
+  let result = await contracts.value?.DataCure.read.userToken(hashem)
+      console.log('result:', result);
 
     //let a = prepareWriteDataCure({fun})
 

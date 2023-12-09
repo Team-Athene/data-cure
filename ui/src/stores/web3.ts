@@ -1,20 +1,32 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { WalletClient } from 'viem';
-import { ContractAddresses } from '~/utils/constants';
+import { WalletClient, GetContractReturnType } from 'viem';
+import type { Abi,PublicClient,WalletClient as TWalletClient,Address } from 'viem';
+// import { ContractAddresses } from '~/utils/constants';
 
 type UserInfo =  {
     email: string;
     walletAddress: string;
     network: string;
 }
-type ContractAddress = {
-    DataCure: string;
+type Contract = {
+    read: any;
+    abi: any[];
+    address: string;
+    createEventFilter: any;
+    estimateGas:any;
+    getEvents:any;
+    simulate: any;
+    watchEvent:any;
+}
+
+type Contracts = {
+    DataCure: Contract;
 }
 export const useWeb3Store = defineStore('web3', () => {
 
     const userInfo = ref<UserInfo>({ email: '', walletAddress: '', network:'0x13881'})
     const walletClient = shallowRef<WalletClient>()
-    const contractAddress = shallowRef<ContractAddress>({ DataCure: ContractAddresses.DataCure[userInfo.value.network]})
+    const contracts= shallowRef<Contracts>()
 
 
     function $reset() {
@@ -25,7 +37,7 @@ export const useWeb3Store = defineStore('web3', () => {
         userInfo,
         $reset,
         walletClient,
-        contractAddress
+        contracts
     }
 })
 

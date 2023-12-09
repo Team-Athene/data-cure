@@ -1,7 +1,7 @@
 import { defineChain } from 'viem'
 
 import { polygonMumbai, goerli, Chain } from 'viem/chains';
-
+ import { abi as DataCureABI } from "../../../../smart-contract/artifacts/contracts/DataCure.sol/DataCure.json";
 type Network =  {
     chainId:string;
     rpcTarget: string;
@@ -37,7 +37,7 @@ export const Chains: Record<string, Chain> = {
 
 export const ContractAddresses: Record<'DataCure' | 'Verifier', Record<string, string>> = {
     DataCure:{
-        '0x13881': '0x4e214e831c7bb5f4fd3167eed12f62f8c527c55a',
+        '0x13881': '0x1c107fd87b80d7a5237ea6d80498628414964de2',
         '0x5': ''
     },
     Verifier: {
@@ -45,4 +45,8 @@ export const ContractAddresses: Record<'DataCure' | 'Verifier', Record<string, s
         '0x5': ''
     }
     
+}
+
+export const ContractABIs: Record<'DataCure', any[]> = {
+    DataCure: DataCureABI,
 }
