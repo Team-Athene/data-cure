@@ -1,32 +1,11 @@
 <script setup lang="ts">
- import { HuddleClient } from "@huddle01/web-core";
 import { townHallRows, TOWN_HALL_COLS } from '~/utils/constants';
-import { Client, Room } from '@huddle01/server-sdk/client';
-
-const router = useRouter();
-
-const huddleClient  = ref<HuddleClient>();
-
-
 
 const filteredRows = townHallRows.map((row) => {
   return {
     ...row,
     actions: true,
   };
-});
-
-onMounted(async () => {
-  console.log('mounted');
-  huddleClient.value = await initHuddle()
-  console.log("🚀 ~ file: town-hall.vue:21 ~ onMounted ~ client.value:", huddleClient.value)
-  // huddleClient.joinRoom('town-hall')
-  const room = await huddleClient.value.joinRoom({
-	roomId: 'gym-lvvq-vtw',
-	token: import.meta.env.VITE_HUDDLE_API_KEY,
-});
-  console.log("🚀 ~ file: town-hall.vue:27 ~ onMounted ~ room:", room)
- await room.connect();
 });
 
 </script>
