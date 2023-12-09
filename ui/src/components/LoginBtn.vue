@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { NETWORKS } from '~/utils/constants'
 
 import {
   SafeAuthPack,
@@ -10,9 +11,9 @@ interface ILoginProps {
   type: 'header' | 'register'
 }
 
-const props = defineProps<ILoginProps>()
+defineProps<ILoginProps>()
 
-
+const selectedNetwork = ref(NETWORKS[0])
 
 const safeAuthInitOptions: SafeAuthInitOptions = {
   enableLogging: true,
@@ -36,8 +37,8 @@ onMounted(async () => {
   await safeAuthPack.value.init(safeAuthInitOptions);
   triggerRef(safeAuthPack)
  // safeAuthPack.value = safeAuthPackInit;
-
 })
+
 
 
 async function connectWallet() {
@@ -92,8 +93,24 @@ watch(safeAuthPack, async () => {
 
 <template>
   <div v-if="type === 'header'">
-    <ABtn v-if="isAuthenticated" color="primary" @click="disconnectWallet()">
+
+    <ABtn
+      color="info"
+      class="rounded-full px-6 font-bold mr-4 w-36">
+    <AMenu trigger="hover">
+      <AList 
+      v-model="selectedNetwork"
+        class="[--a-list-gap:0.25rem]"
+      :items="NETWORKS" />
+    </AMenu>
+
+    {{ selectedNetwork }}
+      <ALoadingIcon icon="i-bx-bxs-component" />
+  </ABtn>
+    <ABtn v-if="isAuthenticated"
+      class="rounded-full px-6 font-bold" color="primary" @click="disconnectWallet()">
       Logout
+      <ALoadingIcon icon="i-bx-log-out" />
     </ABtn>
     <ABtn
       v-else
