@@ -69,5 +69,3 @@ const submitFile = async (value: { data: HealthData; files: FileData[] }) => {
     <FileForm type="add" @submit="submitFile" />
   </div>
 </template>
-
-<style scoped></style>
