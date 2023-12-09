@@ -42,6 +42,8 @@ declare module 'vue-router/auto/routes' {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
     '/registration': RouteRecordInfo<'/registration', '/registration', Record<never, never>, Record<never, never>>,
     '/user/': RouteRecordInfo<'/user/', '/user', Record<never, never>, Record<never, never>>,
+    '/user/access-requests': RouteRecordInfo<'/user/access-requests', '/user/access-requests', Record<never, never>, Record<never, never>>,
+    '/user/data-hub': RouteRecordInfo<'/user/data-hub', '/user/data-hub', Record<never, never>, Record<never, never>>,
     '/user/my-file': RouteRecordInfo<'/user/my-file', '/user/my-file', Record<never, never>, Record<never, never>>,
     '/user/upload-file': RouteRecordInfo<'/user/upload-file', '/user/upload-file', Record<never, never>, Record<never, never>>,
   }

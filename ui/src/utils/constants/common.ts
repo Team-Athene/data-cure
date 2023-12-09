@@ -5,15 +5,7 @@ export const fileTabs = [
     },
     { title: 'Permissions',
       value: 'permissions', 
-      icon: 'i-bx-lock-open' },
-  ]
-  
-  export const permissionsCols = [
-    { name: 'fileName' },
-    { name: 'reportType' },
-    { name: 'focusArea' },
-    { name: 'consultedOn' },
-    { name: 'accessCount' },
+      icon: 'i-bx-lock' },
   ]
 
   
@@ -24,3 +16,19 @@ export const myFilesCols = [
     { name: 'consultedOn' },
     { name: 'accessCount' },
   ]
+  
+  export const dataHubFilesCols = [
+      { name: 'fileName' },
+      { name: 'reportType' },
+      { name: 'focusArea' },
+      { name: 'actions' },
+    ]
+  
+
+
+  export const permissionsCols = [
+  { name: 'requestedUser' },
+  { name: 'accessTill' },
+  { name: 'status' },
+  { name: 'actions' },
+]

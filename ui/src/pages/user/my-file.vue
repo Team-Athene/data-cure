@@ -1,27 +1,13 @@
 <script setup lang="ts">
 import { HealthData, FileData } from '~/utils/interfaces';
 
-import {fileTabs } from '~/utils/constants';
+import {fileTabs, permissionsCols, permissionRows } from '~/utils/constants';
 
 const route = useRoute()
 
 const cid = route.query?.cid
 console.log("🚀 ~ file: my-file.vue:7 ~ cid:", cid)
 
-const permissionsCols = [
-    { name: 'requestedUser' },
-    { name: 'accessTill' },
-    { name: 'status' },
-    { name: 'actions' },
-  ]
-
-  const permissionRows = [
-    {
-      requestedUser: '0x1234567890123456789012345678901234567890',
-      accessTill: '01-10-2023',
-      status: 'Pending',
-    }
-  ]
 
 const submitFile = (value: {data: HealthData, files: FileData[]}) => {
   console.log("🚀 ~ file: upload-file.vue:32 ~ submitFile ~ value", value)
@@ -47,7 +33,7 @@ const submitFile = (value: {data: HealthData, files: FileData[]}) => {
           </div>
         </template>
 
-<!-- 👉 Permissionss -->
+<!-- 👉 Permissions -->
 <template #permissions>
           <div py-8>
     <ADataTable
@@ -60,6 +46,19 @@ const submitFile = (value: {data: HealthData, files: FileData[]}) => {
       <span font-bold>
         {{ row.requestedUser?.slice(0, 6) }}...{{ row.requestedUser?.slice(-4) }}
       </span>
+    </ABtn>
+    </template>
+    <template #col-status="{ row }">
+    <AChip
+      :color="row.status==='Approved' ? 'success' : row.status==='Rejected' ? 'danger' : 'warning'"
+      :icon="row.status==='Approved' ? 'i-bx-check' : row.status==='Rejected' ? 'i-bx-x' : 'i-bx-loader-alt'"
+    >
+      <span>{{row.status}}</span>
+    </AChip>
+    </template>
+    <template #col-actions="{ row }">
+      <ABtn variant="light" class="rounded-full" color="danger" icon="i-bx-error">
+        Report
     </ABtn>
     </template>
 </ADataTable>

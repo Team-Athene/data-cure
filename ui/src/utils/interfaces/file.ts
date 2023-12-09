@@ -1,5 +1,5 @@
 export type HealthData = {
-    aadharNumber: string,
+    email: string,
     age: string,
     gender: string,
     bloodGroup: string,
