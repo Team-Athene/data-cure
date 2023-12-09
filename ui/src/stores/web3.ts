@@ -23,6 +23,7 @@ type Contract = {
 
 type Contracts = {
     DataCure: Contract;
+    DataCureAccess: Contract;
 }
 export const useWeb3Store = defineStore('web3', () => {
 
