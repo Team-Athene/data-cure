@@ -1,0 +1,8 @@
+{
+  "name": "smart-contract",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox-viem": "^2.0.0",
+    "hardhat": "^2.19.2",
+    "typescript": "^5.3.3"
+  }
+}
