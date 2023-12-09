@@ -1,15 +1,22 @@
 import { Injectable } from '@nestjs/common'
 import { S3Dto } from './dto/s3.dto'
 import { AwsService } from 'app/shared/aws.service'
-import { LightHouseService,generateIPNS,publishIPNSRecord,retriveJWT} from 'app/shared/lighthouse'
+import {
+  LightHouseService,
+  generateIPNS,
+  publishIPNSRecord,
+  retriveJWT,
+} from 'app/shared/lighthouse'
 import { createWriteStream, existsSync, mkdirSync } from 'fs'
 import { join, dirname } from 'path'
+import { hash } from 'ohash'
 import { IPNSDto, UploadDto } from './dto/upload.dto'
 import { LIGHTHOUSE } from 'app/shared/environment'
+import { readAllFilesFromDirectory } from 'app/shared/readDir'
 
 @Injectable()
 export class LHFileService {
-  async publishIPNSRecord(ipnsData:IPNSDto) {
+  async publishIPNSRecord(ipnsData: IPNSDto) {
     return await publishIPNSRecord(ipnsData)
   }
   retriveJWT() {
@@ -49,7 +56,7 @@ export class LHFileService {
           throw error
         })
 
-        data.pipe(writableStream)
+        // data.pipe(writableStream)
 
         // const result = await lighthouse.upload(localFilePath)
         // console.log(
@@ -71,6 +78,7 @@ export class LHFileService {
       secretAccessKey: s3Cred.key,
       region: s3Cred.region,
     })
+    const s3Hash = hash(s3Cred)
     const lighthouse = new LightHouseService(LIGHTHOUSE.API_KEY)
     // List items from a bucket
     const pageBasedData = await s3.listItems(s3Cred.bucket)
@@ -86,7 +94,12 @@ export class LHFileService {
           continue
         }
         const data = await s3.downloadFileAsStream(s3Cred.bucket, item.Key)
-        const localFilePath = join('temp', item.Key)
+
+        // const file = new File([new Blob([data])], item.Key, {
+        //   lastModified: Date.now(),
+        // })
+
+        const localFilePath = join(s3Hash, item.Key)
         const directory = dirname(localFilePath)
         if (!existsSync(directory)) {
           mkdirSync(directory, { recursive: true })
@@ -102,7 +115,14 @@ export class LHFileService {
 
         data.pipe(writableStream)
 
-        const result = await lighthouse.upload(localFilePath)
+        const files = readAllFilesFromDirectory(s3Hash)
+        console.log("🚀 ~ file: LHFile.service.ts:119 ~ LHFileService ~ migrateS3 ~ files:", files)
+        // convert ReadableStream to Blob
+        const result = await lighthouse.upload(files)
+        console.log(
+          '🚀 ~ file: LHFile.service.ts:110 ~ LHFileService ~ migrateS3 ~ result:',
+          result,
+        )
         // console.log(
         //   '🚀 ~ file: file-migration.service.ts:33 ~ FileMigrationService ~ migrateS3 ~ result:',
         //   result,

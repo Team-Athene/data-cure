@@ -1,4 +1,4 @@
-import { generateKey,publishRecord } from '@lighthouse-web3/sdk'
+import { generateKey,publishRecord,uploadEncrypted,upload } from '@lighthouse-web3/sdk'
 import { getAuthMessage, getJWT } from '@lighthouse-web3/kavach'
 import { privateKeyToAccount } from 'viem/accounts'
 import { LIGHTHOUSE, WALLET } from './environment'
@@ -11,12 +11,19 @@ export class LightHouseService {
   }
 
   // List items from a bucket
-  async upload(file: any) {
-    // return await lighthouse.uploadEncrypted(file, this.key)
+  async upload(file: any[]) {
+    console.log("🚀 ~ file: lighthouse.ts:17 ~ LightHouseService ~ upload ~ file[0]:", file[0])
+    const sourcePath = URL.createObjectURL(file[0]);
+    console.log("🚀 ~ file: lighthouse.ts:18 ~ LightHouseService ~ upload ~ sourcePath:", sourcePath)
+    return await upload(sourcePath, this.key)
   }
 
   // async
 }
+
+export const uploadEncryptedFile = async (file: any) => {}
+
+
 
 export const retriveJWT = async () => {
   const account = privateKeyToAccount(WALLET.PRIVATE_KEY as any)
@@ -37,3 +44,5 @@ export const generateIPNS = async () => {
 export const publishIPNSRecord = async (ipnsData:IPNSDto) => {
   return await publishRecord( ipnsData.userCid,ipnsData.ipnsName,LIGHTHOUSE.API_KEY)
 }
+
+
