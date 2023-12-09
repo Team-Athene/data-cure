@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "paths": {
-    "/lh-file/s3": {
+    "/lh-file/migrate-s3": {
       "post": {
         "operationId": "LHFileController_migrateS3",
         "parameters": [],
@@ -17,7 +17,17 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReadStream"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -145,6 +155,10 @@
           "region",
           "accessKeyId"
         ]
+      },
+      "ReadStream": {
+        "type": "object",
+        "properties": {}
       },
       "UserDto": {
         "type": "object",

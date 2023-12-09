@@ -90,5 +90,24 @@
   "unocss.root": "ui",
   "workbench.iconTheme": "bearded-icons",
   "peacock.color": "#00B2B3",
-  "solidity.compileUsingRemoteVersion": "v0.8.20+commit.a1b79de6"
+  "solidity.compileUsingRemoteVersion": "v0.8.20+commit.a1b79de6",
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#00e5e6",
+    "activityBar.background": "#00e5e6",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#df00de",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "commandCenter.border": "#e7e7e799",
+    "sash.hoverBorder": "#00e5e6",
+    "statusBar.background": "#00b2b3",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#00e5e6",
+    "statusBarItem.remoteBackground": "#00b2b3",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#00b2b3",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#00b2b399",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  }
 }
