@@ -38,7 +38,8 @@ const fileData = reactive({
                 :options="BLOOD_GROUP_OPTIONS" />
             <ASelect class="my-2" label="Ethnicity" placeholder="Select Ethnicity" v-model="fileData.ethnicity"
                 :options="ETHNICITY_OPTIONS" />
-            <AInput class="my-2" label="Aadhar Password" v-model="fileData.aadharPassword" placeholder="Aadhar Password" />
+            <AInput type="password" 
+        append-icon="i-bx-lock" class="my-2" label="Aadhar Password" v-model="fileData.aadharPassword" placeholder="Aadhar Password" />
             <AInput type="file" class="my-2" label="Aadhar File" v-model="aadharFile" placeholder="Aadhar File" />
       </div>
       <div class="flex justify-end mt-8">
