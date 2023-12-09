@@ -66,7 +66,7 @@ function onFileInputChange(event: any) {
     <div ref="dropZoneRef" class="a-base-input-input-container w-full flex items-center" @click="triggerFileInput">
         <div
             class="focus-within:border-primary a-base-input-input-wrapper cursor-text spacing:gap-x-2 relative i:focus-within:text-primary items-center border border-solid border-a-border w-full overflow-hidden">
-            <div class="w-[35%] h-full bg-secondary flex justify-center items-center">Choose File</div>
+            <div class="w-[40%] h-full bg-secondary flex justify-center items-center">Choose File</div>
             <div px-4 truncate>{{fileName}}</div>
             <input ref="fileInputRef" type="file"
                 @change="onFileInputChange"

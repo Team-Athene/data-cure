@@ -45,18 +45,18 @@ const filesList = ref<FileData[]>([{
 const fileUpload = (file: FileData, index: number) => {
   filesList.value[index] = file
 }
-const addFile = () => {
-  filesList.value.push({
-    file: null,
-    fileName: '',
-    fileData: null,
-})
-}
+// const addFile = () => {
+//   filesList.value.push({
+//     file: null,
+//     fileName: '',
+//     fileData: null,
+// })
+// }
 
-const removeFile = (index: number) => {
-  if (index === 0) return
-  filesList.value.splice(index, 1)
-}
+// const removeFile = (index: number) => {
+//   if (index === 0) return
+//   filesList.value.splice(index, 1)
+// }
 function submit() {
   emit('submit', { data: fileData, files: filesList.value })
 }
@@ -127,17 +127,17 @@ function submit() {
       <div v-if="isMigrated === 'file'">
         <div
           v-for="(_, id) of filesList"
-          class="flex mb-2 justify-start w-[62%] items-end gap-x-3"
+          class="flex mb-2 justify-start w-[100%] items-end gap-x-3"
         >
           <FileInput  @update:modelValue="fileUpload($event, id)" :value="filesList[id]" dataType="Blob" />
-          <ABtn icon-only class="w-12 h-12" icon="i-bx-plus" @click="addFile" />
+          <!-- <ABtn icon-only class="w-12 h-12" icon="i-bx-plus" @click="addFile" />
           <ABtn
             icon-only
             color="danger"
             class="w-12 h-12"
             icon="i-bx-x"
             @click="removeFile(id)"
-          />
+          /> -->
         </div>
       </div>
       <div v-else>
