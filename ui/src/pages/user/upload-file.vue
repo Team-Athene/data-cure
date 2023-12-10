@@ -55,6 +55,7 @@ const submitFile = async (value: {
     const { ipnsId, cid } = allKeys.find(
       (key) => key.ipnsName === ipnsName,
     ) as any
+    console.log("🚀 ~ file: upload-file.vue:58 ~ ipnsId:", ipnsId)
     const { data } = await useFetch(
       `https://gateway.lighthouse.storage/ipns/${ipnsId}`,
     ).json()
