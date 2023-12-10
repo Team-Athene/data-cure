@@ -58,6 +58,12 @@ export interface IDataCureAccess$Type {
           "internalType": "bytes32",
           "name": "_cid",
           "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "_listForSale",
+          "type": "bool"
         }
       ],
       "name": "UploadData",
@@ -105,6 +111,11 @@ export interface IDataCureAccess$Type {
           "internalType": "bytes32",
           "name": "_cid",
           "type": "bytes32"
+        },
+        {
+          "internalType": "bool",
+          "name": "_listForSale",
+          "type": "bool"
         }
       ],
       "name": "uploadData",

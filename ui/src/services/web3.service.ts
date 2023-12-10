@@ -1,4 +1,4 @@
-import { storeToRefs } from 'pinia';
+import { storeToRefs } from 'pinia'
 import { formatUnits } from 'viem'
 import { hashEmail } from './email-hash.service'
 
@@ -48,4 +48,21 @@ export const getUserTokenDetails = async (data: { userToken: number }) => {
   ])
   const ipns = removeZeros(res[1])
   return ipns
+}
+export const isDoctor = async (data: {
+  userToken: number
+  walletAddr: string
+}) => {
+  const res = await contracts.value?.DataCureAccess.read('isDoctor', data)
+  console.log('🚀 ~ file: web3.service.ts:9 ~ uploadData ~ res:', res)
+  return res
+}
+
+export const addDoctorList = async (data: {
+  orgTokenId: number
+  doctorWalletAddr: string
+}) => {
+  const res = await contracts.value?.DataCureAccess.simulate('addDoctor', data)
+  console.log('🚀 ~ file: web3.service.ts:9 ~ uploadData ~ res:', res)
+  return res
 }

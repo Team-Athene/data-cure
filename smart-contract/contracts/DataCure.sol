@@ -38,6 +38,13 @@ contract DataCure is ERC721, IDataCure {
     }
 
     /**
+     * @dev Refer to {IDataCure-getDoctorsList}.
+     */
+    function getDoctorsList(uint256 _tokenId) public view returns(address) {
+        return doctorsList[_tokenId];
+    }
+
+    /**
      * @dev Refer to {IDataCure-getUserToken}.
      */ 
     function getUserTokenDetails(uint256 _tokenId) public view returns(UserDetails memory) {

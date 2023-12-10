@@ -37,7 +37,6 @@ export const MY_FILES_COLS = [
   
     export const DOCTORS_COLS = [
       { name: 'userAddress' },
-      { name: 'department' },
       { name: 'actions' },
     ]
 

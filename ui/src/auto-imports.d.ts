@@ -6,7 +6,7 @@
 export {}
 declare global {
   const EffectScope: typeof import('vue')['EffectScope']
-  const WakuVerification: typeof import('./composables/useWakuVerification')['WakuVerification']
+  const WakuVerification: typeof import('./composables/wakuVerification')['WakuVerification']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
   const computed: typeof import('vue')['computed']
@@ -273,7 +273,9 @@ declare global {
   const useVibrate: typeof import('@vueuse/core')['useVibrate']
   const useVirtualList: typeof import('@vueuse/core')['useVirtualList']
   const useWakeLock: typeof import('@vueuse/core')['useWakeLock']
-  const useWakuVerification: typeof import('./composables/useWakuVerification')['useWakuVerification']
+  const useWakuStore: typeof import('./stores/waku')['useWakuStore']
+  const useWakuVerification: typeof import('./composables/wakuVerification')['useWakuVerification']
+  const useWakuVerification1111: typeof import('./composables/wakuVerification')['useWakuVerification1111']
   const useWalletClient: typeof import('use-wagmi')['useWalletClient']
   const useWatchPendingTransactions: typeof import('use-wagmi')['useWatchPendingTransactions']
   const useWeb3Store: typeof import('./stores/web3')['useWeb3Store']
@@ -312,7 +314,6 @@ import { UnwrapRef } from 'vue'
 declare module 'vue' {
   interface ComponentCustomProperties {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
-    readonly WakuVerification: UnwrapRef<typeof import('./composables/useWakuVerification')['WakuVerification']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
@@ -574,6 +575,8 @@ declare module 'vue' {
     readonly useVibrate: UnwrapRef<typeof import('@vueuse/core')['useVibrate']>
     readonly useVirtualList: UnwrapRef<typeof import('@vueuse/core')['useVirtualList']>
     readonly useWakeLock: UnwrapRef<typeof import('@vueuse/core')['useWakeLock']>
+    readonly useWakuStore: UnwrapRef<typeof import('./stores/waku')['useWakuStore']>
+    readonly useWakuVerification: UnwrapRef<typeof import('./composables/wakuVerification')['useWakuVerification']>
     readonly useWeb3Store: UnwrapRef<typeof import('./stores/web3')['useWeb3Store']>
     readonly useWebNotification: UnwrapRef<typeof import('@vueuse/core')['useWebNotification']>
     readonly useWebSocket: UnwrapRef<typeof import('@vueuse/core')['useWebSocket']>
@@ -603,7 +606,6 @@ declare module 'vue' {
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
-    readonly WakuVerification: UnwrapRef<typeof import('./composables/useWakuVerification')['WakuVerification']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
@@ -865,6 +867,8 @@ declare module '@vue/runtime-core' {
     readonly useVibrate: UnwrapRef<typeof import('@vueuse/core')['useVibrate']>
     readonly useVirtualList: UnwrapRef<typeof import('@vueuse/core')['useVirtualList']>
     readonly useWakeLock: UnwrapRef<typeof import('@vueuse/core')['useWakeLock']>
+    readonly useWakuStore: UnwrapRef<typeof import('./stores/waku')['useWakuStore']>
+    readonly useWakuVerification: UnwrapRef<typeof import('./composables/wakuVerification')['useWakuVerification']>
     readonly useWeb3Store: UnwrapRef<typeof import('./stores/web3')['useWeb3Store']>
     readonly useWebNotification: UnwrapRef<typeof import('@vueuse/core')['useWebNotification']>
     readonly useWebSocket: UnwrapRef<typeof import('@vueuse/core')['useWebSocket']>
