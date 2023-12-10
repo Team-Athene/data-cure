@@ -9,11 +9,14 @@ import { retriveJWT } from '~/services/fetch';
 import {
 getUserTokenDetails,
 getUserTokenFromEmailHash,
+uploadData,
 } from '~/services/web3.service';
 import { FileData, HealthData } from '~/utils/interfaces';
 
 const submitFile = async (value: { data: HealthData; files: FileData[] }) => {
   try {
+    console.log('🚀 ~ file: upload-file.vue:13 ~ submitFile ~ value', value.data);
+    
     const token = await getUserTokenFromEmailHash({
       email: value.data.email,
     })
@@ -79,6 +82,14 @@ const submitFile = async (value: { data: HealthData; files: FileData[] }) => {
       apiKey,
     )
     console.log(pubResponse.data)
+
+    const hash = await uploadData({
+      userToken: token,
+      cid: userOutput.data.Hash,
+      list: value.data.listForSale,
+    })
+    console.log('🚀 ~ file: upload-file.vue:60 ~ submitFile ~ hash:', hash);
+    
   } catch (error) {
     console.log('🚀 ~ file: upload-file.vue:15 ~ submitFile ~ error:', error)
   }
