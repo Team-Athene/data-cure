@@ -5,7 +5,7 @@ publishRecord,
 uploadEncrypted,
 uploadText,
 } from '@lighthouse-web3/sdk';
-import { retriveJWT } from '~/services/fetch';
+import { migrateS3, retriveJWT } from '~/services/fetch';
 import {
 getUserTokenDetails,
 getUserTokenFromEmailHash,
@@ -13,10 +13,23 @@ uploadData,
 } from '~/services/web3.service';
 import { FileData, HealthData } from '~/utils/interfaces';
 
-const submitFile = async (value: { data: HealthData; files: FileData[] }) => {
+const submitFile = async (value: {
+  data: HealthData
+  files: FileData[]
+  s3Data: {
+    bucket: string
+    region: string
+    access: string
+    secret: string
+  }
+  isMigrated: string
+}) => {
   try {
-    console.log('🚀 ~ file: upload-file.vue:13 ~ submitFile ~ value', value.data);
-    
+    console.log(
+      '🚀 ~ file: upload-file.vue:13 ~ submitFile ~ value',
+      value.data,
+    )
+
     const token = await getUserTokenFromEmailHash({
       email: value.data.email,
     })
@@ -32,10 +45,10 @@ const submitFile = async (value: { data: HealthData; files: FileData[] }) => {
       '🚀 ~ file: upload-file.vue:22 ~ submitFile ~ ipnsName:',
       ipnsName,
     )
-    // if (value.files[0]?.file === null) {
-    //   console.error('No file selected.')
-    //   return
-    // }
+    if (value.files[0]?.file === null || value.s3Data.bucket === '') {
+      console.error('No file selected. Or no bucket selected.')
+      return
+    }
     const apiKey = import.meta.env.VITE_LIGHTHOUSE_API_KEY
     const publicKey = import.meta.env.VITE_LIGHTHOUSE_PUBLIC_KEY
     const allKeys = (await getAllKeys(apiKey)).data
@@ -46,7 +59,9 @@ const submitFile = async (value: { data: HealthData; files: FileData[] }) => {
       `https://gateway.lighthouse.storage/ipns/${ipnsId}`,
     ).json()
     const jwt = await retriveJWT()
-    const fileOutput = await uploadEncrypted(
+    let fileOutput = undefined
+    if (value.isMigrated === 'file') {
+      fileOutput = await uploadEncrypted(
       value.files,
       apiKey,
       publicKey,
@@ -56,9 +71,17 @@ const submitFile = async (value: { data: HealthData; files: FileData[] }) => {
       },
     )
     console.log('Encrypted File Status:', fileOutput.data[0])
+    } else {
+      fileOutput = await migrateS3({
+        accessKeyId: value.s3Data.access,
+        bucket: value.s3Data.bucket,
+        region: value.s3Data.region,
+        key: value.s3Data.secret
+      })
+    }
     const files = [
       ...data.value.files,
-      { hash: fileOutput.data[0].Hash, reportType: value.data.reportType },
+      { hash: fileOutput.length ? fileOutput: fileOutput.data[0].Hash, reportType: value.data.reportType },
     ]
     const user = JSON.stringify(
       {
@@ -88,8 +111,7 @@ const submitFile = async (value: { data: HealthData; files: FileData[] }) => {
       cid: userOutput.data.Hash,
       list: value.data.listForSale,
     })
-    console.log('🚀 ~ file: upload-file.vue:60 ~ submitFile ~ hash:', hash);
-    
+    console.log('🚀 ~ file: upload-file.vue:60 ~ submitFile ~ hash:', hash)
   } catch (error) {
     console.log('🚀 ~ file: upload-file.vue:15 ~ submitFile ~ error:', error)
   }
