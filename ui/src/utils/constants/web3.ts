@@ -47,7 +47,8 @@ export const ContractAddresses: Record<'DataCure' | 'Verifier' | 'DataCureAccess
     },
     DataCureAccess: {
         '0x13881': '0x059a106174ed0af7e3976876153cac5c82f64c54',
-        '0x5': ''
+        '0x5': '',
+        '0x8274f':''
     }
 
 }
