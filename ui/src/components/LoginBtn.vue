@@ -147,7 +147,7 @@ watch(safeAuthPack, async () => {
     let hashem = hashEmail(userInfo.value.email)
     let result = await contracts.value?.DataCure.read.userToken([hashem])
     if (result == 0) {
-      router.push('/registration')
+      // router.push('/registration')
     } else {
       userInfo.value.SbtId = result
     }
@@ -213,7 +213,7 @@ async function onRamp() {
 
 <template>
   <div v-if="type === 'header'">
-    <ABtn class="rounded-full px-6 font-bold" color="primary" @click="onRamp()">
+    <ABtn class="rounded-full px-6 font-bold text-sm mr-4" color="primary" @click="onRamp()">
       Safe OnRamp
     </ABtn>
     <ABtn

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { requestsRows, REQUESTS_COLS, permissionRows, PERMISSIONS_COLS, REQUEST_TABS } from '~/utils/constants';
+import { REQUESTS_COLS, permissionRows, PERMISSIONS_COLS, REQUEST_TABS } from '~/utils/constants';
 import { storeToRefs } from 'pinia'
 
 const { messages } = storeToRefs(useWakuStore())
@@ -16,6 +16,10 @@ const filteredRows = computed(() => {
     })
     : []
 });
+const acceptRequest = (item: any) => {
+  console.log("🚀 ~ file: access-requests.vue:20 ~ acceptRequest ~ item:", item)
+  grandAccess()
+}
 const rejectAccess = (item: any) => {
   const index = messages.value.findIndex((row) => row.cid === item.cid)
   messages.value.splice(index, 1)
@@ -54,7 +58,7 @@ const rejectAccess = (item: any) => {
               </AChip>
             </template>
             <template #col-actions="{ row }">
-              <ABtn variant="light" class="rounded-full" color="success" icon="i-bx-check">
+              <ABtn @click="acceptRequest(row)" variant="light" class="rounded-full" color="success" icon="i-bx-check">
                 Accept
               </ABtn>
               <ABtn @click="rejectAccess(row)" variant="light" class="rounded-full ml-3" color="danger" icon="i-bx-x">
