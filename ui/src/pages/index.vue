@@ -40,7 +40,7 @@ onMounted(() => {
     >
     <div text-primary_font font-tsukimi>
       <div text-5xl font-bold leading-20>
-        DataCure Network
+        DataCure Protocol
       </div>
       <div text-2xl font-semibold leading-9>
         Blockchain Based Health Data Sharing Platform

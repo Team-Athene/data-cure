@@ -1,29 +1,43 @@
 <script setup lang="ts">
 import { doctorsRows, DOCTORS_COLS } from '~/utils/constants';
+
+const doctorsList = ref<any>([]);
 const isEditDoctor = ref<boolean[]>([]);
+const isDialogShown = ref<boolean>(false);
+const newDoctorAddr = ref<string>('');
 
 const filteredRows = computed(() => {
-    return doctorsRows.map((row, id) => {
-        if(!isEditDoctor.value[id])
+    return doctorsList.value.map((row, id) => {
+        if(!isEditDoctor.value[id.length])
             isEditDoctor.value.push(false);
         return {
-            ...row,
+            userAddress: row.userAddress,
             index: id,
             actions: true
         }
     });
 })
 
-const submitDoctor = (id: number) => {
-    isEditDoctor.value[id] = false;
+const submitDoctor = (userAddr: string) => {
+    // isEditDoctor.value[id] = false;
+    // addDoctorList({ });
+}
+
+const addDoctor = () => {
+  isDialogShown.value = true;
 }
 
 </script>
 
 <template>
    <div>
-    <div class="font-semibold text-xl mb-10">
-      Manage Doctors List
+    <div class="font-semibold text-xl mb-10 flex justify-between w-full items-start">
+      <div>Manage Doctors List</div>
+      <ABtn class="rounded-full text-sm" color="primary" icon="i-bx-plus" @click="addDoctor">
+            <span font-bold>
+              Add Doctor
+            </span>
+      </ABtn>
     </div>
     <ADataTable
     :rows="filteredRows"
@@ -31,7 +45,6 @@ const submitDoctor = (id: number) => {
     search
   >
     <template #col-userAddress="{ row }">
-
         <AInput class="my-2" v-if="isEditDoctor[row.index]" v-model="doctorsRows[row.index].userAddress" placeholder="Wallet Address" />
         <ABtn v-else variant="outline" icon="i-bx-copy">
             <span font-bold>
@@ -61,6 +74,17 @@ const submitDoctor = (id: number) => {
     </template>
 </ADataTable>
 
+<ADialog
+    v-model="isDialogShown"
+    title="Add New Doctor"
+    class="px-10 pb-10"
+  >
+        <AInput class="my-2" v-model="newDoctorAddr" placeholder="Wallet Address" />
+      <ABtn @click="submitDoctor(newDoctorAddr)" variant="light" class="rounded-full w-24" color="primary" icon="i-bx-save">
+        Save
+      </ABtn>
+  
+</ADialog>
    </div>
 </template>
 

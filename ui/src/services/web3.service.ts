@@ -19,3 +19,15 @@ export const verifyAccess = async (data: {userToken:number, cid: string}) => {
     console.log("🚀 ~ file: web3.service.ts:9 ~ uploadData ~ res:", res)
     return res;
   }
+
+export const isDoctor = async (data: {userToken:number, walletAddr: string}) => {
+    const res = await contracts.value?.DataCureAccess.read('isDoctor', data);
+    console.log("🚀 ~ file: web3.service.ts:9 ~ uploadData ~ res:", res)
+    return res;
+  }
+
+export const addDoctorList = async (data: {orgTokenId:number, doctorWalletAddr: string}) => {
+    const res = await contracts.value?.DataCureAccess.simulate('addDoctor', data);
+    console.log("🚀 ~ file: web3.service.ts:9 ~ uploadData ~ res:", res)
+    return res;
+  }
