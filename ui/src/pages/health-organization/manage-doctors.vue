@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { addDoctorList } from '~/services/web3.service';
+import { addDoctorList, getDoctorList } from '~/services/web3.service';
 import { doctorsRows, DOCTORS_COLS } from '~/utils/constants';
+import { storeToRefs } from 'pinia'
 
+const { userInfo } = storeToRefs(useWeb3Store())
 const doctorsList = ref<any>([]);
 const isEditDoctor = ref<boolean[]>([]);
 const isDialogShown = ref<boolean>(false);
@@ -20,13 +22,17 @@ const filteredRows = computed(() => {
 })
 
 const submitDoctor = (userAddr: string) => {
-    // isEditDoctor.value[id] = false;
-    // addDoctorList({ });
+    addDoctorList({ orgTokenId: userInfo.value.SbtId, doctorWalletAddr: newDoctorAddr.value });
+    isDialogShown.value = false;
+
 }
 
 const addDoctor = () => {
   isDialogShown.value = true;
 }
+onMounted(async () => {
+    doctorsList.value = await getDoctorList({ orgTokenId: userInfo.value.SbtId });
+})
 
 </script>
 

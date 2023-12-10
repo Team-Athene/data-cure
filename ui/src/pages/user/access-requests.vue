@@ -18,12 +18,17 @@ const filteredRows = computed(() => {
     : []
 });
 const acceptRequest = async(item: any) => {
-  console.log("🚀 ~ file: access-requests.vue:20 ~ acceptRequest ~ item:", item)
-  const params = { 
-    userToken: userInfo.value.SbtId,
-    cid: item.cid, 
+  try {
+    const params = { 
+      userToken: userInfo.value.SbtId,
+      cid: item.cid, 
+    }
+    const result = await grandAccess(params)
+    console.log("🚀 ~ file: access-requests.vue:20 ~ acceptRequest ~ result:", result)
+    rejectAccess(item)
+  } catch (error) {
+    console.error("🚀 ~ file: access-requests.vue:30 ~ acceptRequest ~ error:", error)
   }
-  await grandAccess(params)
 }
 const rejectAccess = (item: any) => {
   const index = messages.value.findIndex((row) => row.cid === item.cid)
