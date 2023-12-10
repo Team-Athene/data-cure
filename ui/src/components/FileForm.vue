@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import {
-  AGE_OPTIONS,
-  BLOOD_GROUP_OPTIONS,
-  ETHNICITY_OPTIONS,
-  GENDER_OPTIONS,
-  REPORT_TYPE_OPTIONS,
-  LIST_OPTIONS,
-} from '~/utils/constants'
-import { HealthData, FileData } from '~/utils/interfaces'
+AGE_OPTIONS,
+BLOOD_GROUP_OPTIONS,
+ETHNICITY_OPTIONS,
+GENDER_OPTIONS,
+LIST_OPTIONS,
+REPORT_TYPE_OPTIONS,
+} from '~/utils/constants';
+import { FileData, HealthData } from '~/utils/interfaces';
 
 const fileData = reactive<HealthData>({
   email: '',
@@ -81,7 +81,7 @@ const openFile = () => {
       <ASelect :disabled="type === 'read-only'" class="my-2" label="Ethnicity" placeholder="Select Ethnicity"
         v-model="fileData.ethnicity" :options="ETHNICITY_OPTIONS" />
       <ASelect :disabled="type === 'read-only'" class="my-2" label="Report Type" placeholder="Select Report Type"
-        v-model="fileData.ethnicity" :options="REPORT_TYPE_OPTIONS" />
+        v-model="fileData.reportType" :options="REPORT_TYPE_OPTIONS" />
       <AInput :disabled="type === 'read-only'" class="my-2" label="Medical Condition (as per report)"
         v-model="fileData.medicalCondition" placeholder="Medical Condition" />
       <AInput :disabled="type === 'read-only'" class="my-2" label="Data Collection Date" type="date"

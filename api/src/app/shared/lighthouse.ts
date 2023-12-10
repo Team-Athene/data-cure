@@ -1,8 +1,13 @@
-import { generateKey,publishRecord,uploadEncrypted,upload } from '@lighthouse-web3/sdk'
 import { getAuthMessage, getJWT } from '@lighthouse-web3/kavach'
+import {
+  generateKey,
+  publishRecord,
+  upload,
+  uploadEncrypted,
+} from '@lighthouse-web3/sdk'
+import { IPNSDto } from 'app/LHFile/dto/upload.dto'
 import { privateKeyToAccount } from 'viem/accounts'
 import { LIGHTHOUSE, WALLET } from './environment'
-import { IPNSDto } from 'app/LHFile/dto/upload.dto'
 
 export class LightHouseService {
   key: string
@@ -18,7 +23,12 @@ export class LightHouseService {
 
 export const uploadEncryptedFile = async (sourcePath: string) => {
   const signedMessage = (await retriveJWT()).jwt as string
-  const response = await uploadEncrypted(sourcePath, LIGHTHOUSE.API_KEY, WALLET.PUBLIC_KEY, signedMessage)
+  const response = await uploadEncrypted(
+    sourcePath,
+    LIGHTHOUSE.API_KEY,
+    WALLET.PUBLIC_KEY,
+    signedMessage,
+  )
   console.log(response)
   return response
 }
@@ -34,13 +44,14 @@ export const retriveJWT = async () => {
 }
 
 export const generateIPNS = async () => {
-  const { ipnsName } = (await generateKey(LIGHTHOUSE.API_KEY)).data
-  return { ipnsName }
+  const { ipnsName, ipnsId } = (await generateKey(LIGHTHOUSE.API_KEY)).data
+  return { ipnsName, ipnsId }
 }
 
-
-export const publishIPNSRecord = async (ipnsData:IPNSDto) => {
-  return await publishRecord( ipnsData.userCid,ipnsData.ipnsName,LIGHTHOUSE.API_KEY)
+export const publishIPNSRecord = async (ipnsData: IPNSDto) => {
+  return await publishRecord(
+    ipnsData.userCid,
+    ipnsData.ipnsName,
+    LIGHTHOUSE.API_KEY,
+  )
 }
-
-
