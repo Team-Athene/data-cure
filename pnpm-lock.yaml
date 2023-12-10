@@ -185,6 +185,9 @@ importers:
       '@pushprotocol/restapi':
         specifier: ^1.4.45
         version: 1.4.45(ethers@5.7.2)(react@18.2.0)(typescript@5.3.3)
+      '@pushprotocol/socket':
+        specifier: ^0.5.3
+        version: 0.5.3(ethers@5.7.2)
       '@safe-global/auth-kit':
         specifier: ^2.0.0
         version: 2.0.0(@babel/runtime@7.23.5)

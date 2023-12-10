@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import {
-  AGE_OPTIONS,
-  BLOOD_GROUP_OPTIONS,
-  ETHNICITY_OPTIONS,
-  GENDER_OPTIONS,
-  REPORT_TYPE_OPTIONS,
-  LIST_OPTIONS,
-} from '~/utils/constants'
-import { HealthData, FileData } from '~/utils/interfaces'
+AGE_OPTIONS,
+BLOOD_GROUP_OPTIONS,
+ETHNICITY_OPTIONS,
+GENDER_OPTIONS,
+LIST_OPTIONS,
+REPORT_TYPE_OPTIONS,
+} from '~/utils/constants';
+import { FileData, HealthData } from '~/utils/interfaces';
 
 const fileData = reactive<HealthData>({
   email: '',
@@ -81,7 +81,7 @@ const openFile = () => {
       <ASelect :disabled="type === 'read-only'" class="my-2" label="Ethnicity" placeholder="Select Ethnicity"
         v-model="fileData.ethnicity" :options="ETHNICITY_OPTIONS" />
       <ASelect :disabled="type === 'read-only'" class="my-2" label="Report Type" placeholder="Select Report Type"
-        v-model="fileData.ethnicity" :options="REPORT_TYPE_OPTIONS" />
+        v-model="fileData.reportType" :options="REPORT_TYPE_OPTIONS" />
       <AInput :disabled="type === 'read-only'" class="my-2" label="Medical Condition (as per report)"
         v-model="fileData.medicalCondition" placeholder="Medical Condition" />
       <AInput :disabled="type === 'read-only'" class="my-2" label="Data Collection Date" type="date"
@@ -103,7 +103,7 @@ const openFile = () => {
     <div class="my-2 flex flex-col text-left w-full space-x-2">
       <div my-3 flex justify-between items-center>
         <span my-2>{{ type === 'read-only' ? 'Attached Files' : 'Attach Files' }}</span>
-        <div v-if="type === 'read-only'" class="flex gap-x-3 mt-4">
+        <div v-if="!(type === 'read-only')" class="flex gap-x-3 mt-4">
           <ARadio @update:modelValue="updateListForSale" v-model="isMigrated" name="isMigrated" value="file"
             label="Upload File" />
           <ARadio @update:modelValue="updateListForSale" v-model="isMigrated" name="isMigrated" value="s3"
