@@ -20,9 +20,6 @@ const requestAccess = async (row: any) => {
   console.log("🚀 ~ file: data-hub.vue:8 ~ requestAccess ~ ow.owner:", row.owner)
   console.log(row);
 };
-// onMounted(() => {
-//   waku.
-// });
 </script>
 
 <template>
