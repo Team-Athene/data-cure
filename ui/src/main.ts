@@ -6,7 +6,7 @@ import { routes } from 'vue-router/auto/routes'
 import App from './App.vue'
 import type { UserModule } from './types'
 
-import '@unocss/reset/tailwind.css'
+// import '@unocss/reset/tailwind.css'
 import './styles/main.css'
 
 // UnoCSS import

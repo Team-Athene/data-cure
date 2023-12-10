@@ -4,6 +4,7 @@
     "demi",
     "iconify",
     "intlify",
+    "IPNS",
     "pinia",
     "pnpm",
     "protobuf",
@@ -20,12 +21,12 @@
   // Enable the ESlint flat config support
   "eslint.experimental.useFlatConfig": true,
   // Disable the default formatter
-  "prettier.enable": false,
-  "editor.formatOnSave": false,
+  "prettier.enable": true,
+  "editor.formatOnSave": true,
   // Auto fix
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "never"
+    "source.organizeImports": "always"
   },
   // Silent the stylistic rules in you IDE, but still auto fix them
   "eslint.rules.customizations": [
@@ -88,5 +89,7 @@
   ],
   "unocss.root": "ui",
   "workbench.iconTheme": "bearded-icons",
-  "peacock.color": "#00B2B3"
+  "peacock.color": "#00B2B3",
+  "solidity.compileUsingRemoteVersion": "v0.8.20+commit.a1b79de6",
+  "editor.formatOnSaveMode": "modificationsIfAvailable"
 }

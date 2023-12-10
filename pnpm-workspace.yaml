@@ -1,4 +1,6 @@
 packages:
   - 'ui'
   - 'api'
+  - 'smart-contract'
+  - 'stripe-ramp'
   - 'packages/**'

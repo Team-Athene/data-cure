@@ -30,6 +30,7 @@ export default defineConfig({
         serif: 'DM Serif Display',
         mono: 'DM Mono',
         tsukimi: 'Tsukimi Rounded',
+        poppins: 'Poppins',
       },
     }),
     // anu-vue preset
