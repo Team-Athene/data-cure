@@ -10,11 +10,10 @@ contract DataCureAccess is IDataCureAccess, Context {
     IDataCure public _dataCure;
 
     // Mapping from CID to AccessDetails
-    mapping(bytes32 => AccessDetails) public accessListByCid;
+    mapping(string => AccessDetails) public accessListByCid;
     constructor(IDataCure _dataCureAddr) {
         _dataCure = _dataCureAddr;
     }
-
    
     /**
      * @dev Refer to {IDataCureAccess-updateDataCureFactory}.
@@ -27,7 +26,7 @@ contract DataCureAccess is IDataCureAccess, Context {
     /**
      * @dev Refer to {IDataCureAccess-uploadData}.
      */
-    function uploadData(uint256 _userToken, bytes32 _cid, bool _listForSale) public  {
+    function uploadData(uint256 _userToken, string memory _cid, bool _listForSale) public  {
         require (_dataCure.getUserTokenDetails(_userToken).userType == IDataCure.UserType.Individual 
         || _dataCure.getUserTokenDetails(_userToken).userType == IDataCure.UserType.Organization, 
         "Only a registered member has the access");
@@ -44,7 +43,7 @@ contract DataCureAccess is IDataCureAccess, Context {
     /**
      * @dev Refer to {IDataCureAccess-grandAccess}.
      */
-    function grandAccess(uint256 _userToken, bytes32 _cid) public {
+    function grandAccess(uint256 _userToken, string memory _cid) public {
         require (_dataCure.getUserTokenDetails(_userToken).userType == IDataCure.UserType.Individual, 
         "Only a registered member has the access");
         require(accessListByCid[_cid].ownerToken == _userToken, "Onlt the owner can grant access");
@@ -55,7 +54,7 @@ contract DataCureAccess is IDataCureAccess, Context {
     /**
      * @dev Refer to {IDataCureAccess-verifyAccess}.
      */
-    function verifyAccess(uint256 _userToken, bytes32 _cid) public view returns(bool) {
+    function verifyAccess(uint256 _userToken, string memory _cid) public view returns(bool) {
         require (_dataCure.getUserTokenDetails(_userToken).tokenId != 0, "Only a registered member has the access");
         require(accessListByCid[_cid].ownerToken == _userToken, "Only the owner can verify access");
         for(uint256 i = 0; i < accessListByCid[_cid].users.length; i++) {

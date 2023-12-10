@@ -24,10 +24,10 @@ interface IDataCureAccess {
     event UpdateDataCureAddress(address _dataCureAddr);
 
     // Event to upload the data
-    event UploadData(uint256 _userToken, bytes32 _cid, bool _listForSale);
+    event UploadData(uint256 _userToken, bytestring indexeds32 _cid, bool _listForSale);
 
     // Event to grant access to the data
-    event GrandAccess(uint256 _userToken, bytes32 _cid);
+    event GrandAccess(uint256 _userToken, string indexed _cid);
 
     /**
      * Function to update the DataCure contract address
@@ -41,13 +41,13 @@ interface IDataCureAccess {
      * @param _cid Content ID of the data
      * @param _listForSale Boolean to list the data for sale
      */
-    function uploadData(uint256 _userToken, bytes32 _cid, bool _listForSale) external;
+    function uploadData(uint256 _userToken, string memory _cid, bool _listForSale) external;
 
     /**
      * Function to grant access to the data
      * @param _userToken Token ID of the user
      * @param _cid Content ID of the data
      */
-    function grandAccess(uint256 _userToken, bytes32 _cid) external; 
+    function grandAccess(uint256 _userToken, string memory _cid)external; 
 
 }

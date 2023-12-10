@@ -103,7 +103,7 @@ const openFile = () => {
     <div class="my-2 flex flex-col text-left w-full space-x-2">
       <div my-3 flex justify-between items-center>
         <span my-2>{{ type === 'read-only' ? 'Attached Files' : 'Attach Files' }}</span>
-        <div v-if="type === 'read-only'" class="flex gap-x-3 mt-4">
+        <div v-if="!(type === 'read-only')" class="flex gap-x-3 mt-4">
           <ARadio @update:modelValue="updateListForSale" v-model="isMigrated" name="isMigrated" value="file"
             label="Upload File" />
           <ARadio @update:modelValue="updateListForSale" v-model="isMigrated" name="isMigrated" value="s3"
