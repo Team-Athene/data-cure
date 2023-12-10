@@ -1,9 +1,8 @@
 import { storeToRefs } from 'pinia'
 import { formatUnits } from 'viem'
 import { hashEmail } from './email-hash.service'
-import { ContractABIs, ContractAddresses } from '~/utils/constants'
 
-const { contracts, publicClient, userInfo } = storeToRefs(useWeb3Store())
+const { contracts } = storeToRefs(useWeb3Store())
 
 function removeZeros(str) {
   // Remove '0x' and leading zeros using a regular expression.
@@ -12,24 +11,13 @@ function removeZeros(str) {
   return str.replace(/^0x0+/, '')
 }
 
-// export const uploadData = async (data: { userToken: number; cid: string }) => {
-//   const res = await contracts.value?.DataCureAccess.simulate('uploadData', data)
-//   console.log('🚀 ~ file: web3.service.ts:9 ~ uploadData ~ res:', res)
-//   return res
-// }
-
 export const grandAccess = async (data: { userToken: number; cid: string }) => {
-  if(publicClient.value) {
-    const res = await publicClient.value.simulateContract({
-      address: ContractAddresses.DataCureAccess[userInfo.value.network] as `0x${string}`,
-      abi: ContractABIs.DataCureAccess,
-      functionName: 'grandAccess',
-      args: [data.userToken, data.cid],
-      account: userInfo.value.walletAddress as `0x${string}`,
-    })
+    const res = await contracts.value?.DataCureAccess.write.grandAccess([
+      data.userToken,
+      data.cid,
+    ])
     console.log('🚀 ~ file: web3.service.ts:9 ~ uploadData ~ res:', res)
     return res
-  }
 }
 
 export const verifyAccess = async (data: {
@@ -64,11 +52,22 @@ export const isDoctor = async (data: {
   return res
 }
 
+export const getDoctorList = async (data: { orgTokenId: number }) => {
+  const res = await contracts.value?.DataCureAccess.read.getDoctorsList([
+    data.orgTokenId
+  ])
+  console.log('🚀 ~ file: web3.service.ts:9 ~ uploadData ~ res:', res)
+  return res
+}
+
 export const addDoctorList = async (data: {
   orgTokenId: number
   doctorWalletAddr: string
 }) => {
-  const res = await contracts.value?.DataCureAccess.simulate('addDoctor', data)
+  const res = await contracts.value?.DataCureAccess.write.addDoctor([
+    data.orgTokenId,
+    data.doctorWalletAddr,
+  ])
   console.log('🚀 ~ file: web3.service.ts:9 ~ uploadData ~ res:', res)
   return res
 }
@@ -78,11 +77,11 @@ export const uploadData = async (data: {
   cid: string
   list: boolean
 }) => {
+  console.log('🚀 ~ file: web3.service.ts:77 ~ data:', data)
   const res = await contracts.value?.DataCureAccess.write.uploadData([
     data.userToken,
     data.cid,
     data.list,
   ])
-  console.log('🚀 ~ file: web3.service.ts:9 ~ uploadData ~ res:', res)
   return res
 }

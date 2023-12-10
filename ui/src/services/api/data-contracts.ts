@@ -18,7 +18,7 @@ export interface IPNSDto {
 
 export type LhFileControllerGenerateIpnsData = any
 
-export type LhFileControllerMigrateS3Data = any
+export type LhFileControllerMigrateS3Data = string[]
 
 export type LhFileControllerPublishIpnsRecordData = object
 
