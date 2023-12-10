@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { REQUESTS_COLS, permissionRows, PERMISSIONS_COLS, REQUEST_TABS } from '~/utils/constants';
 import { storeToRefs } from 'pinia'
+import { grandAccess } from '~/services/web3.service';
 
 const { messages } = storeToRefs(useWakuStore())
+const { userInfo } = storeToRefs(useWeb3Store())
 
 const filteredRows = computed(() => {
   return messages.value?.length
     ? messages.value.map((row) => {
-      console.log("🚀 ~ file: access-requests.vue:10 ~ ?messages.value.map ~ row:", row)
       return {
         ...row,
         requestedUser: row.requestedUser.toLowerCase(),
@@ -16,9 +17,13 @@ const filteredRows = computed(() => {
     })
     : []
 });
-const acceptRequest = (item: any) => {
+const acceptRequest = async(item: any) => {
   console.log("🚀 ~ file: access-requests.vue:20 ~ acceptRequest ~ item:", item)
-  grandAccess()
+  const params = { 
+    userToken: userInfo.value.SbtId,
+    cid: item.cid, 
+  }
+  await grandAccess(params)
 }
 const rejectAccess = (item: any) => {
   const index = messages.value.findIndex((row) => row.cid === item.cid)
