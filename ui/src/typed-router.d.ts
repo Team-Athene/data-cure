@@ -54,6 +54,8 @@ declare module 'vue-router/auto/routes' {
     '/research-organization/access-requests': RouteRecordInfo<'/research-organization/access-requests', '/research-organization/access-requests', Record<never, never>, Record<never, never>>,
     '/research-organization/accessed-file': RouteRecordInfo<'/research-organization/accessed-file', '/research-organization/accessed-file', Record<never, never>, Record<never, never>>,
     '/research-organization/data-hub': RouteRecordInfo<'/research-organization/data-hub', '/research-organization/data-hub', Record<never, never>, Record<never, never>>,
+    '/research-organization/town-hall/': RouteRecordInfo<'/research-organization/town-hall/', '/research-organization/town-hall', Record<never, never>, Record<never, never>>,
+    '/research-organization/town-hall/chat': RouteRecordInfo<'/research-organization/town-hall/chat', '/research-organization/town-hall/chat', Record<never, never>, Record<never, never>>,
     '/user/': RouteRecordInfo<'/user/', '/user', Record<never, never>, Record<never, never>>,
     '/user/access-requests': RouteRecordInfo<'/user/access-requests', '/user/access-requests', Record<never, never>, Record<never, never>>,
     '/user/accessed-file': RouteRecordInfo<'/user/accessed-file', '/user/accessed-file', Record<never, never>, Record<never, never>>,
