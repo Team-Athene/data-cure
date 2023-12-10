@@ -12,11 +12,11 @@ function removeZeros(str) {
   return str.replace(/^0x0+/, '')
 }
 
-export const uploadData = async (data: { userToken: number; cid: string }) => {
-  const res = await contracts.value?.DataCureAccess.simulate('uploadData', data)
-  console.log('🚀 ~ file: web3.service.ts:9 ~ uploadData ~ res:', res)
-  return res
-}
+// export const uploadData = async (data: { userToken: number; cid: string }) => {
+//   const res = await contracts.value?.DataCureAccess.simulate('uploadData', data)
+//   console.log('🚀 ~ file: web3.service.ts:9 ~ uploadData ~ res:', res)
+//   return res
+// }
 
 export const grandAccess = async (data: { userToken: number; cid: string }) => {
   if(publicClient.value) {
@@ -69,6 +69,20 @@ export const addDoctorList = async (data: {
   doctorWalletAddr: string
 }) => {
   const res = await contracts.value?.DataCureAccess.simulate('addDoctor', data)
+  console.log('🚀 ~ file: web3.service.ts:9 ~ uploadData ~ res:', res)
+  return res
+}
+
+export const uploadData = async (data: {
+  userToken: number
+  cid: string
+  list: boolean
+}) => {
+  const res = await contracts.value?.DataCureAccess.write.uploadData([
+    data.userToken,
+    data.cid,
+    data.list,
+  ])
   console.log('🚀 ~ file: web3.service.ts:9 ~ uploadData ~ res:', res)
   return res
 }
