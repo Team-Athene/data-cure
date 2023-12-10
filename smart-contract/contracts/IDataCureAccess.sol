@@ -24,7 +24,7 @@ interface IDataCureAccess {
     event UpdateDataCureAddress(address _dataCureAddr);
 
     // Event to upload the data
-    event UploadData(uint256 _userToken, bytestring indexeds32 _cid, bool _listForSale);
+    event UploadData(uint256 _userToken, string indexed _cid, bool _listForSale);
 
     // Event to grant access to the data
     event GrandAccess(uint256 _userToken, string indexed _cid);

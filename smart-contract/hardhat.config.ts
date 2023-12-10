@@ -12,6 +12,10 @@ const config: HardhatUserConfig = {
       url: "https://rpc-mumbai.maticvigil.com",
       accounts: [process.env.PRIVATE_KEY as string]
     },
+    scroll_sepolia:{
+      url: "https://sepolia-rpc.scroll.io",
+      accounts: [process.env.PRIVATE_KEY as string]
+    }
   },
   etherscan: {
     apiKey: process.env.POLYGONSCAN_API_KEY
