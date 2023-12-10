@@ -1,5 +1,5 @@
-import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox-viem";
+import { HardhatUserConfig } from "hardhat/config";
 require('dotenv').config();
 
 const config: HardhatUserConfig = {
@@ -14,6 +14,10 @@ const config: HardhatUserConfig = {
     },
     scroll_sepolia:{
       url: "https://sepolia-rpc.scroll.io",
+      accounts: [process.env.PRIVATE_KEY as string]
+    },
+    celo_alfajores: {
+      url: "https://alfajores-forno.celo-testnet.org",
       accounts: [process.env.PRIVATE_KEY as string]
     }
   },
