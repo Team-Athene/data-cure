@@ -38,7 +38,8 @@ interface IFileFormEmits {
         region: string
         access: string
         secret: string
-      }
+      };
+      isMigrated: string
     },
   ): void
 }
@@ -81,7 +82,7 @@ const fileUpload = (file: FileData, index: number) => {
 //   filesList.value.splice(index, 1)
 // }
 function submit() {
-  emit('submit', { data: fileData, files: filesList.value, s3Data: s3Data })
+  emit('submit', { data: fileData, files: filesList.value, s3Data: s3Data.value, isMigrated: isMigrated.value })
 }
 const openFile = () => {
   // window.open(ipfsUrl.value, '_blank')

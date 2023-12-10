@@ -1,20 +1,18 @@
 import { Injectable } from '@nestjs/common'
-import { S3Dto } from './dto/s3.dto'
 import { AwsService } from 'app/shared/aws.service'
-import { unlinkSync } from 'fs';
+import { LIGHTHOUSE } from 'app/shared/environment'
 import {
   LightHouseService,
   generateIPNS,
   publishIPNSRecord,
   retriveJWT,
-uploadEncryptedFile,
+  uploadEncryptedFile,
 } from 'app/shared/lighthouse'
-import { createWriteStream, existsSync, mkdirSync } from 'fs'
-import { join, dirname } from 'path'
+import { createWriteStream, existsSync, mkdirSync, unlinkSync } from 'fs'
 import { hash } from 'ohash'
+import { dirname, join } from 'path'
+import { S3Dto } from './dto/s3.dto'
 import { IPNSDto, UploadDto } from './dto/upload.dto'
-import { LIGHTHOUSE } from 'app/shared/environment'
-import { readAllFilesFromDirectory } from 'app/shared/readDir'
 
 @Injectable()
 export class LHFileService {
@@ -86,7 +84,7 @@ export class LHFileService {
     const pageBasedData = await s3.listItems(s3Cred.bucket)
 
     // upload items one by one to lighthouse and delete from s3
-
+    const cids: string[] = []
     for (const page of pageBasedData) {
       if (!page?.Contents) {
         continue
@@ -115,34 +113,32 @@ export class LHFileService {
           throw error
         })
 
-
         // Wait for the file to be completely written
         await new Promise((resolve, reject) => {
-          writableStream.on('finish', resolve);
-          writableStream.on('error', reject);
-          data.pipe(writableStream);
-        });
+          writableStream.on('finish', resolve)
+          writableStream.on('error', reject)
+          data.pipe(writableStream)
+        })
 
         try {
           // const result = await lighthouse.upload(localFilePath);
-          const result = await uploadEncryptedFile(localFilePath);
-          console.log('Upload to Lighthouse result:', result);
-      
+          const result = await uploadEncryptedFile(localFilePath)
+          console.log('Upload to Lighthouse result:', result)
+          cids.push(result.data[0]?.Hash as string)
           // Optionally delete the local file if no longer needed
-          unlinkSync(localFilePath);
-      
+          unlinkSync(localFilePath)
+
           // Delete the file from S3 if required
           // await s3.deleteItem(s3Cred.bucket, item.Key);
-      
         } catch (error) {
-          console.error('Error uploading to Lighthouse:', error);
+          console.error('Error uploading to Lighthouse:', error)
         }
-      
       }
       // const data = s3.downloadFileAsStream(s3Cred.bucket, item.)
       // const readable = Readable.from(data.Body as any)
       // const result = lighthouse.uploadStream(readable, LIGHTHOUSE_KEY)
       // s3.deleteItem(s3Cred.bucket, item.Key)
     }
+    return cids
   }
 }

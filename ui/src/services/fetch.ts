@@ -30,3 +30,17 @@ export const publishIPNSRecord = async (ipnsName: string, userCid: string) => {
   )
   return res
 }
+
+
+export const migrateS3 = async (s3: {
+  accessKeyId: string
+  key: string
+  region: string
+  bucket: string
+}) => {
+  const res = await api.lhFileControllerMigrateS3(s3, {
+    baseUrl,
+    format,
+  })
+  return res
+}
