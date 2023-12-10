@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { NETWORKS, Chains, ContractAddresses, ContractABIs } from '~/utils/constants'
 //import {prepareWriteDataCure} from '@datacure/abi/src';
+import {
+  createDecoder,
+} from '@waku/sdk'
+
+const { messages } = storeToRefs(useWakuStore())
 import { hashEmail } from "~/services/email-hash.service";
 import {
   SafeAuthPack,
@@ -16,11 +21,8 @@ defineProps<ILoginProps>()
 
 const { userInfo, walletClient, contracts, publicClient } = storeToRefs(useWeb3Store())
 const { $reset: userReset } = useWeb3Store();
-
 const router = useRouter();
-
 const selectedNetwork = ref(userInfo.value.network)
-//console.log(Object.keys(NETWORKS));
 
 const netWorks = Object.keys(NETWORKS).map((a) => {
   return { text: NETWORKS[a].displayName, value: a };
@@ -87,12 +89,36 @@ async function initSafeAuthPack(safeAuthInitOptions: SafeAuthInitOptions) {
 
 
 }
+
+
+const wakuNode = new useWakuVerification();
+const retrieveMessages = async () => {
+
+console.log("🚀 ~ file: access-requests.vue:23 ~ wakuNode:", wakuNode)
+if (!wakuNode.waku || !wakuNode.isConnected || !wakuNode.waku.filter)
+  return []
+const ContentTopic = '/datacure/1/wallet/proto'
+console.log("🚀 ~ file: access-requests.vue:28 ~ retrieveMessages ~ ContentTopic:", ContentTopic)
+const decoder = createDecoder(ContentTopic)
+const callback = (wakuMessage: any) => {
+  if (!wakuMessage.payload)
+    return
+  const messageValue = wakuNode.WalletMessage.decode(wakuMessage.payload)
+  console.log("🚀 ~ 🚀 ~ 🚀 ~ file: WakuVerification.ts:62 ~ useWakuVerification ~ callback ~ messageValue:", messageValue)
+  messages.value.push(messageValue)
+}
+const subscription = await wakuNode.waku.filter.createSubscription()
+await subscription.subscribe([decoder], callback)
+}
+
 watch(safeAuthPack, async () => {
 
   if (safeAuthPack.value!.isAuthenticated) {
 
     isAuthenticated.value = true;
     userInfo.value.walletAddress = await safeAuthPack.value!.getAddress();
+    await retrieveMessages();
+    // console.log("🚀 ~ 🚀 ~ 🚀 ~ file: LoginBtn.vue:97 ~ watch ~ res:", res)
     let { email } = await safeAuthPack.value!.getUserInfo();
     userInfo.value.email = email;
     walletClient.value = createWalletClient({
@@ -191,18 +217,18 @@ async function onRamp() {
       Safe OnRamp
     </ABtn>
     <ABtn v-if="isAuthenticated" :color="selectedNetwork == 'none' ? 'danger' : 'info'"
-      class="rounded-full px-6 font-bold mr-4 w-36">
+      class="rounded-full px-6 font-bold mr-4 w-42 text-sm">
       <AMenu trigger="hover">
         <AList v-model="selectedNetwork" class="[--a-list-gap:0.25rem]" :items="netWorks" />
       </AMenu>
       {{ selectedNetwork == 'none' ? 'Wrong NetWork' : NETWORKS[selectedNetwork].displayName }}
       <ALoadingIcon icon="i-bx-bxs-component" />
     </ABtn>
-    <ABtn v-if="isAuthenticated" class="rounded-full px-6 font-bold" color="primary" @click="disconnectWallet()">
+    <ABtn v-if="isAuthenticated" class="rounded-full px-6 font-bold text-sm" color="primary" @click="disconnectWallet()">
       Logout {{ userInfo.walletAddress?.slice(0, 6) }}...{{ userInfo.walletAddress?.slice(-4) }}
       <ALoadingIcon icon="i-bx-log-out" />
     </ABtn>
-    <ABtn v-else class="rounded-full px-6 font-bold" color="primary" @click="connectWallet()">
+    <ABtn v-else class="rounded-full px-6 font-bold text-sm" color="primary" @click="connectWallet()">
       Login
       <ALoadingIcon icon="i-bx-log-in" />
     </ABtn>

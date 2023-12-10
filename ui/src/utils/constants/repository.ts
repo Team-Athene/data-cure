@@ -232,6 +232,7 @@ export  const dataHubFilesRows = [
     consultedOn: '20/12/2021',
     accessCount: '1',
     cid: '0x1234567890',
+    owner: '0x4813262a085617e629A01c83Ca4222C9DF71E9E0',
     actions: true
   },
   {
@@ -241,6 +242,7 @@ export  const dataHubFilesRows = [
     consultedOn: '20/12/2022',
     accessCount: '10',
     cid: '0x1234567890',
+    owner: '0x4813262a085617e629A01c83Ca4222C9DF71E9E0',
     actions: true
   },
   {
@@ -250,6 +252,7 @@ export  const dataHubFilesRows = [
     consultedOn: '20/12/2023',
     accessCount: '3',
     cid: '0x1234567890',
+    owner: '0x4813262a085617e629A01c83Ca4222C9DF71E9E0',
     actions: true
   },
   {
@@ -259,6 +262,7 @@ export  const dataHubFilesRows = [
     consultedOn: '20/12/2024',
     accessCount: '4',
     cid: '0x1234567890',
+    owner: '0x4813262a085617e629A01c83Ca4222C9DF71E9E0',
     actions: true
   },
   {
@@ -268,6 +272,7 @@ export  const dataHubFilesRows = [
     consultedOn: '20/12/2025',
     accessCount: '5',
     cid: '0x1234567890',
+    owner: '0x4813262a085617e629A01c83Ca4222C9DF71E9E0',
     actions: true
   },
   {
@@ -277,6 +282,7 @@ export  const dataHubFilesRows = [
     consultedOn: '20/12/2026',
     accessCount: '6',
     cid: '0x1234567890',
+    owner: '0x4813262a085617e629A01c83Ca4222C9DF71E9E0',
     actions: true
   },
   {
@@ -286,6 +292,7 @@ export  const dataHubFilesRows = [
     consultedOn: '20/12/2027',
     accessCount: '7',
     cid: '0x1234567890',
+    owner: '0x4813262a085617e629A01c83Ca4222C9DF71E9E0',
     actions: true
   },
   {
@@ -295,6 +302,7 @@ export  const dataHubFilesRows = [
     consultedOn: '20/12/2028',
     accessCount: '8',
     cid: '0x1234567890',
+    owner: '0x4813262a085617e629A01c83Ca4222C9DF71E9E0',
     actions: true
   },
   {
@@ -304,6 +312,7 @@ export  const dataHubFilesRows = [
     consultedOn: '20/12/2029',
     accessCount: '9',
     cid: '0x1234567890',
+    owner: '0x4813262a085617e629A01c83Ca4222C9DF71E9E0',
     actions: true
   },
   {
@@ -313,6 +322,7 @@ export  const dataHubFilesRows = [
     consultedOn: '20/12/20210',
     accessCount: '10',
     cid: '0x1234567890',
+    owner: '0x4813262a085617e629A01c83Ca4222C9DF71E9E0',
     actions: true
   },
   {
@@ -322,6 +332,7 @@ export  const dataHubFilesRows = [
     consultedOn: '20/12/20211',
     accessCount: '11',
     cid: '0x1234567890',
+    owner: '0x4813262a085617e629A01c83Ca4222C9DF71E9E0',
     actions: true
   },
 ]

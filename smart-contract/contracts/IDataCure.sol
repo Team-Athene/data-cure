@@ -43,6 +43,13 @@ interface IDataCure is IERC721 {
     function getUserToken(bytes32 _emailHash) external view returns(uint256);
 
     /**
+     * Function to get the doctors list
+     * @param _tokenId Token ID of the user
+     * @return Doctors list
+     */
+    function getDoctorsList(uint256 _tokenId) external view returns(address);
+
+    /**
      * Function to get the user details
      * @param _tokenId Token ID of the user
      * @return User details

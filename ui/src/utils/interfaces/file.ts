@@ -15,3 +15,13 @@ export type FileData = {
     file: File  ,
     fileData: string | ArrayBuffer | Blob 
 }
+
+export type MessageData = {
+    timestamp: number,
+    fileCid: string,
+    fileName: string,
+    requestedUser: string,
+    toAddress: string,
+    reportType: string,
+    focusArea: string
+}
