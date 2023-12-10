@@ -1,7 +1,7 @@
 import { storeToRefs } from 'pinia'
 import { formatUnits } from 'viem'
-import { hashEmail } from './email-hash.service'
 import { ContractABIs, ContractAddresses } from '~/utils/constants'
+import { hashEmail } from './email-hash.service'
 
 const { contracts, publicClient, userInfo } = storeToRefs(useWeb3Store())
 
@@ -78,6 +78,7 @@ export const uploadData = async (data: {
   cid: string
   list: boolean
 }) => {
+  console.log('🚀 ~ file: web3.service.ts:77 ~ data:', data)
   const res = await contracts.value?.DataCureAccess.write.uploadData([
     data.userToken,
     data.cid,
