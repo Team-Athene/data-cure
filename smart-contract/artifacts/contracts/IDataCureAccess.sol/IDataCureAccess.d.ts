@@ -22,10 +22,10 @@ export interface IDataCureAccess$Type {
           "type": "uint256"
         },
         {
-          "indexed": false,
-          "internalType": "bytes32",
+          "indexed": true,
+          "internalType": "string",
           "name": "_cid",
-          "type": "bytes32"
+          "type": "string"
         }
       ],
       "name": "GrandAccess",
@@ -54,10 +54,10 @@ export interface IDataCureAccess$Type {
           "type": "uint256"
         },
         {
-          "indexed": false,
-          "internalType": "bytes32",
+          "indexed": true,
+          "internalType": "string",
           "name": "_cid",
-          "type": "bytes32"
+          "type": "string"
         },
         {
           "indexed": false,
@@ -77,9 +77,9 @@ export interface IDataCureAccess$Type {
           "type": "uint256"
         },
         {
-          "internalType": "bytes32",
+          "internalType": "string",
           "name": "_cid",
-          "type": "bytes32"
+          "type": "string"
         }
       ],
       "name": "grandAccess",
@@ -108,9 +108,9 @@ export interface IDataCureAccess$Type {
           "type": "uint256"
         },
         {
-          "internalType": "bytes32",
+          "internalType": "string",
           "name": "_cid",
-          "type": "bytes32"
+          "type": "string"
         },
         {
           "internalType": "bool",
