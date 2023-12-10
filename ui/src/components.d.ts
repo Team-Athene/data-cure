@@ -7,15 +7,12 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    AAlert: typeof import('anu-vue')['AAlert']
     ABtn: typeof import('anu-vue')['ABtn']
     ACard: typeof import('anu-vue')['ACard']
-    ADataTable: typeof import('anu-vue')['ADataTable']
     AInput: typeof import('anu-vue')['AInput']
     AList: typeof import('anu-vue')['AList']
     ALoadingIcon: typeof import('anu-vue')['ALoadingIcon']
     AMenu: typeof import('anu-vue')['AMenu']
-    ASelect: typeof import('anu-vue')['ASelect']
     FileForm: typeof import('./components/FileForm.vue')['default']
     FileInput: typeof import('./components/FileInput.vue')['default']
     Header: typeof import('./components/Header.vue')['default']
