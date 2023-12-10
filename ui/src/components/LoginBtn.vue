@@ -8,6 +8,7 @@ import {
 } from '@safe-global/auth-kit'
 import { storeToRefs } from 'pinia';
 import { createPublicClient, createWalletClient, custom, getContract, http } from "viem";
+import { StripePack } from "@safe-global/onramp-kit";
 interface ILoginProps {
   type: 'header' | 'register'
 }
@@ -100,7 +101,7 @@ watch(safeAuthPack, async () => {
       transport: custom(safeAuthPack.value.getProvider() as any)
     })
     publicClient.value = createPublicClient({
-      chain:  Chains[userInfo.value.network],
+      chain: Chains[userInfo.value.network],
       transport: http()
     })
     contracts.value = {
@@ -110,12 +111,18 @@ watch(safeAuthPack, async () => {
         walletClient: walletClient.value,
         abi: ContractABIs.DataCure,
       }) as any,
+      DataCureAccess: getContract({
+        address: ContractAddresses.DataCureAccess[userInfo.value.network] as any,
+        publicClient: publicClient.value,
+        walletClient: walletClient.value,
+        abi: ContractABIs.DataCureAccess,
+      }) as any
     }
     let hashem = hashEmail(userInfo.value.email);
     let result = await contracts.value?.DataCure.read.userToken([hashem])
-    if(result == 0 ){
+    if (result == 0) {
       router.push('/registration')
-    }else{
+    } else {
       userInfo.value.SbtId = result;
     }
 
@@ -137,7 +144,31 @@ watch(selectedNetwork, async () => {
   }
 })
 
-
+async function onRamp() {
+  const stripePack = new StripePack({
+    // Get public key from Stripe: https://dashboard.stripe.com/register
+    stripePublicKey:
+      'pk_test_51OLZcqSEBFafxyqoJ2G2vkq22RBoLHj8BXcmZG2kMlUHvYu1F3kne1QSULZ13lFuhA0gVCazfwR096exye6rpFF200A49mrdOH',
+    // Deploy your own server: https://github.com/5afe/aa-stripe-service
+    onRampBackendUrl: 'http://localhost:3010'
+  })
+  await stripePack.init()
+  const sessionData = await stripePack.open({
+    element: '#stripe-root',
+    theme: 'light',
+    defaultOptions: {
+      transaction_details: {
+       // wallet_address: userInfo.value.walletAddress,
+        //lock_wallet_address: true,
+      },
+      customer_information: {
+      //  email: '8404.john.smith@example.com',
+       // phone:'+18004444444',
+        
+      }
+    }
+  })
+}
 
 // watch(address, async () => {
 //   if (address.value?.toLowerCase() === '0x8ed44a4a001660F4Fc4510bd580880e0fca7Ef00'.toLowerCase()) {
@@ -156,7 +187,9 @@ watch(selectedNetwork, async () => {
 
 <template>
   <div v-if="type === 'header'">
-
+    <ABtn class="rounded-full px-6 font-bold" color="primary" @click="onRamp()">
+      Safe OnRamp
+    </ABtn>
     <ABtn v-if="isAuthenticated" :color="selectedNetwork == 'none' ? 'danger' : 'info'"
       class="rounded-full px-6 font-bold mr-4 w-36">
       <AMenu trigger="hover">
