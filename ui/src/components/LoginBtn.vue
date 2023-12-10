@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {
-  Chains,
-  ContractABIs,
-  ContractAddresses,
-  NETWORKS,
+      Chains,
+      ContractABIs,
+      ContractAddresses,
+      NETWORKS,
 } from '~/utils/constants'
 //import {prepareWriteDataCure} from '@datacure/abi/src';
 import { SafeAuthInitOptions, SafeAuthPack } from '@safe-global/auth-kit'
@@ -11,11 +11,11 @@ import { StripePack } from '@safe-global/onramp-kit'
 import { createDecoder } from '@waku/sdk'
 import { storeToRefs } from 'pinia'
 import {
-  createPublicClient,
-  createWalletClient,
-  custom,
-  getContract,
-  http,
+      createPublicClient,
+      createWalletClient,
+      custom,
+      getContract,
+      http,
 } from 'viem'
 import { hashEmail } from '~/services/email-hash.service'
 
@@ -121,7 +121,6 @@ watch(safeAuthPack, async () => {
     walletClient.value = createWalletClient({
       account: userInfo.value.walletAddress as any,
       chain: Chains[userInfo.value.network],
-      account: userInfo.value.walletAddress as any,
       transport: custom(safeAuthPack.value.getProvider() as any),
     })
     publicClient.value = createPublicClient({
@@ -146,8 +145,9 @@ watch(safeAuthPack, async () => {
     }
     let hashem = hashEmail(userInfo.value.email)
     let result = await contracts.value?.DataCure.read.userToken([hashem])
+    console.log(`Token Id: `,  Number(result));
     if (result == 0) {
-      // router.push('/registration')
+      router.push('/registration')
     } else {
       userInfo.value.SbtId = result
     }
@@ -163,7 +163,8 @@ watch(selectedNetwork, async () => {
     selectedNetwork.value != 'none' &&
     userInfo.value.network != selectedNetwork.value
   ) {
-    userInfo.value.network = selectedNetwork.value
+    userInfo.value.network = selectedNetwork.value;
+    await walletClient.value.addChain({ chain: Chains[userInfo.value.network] });
     await walletClient.value.switchChain({
       id: Chains[userInfo.value.network].id,
     })

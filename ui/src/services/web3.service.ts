@@ -1,6 +1,7 @@
 import { storeToRefs } from 'pinia'
 import { formatUnits } from 'viem'
 import { hashEmail } from './email-hash.service'
+
 const { contracts } = storeToRefs(useWeb3Store())
 
 function removeZeros(str) {
@@ -76,6 +77,7 @@ export const uploadData = async (data: {
   cid: string
   list: boolean
 }) => {
+  console.log('🚀 ~ file: web3.service.ts:77 ~ data:', data)
   const res = await contracts.value?.DataCureAccess.write.uploadData([
     data.userToken,
     data.cid,
