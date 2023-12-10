@@ -20,8 +20,16 @@ Verifier:  [0xabf20435398cf13910f44aa3b914faa82a93eb7c](https://sepolia.scrollsc
 
 ### Celo Alfajores
 
-DataCure:  [0xabf20435398cf13910f44aa3b914faa82a93eb7c](https://alfajores.celoscan.io/0xabf20435398cf13910f44aa3b914faa82a93eb7c)
+DataCure:  [0xabf20435398cf13910f44aa3b914faa82a93eb7c](https://alfajores.celoscan.io/address/0xabf20435398cf13910f44aa3b914faa82a93eb7c)
 
-DataCureAccess:  [0x15f886944b01b9c303cb41babaa4820a4bcb1958](https://alfajores.celoscan.io/0x15f886944b01b9c303cb41babaa4820a4bcb1958)
+DataCureAccess:  [0x15f886944b01b9c303cb41babaa4820a4bcb1958](https://alfajores.celoscan.io/address/0x15f886944b01b9c303cb41babaa4820a4bcb1958)
 
-Verifier:  [0xf96eb0819f3960c876bf62bdfe81ee0241d7f07b](https://alfajores.celoscan.io/0xf96eb0819f3960c876bf62bdfe81ee0241d7f07b)
+Verifier:  [0xf96eb0819f3960c876bf62bdfe81ee0241d7f07b](https://alfajores.celoscan.io/address/0xf96eb0819f3960c876bf62bdfe81ee0241d7f07b)
+
+### Polygon ZkEVM Test
+
+DataCure:  [0xabf20435398cf13910f44aa3b914faa82a93eb7c](https://testnet-zkevm.polygonscan.com/address/0xabf20435398cf13910f44aa3b914faa82a93eb7c)
+
+DataCureAccess:  [0x15f886944b01b9c303cb41babaa4820a4bcb1958](https://testnet-zkevm.polygonscan.com/address/0x15f886944b01b9c303cb41babaa4820a4bcb1958)
+
+Verifier:  [0xf96eb0819f3960c876bf62bdfe81ee0241d7f07b](https://testnet-zkevm.polygonscan.com/address/0xf96eb0819f3960c876bf62bdfe81ee0241d7f07b)

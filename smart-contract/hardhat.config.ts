@@ -19,6 +19,10 @@ const config: HardhatUserConfig = {
     celo_alfajores: {
       url: "https://alfajores-forno.celo-testnet.org",
       accounts: [process.env.PRIVATE_KEY as string]
+    },
+    zkevm_test: {
+      url: "https://rpc.public.zkevm-test.net",
+      accounts: [process.env.PRIVATE_KEY as string]
     }
   },
   etherscan: {
