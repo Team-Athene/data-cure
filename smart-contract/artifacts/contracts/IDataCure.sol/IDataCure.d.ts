@@ -16,6 +16,25 @@ export interface IDataCure$Type {
       "anonymous": false,
       "inputs": [
         {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_orgTokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_doctorWalletAddress",
+          "type": "address"
+        }
+      ],
+      "name": "AddDoctor",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
           "indexed": true,
           "internalType": "address",
           "name": "owner",
@@ -109,6 +128,24 @@ export interface IDataCure$Type {
     {
       "inputs": [
         {
+          "internalType": "uint256",
+          "name": "_orgTokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_doctorWalletAddress",
+          "type": "address"
+        }
+      ],
+      "name": "addDoctor",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
           "internalType": "address",
           "name": "to",
           "type": "address"
@@ -156,6 +193,25 @@ export interface IDataCure$Type {
         {
           "internalType": "address",
           "name": "operator",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getDoctorsList",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
           "type": "address"
         }
       ],
@@ -231,6 +287,30 @@ export interface IDataCure$Type {
         }
       ],
       "name": "isApprovedForAll",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_tokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_walletAddr",
+          "type": "address"
+        }
+      ],
+      "name": "isDoctor",
       "outputs": [
         {
           "internalType": "bool",

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { addDoctorList } from '~/services/web3.service';
 import { doctorsRows, DOCTORS_COLS } from '~/utils/constants';
 
 const doctorsList = ref<any>([]);
