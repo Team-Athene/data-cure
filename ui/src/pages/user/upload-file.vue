@@ -45,7 +45,7 @@ const submitFile = async (value: {
       '🚀 ~ file: upload-file.vue:22 ~ submitFile ~ ipnsName:',
       ipnsName,
     )
-    if (value.files[0]?.file === null || value.s3Data.bucket === '') {
+    if (value.files[0]?.file === null && value.s3Data.bucket === '') {
       console.error('No file selected. Or no bucket selected.')
       return
     }
@@ -55,34 +55,37 @@ const submitFile = async (value: {
     const { ipnsId, cid } = allKeys.find(
       (key) => key.ipnsName === ipnsName,
     ) as any
-    console.log("🚀 ~ file: upload-file.vue:58 ~ ipnsId:", ipnsId)
+    console.log('🚀 ~ file: upload-file.vue:58 ~ ipnsId:', ipnsId)
     const { data } = await useFetch(
       `https://gateway.lighthouse.storage/ipns/${ipnsId}`,
     ).json()
     const jwt = await retriveJWT()
-    let fileOutput = undefined
+    let fileOutput:any = undefined
     if (value.isMigrated === 'file') {
       fileOutput = await uploadEncrypted(
-      value.files,
-      apiKey,
-      publicKey,
-      jwt,
-      (data) => {
-        console.log('🚀 ~ file: upload-file.vue:32 ~ submitFile ~ data', data)
-      },
-    )
-    console.log('Encrypted File Status:', fileOutput.data[0])
+        value.files,
+        apiKey,
+        publicKey,
+        jwt,
+        (data) => {
+          console.log('🚀 ~ file: upload-file.vue:32 ~ submitFile ~ data', data)
+        },
+      )
+      console.log('Encrypted File Status:', fileOutput.data[0])
     } else {
       fileOutput = await migrateS3({
         accessKeyId: value.s3Data.access,
         bucket: value.s3Data.bucket,
         region: value.s3Data.region,
-        key: value.s3Data.secret
+        key: value.s3Data.secret,
       })
     }
     const files = [
       ...data.value.files,
-      { hash: fileOutput.length ? fileOutput: fileOutput.data[0].Hash, reportType: value.data.reportType },
+      {
+        hash: fileOutput.length ? fileOutput : fileOutput.data[0].Hash,
+        reportType: value.data.reportType,
+      },
     ]
     const user = JSON.stringify(
       {
@@ -106,13 +109,14 @@ const submitFile = async (value: {
       apiKey,
     )
     console.log(pubResponse.data)
-
-    const hash = await uploadData({
-      userToken: token,
-      cid: userOutput.data.Hash,
-      list: value.data.listForSale,
-    })
-    console.log('🚀 ~ file: upload-file.vue:60 ~ submitFile ~ hash:', hash)
+    if (value.isMigrated === 'file') {
+      const hash = await uploadData({
+        userToken: token,
+        cid: userOutput.data.Hash,
+        list: value.data.listForSale,
+      })
+      console.log('🚀 ~ file: upload-file.vue:60 ~ submitFile ~ hash:', hash)
+    }
   } catch (error) {
     console.log('🚀 ~ file: upload-file.vue:15 ~ submitFile ~ error:', error)
   }
