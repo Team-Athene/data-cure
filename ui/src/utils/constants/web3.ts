@@ -47,8 +47,8 @@ export const Chains: Record<string, Chain> = {
 export const ContractAddresses: Record<'DataCure' | 'Verifier' | 'DataCureAccess', Record<string, string>> = {
     DataCure: {
         '0x13881': '0x17716ed3b8baa0ece2250e0b6aeb71b958a0cdbc',
-        '0x5': '0xf96eb0819f3960c876bf62bdfe81ee0241d7f07b',
-        '0x8274f': ''
+        '0x5': '',
+        '0x8274f': '0xf96eb0819f3960c876bf62bdfe81ee0241d7f07b'
     },
     Verifier: {
         '0x13881': '0xd6610166c6c04691635bd93d328f0e79b3588da5',

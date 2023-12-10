@@ -121,7 +121,6 @@ watch(safeAuthPack, async () => {
     walletClient.value = createWalletClient({
       account: userInfo.value.walletAddress as any,
       chain: Chains[userInfo.value.network],
-      account: userInfo.value.walletAddress as any,
       transport: custom(safeAuthPack.value.getProvider() as any),
     })
     publicClient.value = createPublicClient({
@@ -147,7 +146,7 @@ watch(safeAuthPack, async () => {
     let hashem = hashEmail(userInfo.value.email)
     let result = await contracts.value?.DataCure.read.userToken([hashem])
     if (result == 0) {
-      // router.push('/registration')
+      router.push('/registration')
     } else {
       userInfo.value.SbtId = result
     }
@@ -163,7 +162,8 @@ watch(selectedNetwork, async () => {
     selectedNetwork.value != 'none' &&
     userInfo.value.network != selectedNetwork.value
   ) {
-    userInfo.value.network = selectedNetwork.value
+    userInfo.value.network = selectedNetwork.value;
+    await walletClient.value.addChain({ chain: Chains[userInfo.value.network] });
     await walletClient.value.switchChain({
       id: Chains[userInfo.value.network].id,
     })
