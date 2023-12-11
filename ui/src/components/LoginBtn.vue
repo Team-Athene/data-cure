@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {
-      Chains,
-      ContractABIs,
-      ContractAddresses,
-      NETWORKS,
+Chains,
+ContractABIs,
+ContractAddresses,
+NETWORKS,
 } from '~/utils/constants'
 //import {prepareWriteDataCure} from '@datacure/abi/src';
 import { SafeAuthInitOptions, SafeAuthPack } from '@safe-global/auth-kit'
@@ -11,11 +11,11 @@ import { StripePack } from '@safe-global/onramp-kit'
 import { createDecoder } from '@waku/sdk'
 import { storeToRefs } from 'pinia'
 import {
-      createPublicClient,
-      createWalletClient,
-      custom,
-      getContract,
-      http,
+createPublicClient,
+createWalletClient,
+custom,
+getContract,
+http,
 } from 'viem'
 import { hashEmail } from '~/services/email-hash.service'
 
@@ -150,6 +150,7 @@ watch(safeAuthPack, async () => {
       router.push('/registration')
     } else {
       userInfo.value.SbtId = result
+      router.push('/user/upload-file')
     }
   } else {
     userReset()
